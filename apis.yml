@@ -1,0 +1,32 @@
+aid: wakatime
+name: WakaTime
+description: "Automated time tracking leaderboards for programmers"
+url: https://wakatime.com/developers
+specificationVersion: '0.20'
+created: '2026-05-28'
+modified: '2026-05-28'
+x-source: public-apis/public-apis
+x-category: "Documents & Productivity"
+x-tier: 3
+x-tier-reason: bulk-registered-from-public-apis
+tags:
+  - Documents And Productivity
+  - Public APIs
+apis:
+  - name: WakaTime
+    description: "Automated time tracking leaderboards for programmers"
+    humanURL: https://wakatime.com/developers
+    baseURL: https://wakatime.com/developers
+    tags:
+      - Documents And Productivity
+    properties:
+      - type: Documentation
+        url: https://wakatime.com/developers
+common:
+  - type: Website
+    url: https://wakatime.com/developers
+  - type: PublicAPIsListing
+    url: https://github.com/public-apis/public-apis
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
