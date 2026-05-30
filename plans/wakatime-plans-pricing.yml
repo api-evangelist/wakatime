@@ -1,0 +1,283 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: WakaTime
+providerId: wakatime
+created: '2026-05-30'
+modified: '2026-05-30'
+reconciled: true
+tags:
+  - Developer Productivity
+  - Time Tracking
+  - Coding Analytics
+  - Subscription
+  - Per-Developer
+description: >-
+  WakaTime offers tiered per-user subscriptions on the individual side (Free, Basic, Premium) and
+  per-developer subscriptions on the company side (Team, Business). Pricing scales primarily on
+  dashboard history retention, number of programming goals, private leaderboard size, and access
+  to premium integrations. All plans share the same underlying API surface; quotas are enforced
+  by feature gating (e.g. dashboard history) and by the global API rate limit, not by per-call
+  metering. Annual subscriptions discount the monthly price by roughly 8%.
+sources:
+  - https://wakatime.com/pricing
+  - https://wakatime.com/developers
+plans:
+
+  - id: wakatime-free
+    name: Free
+    type: freemium
+    description: Free tier for individual developers — full API access, 1-week dashboard history, single coding goal, public leaderboard.
+    entries:
+      - label: Monthly subscription
+        name: monthly_subscription
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: '1'
+        price: '$0'
+        userMultiplied: false
+      - label: Dashboard history
+        name: dashboard_history
+        type: quota
+        metric: weeks
+        limit: 1
+        timeFrame: usage
+        geo: global
+        unit: '1'
+        price: 'included'
+        userMultiplied: false
+      - label: Programming goals
+        name: programming_goals
+        type: quota
+        metric: goal
+        limit: 1
+        timeFrame: usage
+        geo: global
+        unit: '1'
+        price: 'included'
+        userMultiplied: false
+    elements:
+      - name: Full WakaTime API access (heartbeats, summaries, stats, projects)
+      - name: All editor plugins
+      - name: 1-week dashboard history
+      - name: 1 programming goal
+      - name: Weekly email reports
+      - name: Public leaderboard access
+      - name: Embeddable charts
+
+  - id: wakatime-basic
+    name: Basic
+    type: subscription
+    description: Entry paid tier for individuals — 2-week dashboard history, daily emails, private leaderboard up to 5 developers.
+    entries:
+      - label: Monthly subscription
+        name: monthly_subscription
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: '1'
+        price: '$9'
+        userMultiplied: true
+      - label: Annual subscription (per month)
+        name: annual_subscription
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: '1'
+        price: '$8.25'
+        userMultiplied: true
+      - label: Dashboard history
+        name: dashboard_history
+        type: quota
+        metric: weeks
+        limit: 2
+        timeFrame: usage
+        geo: global
+        unit: '1'
+        price: 'included'
+        userMultiplied: false
+      - label: Programming goals
+        name: programming_goals
+        type: quota
+        metric: goal
+        limit: 3
+        timeFrame: usage
+        geo: global
+        unit: '1'
+        price: 'included'
+        userMultiplied: false
+      - label: Private leaderboard
+        name: private_leaderboard
+        type: quota
+        metric: seat
+        limit: 5
+        timeFrame: usage
+        geo: global
+        unit: '1'
+        price: 'included'
+        userMultiplied: false
+    elements:
+      - name: Everything in Free
+      - name: 2-week dashboard history
+      - name: 3 programming goals
+      - name: Private leaderboard up to 5 developers
+      - name: Daily and weekly email reports
+      - name: Basic integrations
+      - name: Priority support
+
+  - id: wakatime-premium
+    name: Premium
+    type: subscription
+    description: Full-feature individual plan — unlimited dashboard history, unlimited goals, private leaderboard up to 50, premium integrations, data export.
+    entries:
+      - label: Monthly subscription
+        name: monthly_subscription
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: '1'
+        price: '$14'
+        userMultiplied: true
+      - label: Annual subscription (per month)
+        name: annual_subscription
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: '1'
+        price: '$12.83'
+        userMultiplied: true
+      - label: Dashboard history
+        name: dashboard_history
+        type: quota
+        metric: weeks
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: '1'
+        price: 'included'
+        userMultiplied: false
+      - label: Programming goals
+        name: programming_goals
+        type: quota
+        metric: goal
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: '1'
+        price: 'included'
+        userMultiplied: false
+      - label: Private leaderboard
+        name: private_leaderboard
+        type: quota
+        metric: seat
+        limit: 50
+        timeFrame: usage
+        geo: global
+        unit: '1'
+        price: 'included'
+        userMultiplied: false
+    elements:
+      - name: Everything in Basic
+      - name: Unlimited dashboard history
+      - name: Unlimited programming goals
+      - name: Private leaderboards up to 50 developers
+      - name: Code-stat invoices
+      - name: Premium commit and PR stats
+      - name: Premium integrations
+      - name: Data export
+      - name: Priority support
+
+  - id: wakatime-team
+    name: Team
+    type: subscription
+    description: Per-developer team plan up to 100 developers — team dashboards, team commit/PR stats, custom privacy controls.
+    entries:
+      - label: Monthly per-developer subscription
+        name: per_developer_monthly
+        type: subscription
+        metric: seat
+        limit: 100
+        timeFrame: month
+        geo: global
+        unit: '1'
+        price: '$21'
+        userMultiplied: true
+      - label: Annual per-developer subscription (per month)
+        name: per_developer_annual
+        type: subscription
+        metric: seat
+        limit: 100
+        timeFrame: year
+        geo: global
+        unit: '1'
+        price: '$19.25'
+        userMultiplied: true
+      - label: Private leaderboard
+        name: private_leaderboard
+        type: quota
+        metric: seat
+        limit: 100
+        timeFrame: usage
+        geo: global
+        unit: '1'
+        price: 'included'
+        userMultiplied: false
+    elements:
+      - name: Up to 100 developers
+      - name: Unlimited team dashboards
+      - name: Team commit and PR stats
+      - name: Private leaderboards up to 100 developers
+      - name: Custom privacy controls
+
+  - id: wakatime-business
+    name: Business
+    type: subscription
+    description: Per-developer business plan for 100-1,000 developers — adds SSO/OIDC/SCIM, onboarding, prioritized support.
+    entries:
+      - label: Monthly per-developer subscription
+        name: per_developer_monthly
+        type: subscription
+        metric: seat
+        limit: 1000
+        timeFrame: month
+        geo: global
+        unit: '1'
+        price: '$24'
+        userMultiplied: true
+      - label: Annual per-developer subscription (per month)
+        name: per_developer_annual
+        type: subscription
+        metric: seat
+        limit: 1000
+        timeFrame: year
+        geo: global
+        unit: '1'
+        price: '$22'
+        userMultiplied: true
+      - label: Private leaderboard
+        name: private_leaderboard
+        type: quota
+        metric: seat
+        limit: 1000
+        timeFrame: usage
+        geo: global
+        unit: '1'
+        price: 'included'
+        userMultiplied: false
+    elements:
+      - name: 100-1,000 developers
+      - name: SSO / OIDC / SCIM authentication
+      - name: Onboarding support
+      - name: Private leaderboards up to 1,000 developers
+      - name: Prioritized support

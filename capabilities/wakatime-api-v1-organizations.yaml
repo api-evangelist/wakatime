@@ -1,0 +1,506 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WakaTime API — Organizations
+  description: 'WakaTime API — Organizations. 9 operations. Lead operation: List Organizations. Self-contained Naftiko capability covering one WakaTime business surface.'
+  tags:
+  - WakaTime
+  - Developer Productivity
+  - Organizations
+  created: '2026-05-30'
+  modified: '2026-05-30'
+binds:
+- namespace: env
+  keys:
+    WAKATIME_API_KEY: WAKATIME_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: wakatime-api-v1-organizations
+    baseUri: https://wakatime.com/api/v1
+    description: WakaTime API — Organizations business capability. Self-contained, no shared references.
+    authentication:
+      type: basic
+      username: '{{env.WAKATIME_API_KEY}}'
+      password: ''
+    resources:
+    - name: users-current-orgs
+      path: /users/current/orgs
+      operations:
+      - name: listOrgs
+        method: GET
+        description: List Organizations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-current-orgs-org-custom-rules
+      path: /users/current/orgs/{org}/custom_rules
+      operations:
+      - name: listOrgCustomRules
+        method: GET
+        description: List Org Custom Rules
+        inputParameters:
+        - name: org
+          in: path
+          type: string
+          required: true
+          description: Organization id.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: putOrgCustomRules
+        method: PUT
+        description: Put Org Custom Rules
+        inputParameters:
+        - name: org
+          in: path
+          type: string
+          required: true
+          description: Organization id.
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body payload.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-current-orgs-org-dashboards
+      path: /users/current/orgs/{org}/dashboards
+      operations:
+      - name: listOrgDashboards
+        method: GET
+        description: List Org Dashboards
+        inputParameters:
+        - name: org
+          in: path
+          type: string
+          required: true
+          description: Organization id.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-current-orgs-org-dashboards-dashboard-members
+      path: /users/current/orgs/{org}/dashboards/{dashboard}/members
+      operations:
+      - name: listDashboardMembers
+        method: GET
+        description: List Dashboard Members
+        inputParameters:
+        - name: org
+          in: path
+          type: string
+          required: true
+          description: Organization id.
+        - name: dashboard
+          in: path
+          type: string
+          required: true
+          description: Dashboard id.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-current-orgs-org-dashboards-dashboard-summaries
+      path: /users/current/orgs/{org}/dashboards/{dashboard}/summaries
+      operations:
+      - name: listDashboardSummaries
+        method: GET
+        description: List Dashboard Summaries
+        inputParameters:
+        - name: org
+          in: path
+          type: string
+          required: true
+          description: Organization id.
+        - name: dashboard
+          in: path
+          type: string
+          required: true
+          description: Dashboard id.
+        - name: start
+          in: query
+          type: string
+          required: true
+        - name: end
+          in: query
+          type: string
+          required: true
+        - name: project
+          in: query
+          type: string
+          required: false
+          description: Filter by project name.
+        - name: branches
+          in: query
+          type: string
+          required: false
+          description: Comma-separated list of git branches to include.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-current-orgs-org-dashboards-dashboard-member-member-summaries
+      path: /users/current/orgs/{org}/dashboards/{dashboard}/member/{member}/summaries
+      operations:
+      - name: listDashboardMemberSummaries
+        method: GET
+        description: List Dashboard Member Summaries
+        inputParameters:
+        - name: org
+          in: path
+          type: string
+          required: true
+          description: Organization id.
+        - name: dashboard
+          in: path
+          type: string
+          required: true
+          description: Dashboard id.
+        - name: member
+          in: path
+          type: string
+          required: true
+          description: Org member id.
+        - name: start
+          in: query
+          type: string
+          required: true
+        - name: end
+          in: query
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-current-orgs-org-dashboards-dashboard-durations
+      path: /users/current/orgs/{org}/dashboards/{dashboard}/durations
+      operations:
+      - name: listDashboardDurations
+        method: GET
+        description: List Dashboard Durations
+        inputParameters:
+        - name: org
+          in: path
+          type: string
+          required: true
+          description: Organization id.
+        - name: dashboard
+          in: path
+          type: string
+          required: true
+          description: Dashboard id.
+        - name: date
+          in: query
+          type: string
+          required: true
+          description: Day to query (YYYY-MM-DD).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-current-orgs-org-dashboards-dashboard-member-member-durations
+      path: /users/current/orgs/{org}/dashboards/{dashboard}/member/{member}/durations
+      operations:
+      - name: listDashboardMemberDurations
+        method: GET
+        description: List Dashboard Member Durations
+        inputParameters:
+        - name: org
+          in: path
+          type: string
+          required: true
+          description: Organization id.
+        - name: dashboard
+          in: path
+          type: string
+          required: true
+          description: Dashboard id.
+        - name: member
+          in: path
+          type: string
+          required: true
+          description: Org member id.
+        - name: date
+          in: query
+          type: string
+          required: true
+          description: Day to query (YYYY-MM-DD).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: wakatime-api-v1-organizations-rest
+    port: 8080
+    description: REST adapter for WakaTime API — Organizations. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/users/current/orgs
+      name: users-current-orgs
+      description: REST surface for /users/current/orgs.
+      operations:
+      - method: GET
+        name: listOrgs
+        description: List Organizations
+        call: wakatime-api-v1-organizations.listOrgs
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/current/orgs/{org}/custom-rules
+      name: users-current-orgs-org-custom-rules
+      description: REST surface for /users/current/orgs/{org}/custom_rules.
+      operations:
+      - method: GET
+        name: listOrgCustomRules
+        description: List Org Custom Rules
+        call: wakatime-api-v1-organizations.listOrgCustomRules
+        with:
+          org: rest.org
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: putOrgCustomRules
+        description: Put Org Custom Rules
+        call: wakatime-api-v1-organizations.putOrgCustomRules
+        with:
+          org: rest.org
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/current/orgs/{org}/dashboards
+      name: users-current-orgs-org-dashboards
+      description: REST surface for /users/current/orgs/{org}/dashboards.
+      operations:
+      - method: GET
+        name: listOrgDashboards
+        description: List Org Dashboards
+        call: wakatime-api-v1-organizations.listOrgDashboards
+        with:
+          org: rest.org
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/current/orgs/{org}/dashboards/{dashboard}/members
+      name: users-current-orgs-org-dashboards-dashboard-members
+      description: REST surface for /users/current/orgs/{org}/dashboards/{dashboard}/members.
+      operations:
+      - method: GET
+        name: listDashboardMembers
+        description: List Dashboard Members
+        call: wakatime-api-v1-organizations.listDashboardMembers
+        with:
+          org: rest.org
+          dashboard: rest.dashboard
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/current/orgs/{org}/dashboards/{dashboard}/summaries
+      name: users-current-orgs-org-dashboards-dashboard-summaries
+      description: REST surface for /users/current/orgs/{org}/dashboards/{dashboard}/summaries.
+      operations:
+      - method: GET
+        name: listDashboardSummaries
+        description: List Dashboard Summaries
+        call: wakatime-api-v1-organizations.listDashboardSummaries
+        with:
+          org: rest.org
+          dashboard: rest.dashboard
+          start: rest.start
+          end: rest.end
+          project: rest.project
+          branches: rest.branches
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/current/orgs/{org}/dashboards/{dashboard}/member/{member}/summaries
+      name: users-current-orgs-org-dashboards-dashboard-member-member-summaries
+      description: REST surface for /users/current/orgs/{org}/dashboards/{dashboard}/member/{member}/summaries.
+      operations:
+      - method: GET
+        name: listDashboardMemberSummaries
+        description: List Dashboard Member Summaries
+        call: wakatime-api-v1-organizations.listDashboardMemberSummaries
+        with:
+          org: rest.org
+          dashboard: rest.dashboard
+          member: rest.member
+          start: rest.start
+          end: rest.end
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/current/orgs/{org}/dashboards/{dashboard}/durations
+      name: users-current-orgs-org-dashboards-dashboard-durations
+      description: REST surface for /users/current/orgs/{org}/dashboards/{dashboard}/durations.
+      operations:
+      - method: GET
+        name: listDashboardDurations
+        description: List Dashboard Durations
+        call: wakatime-api-v1-organizations.listDashboardDurations
+        with:
+          org: rest.org
+          dashboard: rest.dashboard
+          date: rest.date
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/current/orgs/{org}/dashboards/{dashboard}/member/{member}/durations
+      name: users-current-orgs-org-dashboards-dashboard-member-member-durations
+      description: REST surface for /users/current/orgs/{org}/dashboards/{dashboard}/member/{member}/durations.
+      operations:
+      - method: GET
+        name: listDashboardMemberDurations
+        description: List Dashboard Member Durations
+        call: wakatime-api-v1-organizations.listDashboardMemberDurations
+        with:
+          org: rest.org
+          dashboard: rest.dashboard
+          member: rest.member
+          date: rest.date
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: wakatime-api-v1-organizations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WakaTime API — Organizations. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: list-organizations
+      description: List Organizations
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: true
+      call: wakatime-api-v1-organizations.listOrgs
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-org-custom-rules
+      description: List Org Custom Rules
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: true
+      call: wakatime-api-v1-organizations.listOrgCustomRules
+      with:
+        org: tools.org
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: put-org-custom-rules
+      description: Put Org Custom Rules
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: false
+      call: wakatime-api-v1-organizations.putOrgCustomRules
+      with:
+        org: tools.org
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-org-dashboards
+      description: List Org Dashboards
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: true
+      call: wakatime-api-v1-organizations.listOrgDashboards
+      with:
+        org: tools.org
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-dashboard-members
+      description: List Dashboard Members
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: true
+      call: wakatime-api-v1-organizations.listDashboardMembers
+      with:
+        org: tools.org
+        dashboard: tools.dashboard
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-dashboard-summaries
+      description: List Dashboard Summaries
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: true
+      call: wakatime-api-v1-organizations.listDashboardSummaries
+      with:
+        org: tools.org
+        dashboard: tools.dashboard
+        start: tools.start
+        end: tools.end
+        project: tools.project
+        branches: tools.branches
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-dashboard-member-summaries
+      description: List Dashboard Member Summaries
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: true
+      call: wakatime-api-v1-organizations.listDashboardMemberSummaries
+      with:
+        org: tools.org
+        dashboard: tools.dashboard
+        member: tools.member
+        start: tools.start
+        end: tools.end
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-dashboard-durations
+      description: List Dashboard Durations
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: true
+      call: wakatime-api-v1-organizations.listDashboardDurations
+      with:
+        org: tools.org
+        dashboard: tools.dashboard
+        date: tools.date
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-dashboard-member-durations
+      description: List Dashboard Member Durations
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: true
+      call: wakatime-api-v1-organizations.listDashboardMemberDurations
+      with:
+        org: tools.org
+        dashboard: tools.dashboard
+        member: tools.member
+        date: tools.date
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-structure.org/2025-08-draft/",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/wakatime/main/json-structure/wakatime-heartbeat-structure.json",
+  "name": "WakatimeHeartbeat",
+  "type": "object",
+  "description": "WakaTime heartbeat — the atomic unit of automated coding-time tracking. Emitted by an editor plugin on each file change or save.",
+  "properties": {
+    "id":                  { "type": "string", "description": "WakaTime-assigned heartbeat id." },
+    "user_id":             { "type": "string", "description": "Owning user id." },
+    "entity":              { "type": "string", "description": "File path, domain, or app name.", "required": true },
+    "type":                { "type": "string", "description": "file | domain | app.", "required": true },
+    "category":            { "type": "string", "description": "Activity category (coding, debugging, building, browsing, meeting, ai coding, ...)." },
+    "time":                { "type": "double", "description": "Unix epoch seconds with milliseconds.", "required": true },
+    "project":             { "type": "string", "description": "Project name (usually git repo)." },
+    "project_root_count":  { "type": "int32", "description": "Levels above the project root for the entity." },
+    "branch":              { "type": "string", "description": "Git branch." },
+    "language":            { "type": "string", "description": "Detected programming language." },
+    "dependencies":        { "type": "array", "items": { "type": "string" }, "description": "Detected package dependencies." },
+    "lines":               { "type": "int32", "description": "Total file line count." },
+    "line_additions":      { "type": "int32" },
+    "line_deletions":      { "type": "int32" },
+    "lineno":              { "type": "int32", "description": "Cursor line." },
+    "cursorpos":           { "type": "int32", "description": "Cursor column." },
+    "is_write":            { "type": "boolean", "description": "Whether triggered by a save/write." },
+    "machine_name_id":     { "type": "string" },
+    "user_agent_id":       { "type": "string" },
+    "created_at":          { "type": "datetime" },
+    "modified_at":         { "type": "datetime" }
+  }
+}

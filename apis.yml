@@ -1,32 +1,433 @@
 aid: wakatime
 name: WakaTime
-description: "Automated time tracking leaderboards for programmers"
-url: https://wakatime.com/developers
+description: >-
+  WakaTime is an automated time-tracking and productivity analytics service for software developers.
+  IDE plugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, and many more)
+  send heartbeats describing the file, project, language, branch, and editor a developer is working in,
+  and the WakaTime API v1 aggregates that data into dashboards, summaries, stats, goals, leaderboards,
+  and team/organization dashboards. WakaTime also offers private leaderboards, code-time-on-commit
+  enrichment for GitHub/GitLab/Bitbucket, embeddable charts, and a full data export.
+url: https://raw.githubusercontent.com/api-evangelist/wakatime/refs/heads/main/apis.yml
+humanURL: https://wakatime.com/developers
+baseURL: https://wakatime.com/api/v1/
+image: https://wakatime.com/static/img/wakatime.svg
 specificationVersion: '0.20'
 created: '2026-05-28'
-modified: '2026-05-28'
+modified: '2026-05-30'
 x-source: public-apis/public-apis
-x-category: "Documents & Productivity"
-x-tier: 3
-x-tier-reason: bulk-registered-from-public-apis
+x-category: Developer Productivity
+x-type: company
+x-tier: 2
+x-tier-reason: full-pipeline-enrichment
 tags:
-  - Documents And Productivity
+  - Developer Productivity
+  - Developer Tools
+  - Time Tracking
+  - Coding Analytics
+  - Leaderboards
+  - IDE Plugins
+  - Open Source
   - Public APIs
+
 apis:
-  - name: WakaTime
-    description: "Automated time tracking leaderboards for programmers"
+  - aid: wakatime:wakatime-api-v1
+    name: WakaTime API v1
+    description: >-
+      The WakaTime API v1 is a REST API for sending coding heartbeats and reading coding-activity
+      analytics derived from those heartbeats. The API exposes user profiles, heartbeats (single,
+      bulk, and bulk-delete), durations, summaries, stats (last_7_days, last_30_days, last_6_months,
+      last_year, all_time), insights (by language, project, editor, OS, weekday, day, AI day),
+      projects, per-project commits, goals, custom rules (personal and org-level), editor and
+      machine inventories, programming languages, leaders (public and private), status bar
+      summaries, data dumps, external durations (for non-IDE activity), org dashboards and
+      member-level dashboards, and infrastructure meta information. Authentication is via OAuth 2.0
+      (authorize / token / revoke) with scopes such as read_summaries, read_stats, read_goals,
+      read_heartbeats, write_heartbeats, read_orgs, write_orgs, and email, or via API Key (HTTP
+      Basic auth or ?api_key=) for personal use. The default rate limit is fewer than 10 requests
+      per second on average over any 5-minute window.
     humanURL: https://wakatime.com/developers
-    baseURL: https://wakatime.com/developers
+    baseURL: https://wakatime.com/api/v1/
+    version: v1
     tags:
-      - Documents And Productivity
+      - Time Tracking
+      - Coding Analytics
+      - Heartbeats
+      - Summaries
+      - Stats
+      - Goals
+      - Leaderboards
+      - Org Dashboards
+      - OAuth 2.0
     properties:
       - type: Documentation
         url: https://wakatime.com/developers
+      - type: OpenAPI
+        url: openapi/wakatime-api-v1-openapi.yml
+      - type: SignUp
+        url: https://wakatime.com/signup
+      - type: Authentication
+        url: https://wakatime.com/developers#authentication
+      - type: OAuth
+        url: https://wakatime.com/developers#authentication
+      - type: APIKeys
+        url: https://wakatime.com/api-key
+      - type: RateLimits
+        url: https://wakatime.com/developers#rate_limits
+      - type: Changelog
+        url: https://wakatime.com/changelog
+      - type: Status
+        url: https://wakatime.com/status
+      - type: Embeddable
+        url: https://wakatime.com/share
+      - type: DataExport
+        url: https://wakatime.com/settings/account
+      - type: Webhooks
+        url: https://wakatime.com/settings/webhooks
+      - type: NaftikoCapability
+        url: capabilities/wakatime-api-v1-commits.yaml
+      - type: NaftikoCapability
+        url: capabilities/wakatime-api-v1-custom-rules.yaml
+      - type: NaftikoCapability
+        url: capabilities/wakatime-api-v1-data-dumps.yaml
+      - type: NaftikoCapability
+        url: capabilities/wakatime-api-v1-durations.yaml
+      - type: NaftikoCapability
+        url: capabilities/wakatime-api-v1-editors.yaml
+      - type: NaftikoCapability
+        url: capabilities/wakatime-api-v1-external-durations.yaml
+      - type: NaftikoCapability
+        url: capabilities/wakatime-api-v1-goals.yaml
+      - type: NaftikoCapability
+        url: capabilities/wakatime-api-v1-heartbeats.yaml
+      - type: NaftikoCapability
+        url: capabilities/wakatime-api-v1-insights.yaml
+      - type: NaftikoCapability
+        url: capabilities/wakatime-api-v1-languages.yaml
+      - type: NaftikoCapability
+        url: capabilities/wakatime-api-v1-leaderboards.yaml
+      - type: NaftikoCapability
+        url: capabilities/wakatime-api-v1-machines.yaml
+      - type: NaftikoCapability
+        url: capabilities/wakatime-api-v1-meta.yaml
+      - type: NaftikoCapability
+        url: capabilities/wakatime-api-v1-organizations.yaml
+      - type: NaftikoCapability
+        url: capabilities/wakatime-api-v1-projects.yaml
+      - type: NaftikoCapability
+        url: capabilities/wakatime-api-v1-stats.yaml
+      - type: NaftikoCapability
+        url: capabilities/wakatime-api-v1-status-bar.yaml
+      - type: NaftikoCapability
+        url: capabilities/wakatime-api-v1-summaries.yaml
+      - type: NaftikoCapability
+        url: capabilities/wakatime-api-v1-user-agents.yaml
+      - type: NaftikoCapability
+        url: capabilities/wakatime-api-v1-users.yaml
+      - type: JSONSchema
+        url: json-schema/wakatime-heartbeat-schema.json
+      - type: JSONSchema
+        url: json-schema/wakatime-summary-schema.json
+      - type: JSONSchema
+        url: json-schema/wakatime-user-schema.json
+      - type: JSONStructure
+        url: json-structure/wakatime-heartbeat-structure.json
+      - type: JSONLD
+        url: json-ld/wakatime-context.jsonld
+      - type: SpectralRules
+        url: rules/wakatime-rules.yml
+      - type: Vocabulary
+        url: vocabulary/wakatime-vocabulary.yml
+      - type: Plans
+        url: plans/wakatime-plans-pricing.yml
+      - type: RateLimitsPolicy
+        url: rate-limits/wakatime-rate-limits.yml
+      - type: FinOps
+        url: finops/wakatime-finops.yml
+      - type: SDK
+        url: https://github.com/wakatime/wakatime-cli
+        title: WakaTime CLI (Go)
+      - type: CLI
+        url: https://github.com/wakatime/wakatime-cli
+        title: wakatime-cli
+      - type: Integrations
+        url: https://wakatime.com/integrations
+      - type: Embeddables
+        url: https://wakatime.com/share
+
 common:
+  - type: Plans
+    url: plans/wakatime-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/wakatime-rate-limits.yml
+  - type: FinOps
+    url: finops/wakatime-finops.yml
+  - type: Vocabulary
+    url: vocabulary/wakatime-vocabulary.yml
+  - type: SpectralRules
+    url: rules/wakatime-rules.yml
+  - type: JSONLDContext
+    url: json-ld/wakatime-context.jsonld
+  - type: Examples
+    url: examples/
   - type: Website
+    url: https://wakatime.com
+  - type: Documentation
     url: https://wakatime.com/developers
+  - type: APIReference
+    url: https://wakatime.com/developers
+  - type: SignUp
+    url: https://wakatime.com/signup
+  - type: Login
+    url: https://wakatime.com/login
+  - type: Pricing
+    url: https://wakatime.com/pricing
+  - type: Blog
+    url: https://wakatime.com/blog
+  - type: BlogContent
+    url: https://github.com/wakatime/wakatime-blog
+  - type: Status
+    url: https://wakatime.com/status
+  - type: StatusRepo
+    url: https://github.com/wakatime/statuspage
+  - type: Changelog
+    url: https://wakatime.com/changelog
+  - type: Support
+    url: https://wakatime.com/help
+  - type: ContactSupport
+    url: https://wakatime.com/contact
+  - type: TermsOfService
+    url: https://wakatime.com/terms
+  - type: PrivacyPolicy
+    url: https://wakatime.com/privacy
+  - type: Legal
+    url: https://github.com/wakatime/legal
+  - type: GitHubOrganization
+    url: https://github.com/wakatime
+  - type: TwitterAccount
+    url: https://twitter.com/wakatime
   - type: PublicAPIsListing
     url: https://github.com/public-apis/public-apis
+  - type: Leaderboards
+    url: https://wakatime.com/leaders
+  - type: Embeddable
+    url: https://wakatime.com/share
+  - type: Integrations
+    url: https://wakatime.com/integrations
+  - type: PartnerProgram
+    url: https://wakatime.com/partners
+  - type: Affiliates
+    url: https://wakatime.com/affiliates
+  - type: CLI
+    url: https://github.com/wakatime/wakatime-cli
+    title: wakatime-cli (Go, shared by all editor plugins)
+  - type: CLI
+    url: https://pypi.org/project/wakatime/
+    title: wakatime (Python wrapper for wakatime-cli)
+  - type: Tools
+    title: WakaTime CLI Homebrew Tap
+    url: https://github.com/wakatime/homebrew-tap
+  - type: Tools
+    title: wakadump (CLI data dump converter)
+    url: https://github.com/wakatime/wakadump
+  - type: Tools
+    title: WakaQ (Python background job queue used internally by WakaTime)
+    url: https://github.com/wakatime/wakaq
+  - type: Tools
+    title: WakaQ TypeScript (TypeScript port of WakaQ)
+    url: https://github.com/wakatime/wakaq-ts
+  - type: Tools
+    title: Crackboard.dev (daily productivity leaderboard built on WakaTime)
+    url: https://github.com/wakatime/crackboard.dev
+  - type: Tools
+    title: wakatime.io documentation site
+    url: https://github.com/wakatime/wakatime.io
+  - type: Plugin
+    title: Visual Studio Code Plugin
+    url: https://github.com/wakatime/vscode-wakatime
+  - type: Plugin
+    title: JetBrains IDEs Plugin (IntelliJ, PyCharm, RubyMine, PhpStorm, GoLand, Rider, WebStorm, AppCode, AndroidStudio)
+    url: https://github.com/wakatime/jetbrains-wakatime
+  - type: Plugin
+    title: Vim Plugin
+    url: https://github.com/wakatime/vim-wakatime
+  - type: Plugin
+    title: Neovim/Vim Plugin (vim-wakatime)
+    url: https://github.com/wakatime/vim-wakatime
+  - type: Plugin
+    title: Emacs Plugin (wakatime-mode)
+    url: https://github.com/wakatime/wakatime-mode
+  - type: Plugin
+    title: Sublime Text Plugin
+    url: https://github.com/wakatime/sublime-wakatime
+  - type: Plugin
+    title: Atom Plugin
+    url: https://github.com/wakatime/atom-wakatime
+  - type: Plugin
+    title: Xcode Plugin
+    url: https://github.com/wakatime/xcode-wakatime
+  - type: Plugin
+    title: Visual Studio Plugin
+    url: https://github.com/wakatime/visualstudio-wakatime
+  - type: Plugin
+    title: Eclipse Plugin
+    url: https://github.com/wakatime/eclipse-wakatime
+  - type: Plugin
+    title: NetBeans Plugin
+    url: https://github.com/wakatime/netbeans-wakatime
+  - type: Plugin
+    title: Zed Plugin
+    url: https://github.com/wakatime/zed-wakatime
+  - type: Plugin
+    title: Notepad++ Plugin
+    url: https://github.com/wakatime/notepadpp-wakatime
+  - type: Plugin
+    title: Brackets Plugin
+    url: https://github.com/wakatime/brackets-wakatime
+  - type: Plugin
+    title: TextMate Plugin
+    url: https://github.com/wakatime/textmate-wakatime
+  - type: Plugin
+    title: Komodo Plugin
+    url: https://github.com/wakatime/komodo-wakatime
+  - type: Plugin
+    title: Geany Plugin
+    url: https://github.com/wakatime/geany-wakatime
+  - type: Plugin
+    title: Gedit Plugin
+    url: https://github.com/wakatime/gedit-wakatime
+  - type: Plugin
+    title: Kate Plugin
+    url: https://github.com/wakatime/kate-wakatime
+  - type: Plugin
+    title: Nova Plugin
+    url: https://github.com/wakatime/WakaTime.novaextension
+  - type: Plugin
+    title: Micro Plugin
+    url: https://github.com/wakatime/micro-wakatime
+  - type: Plugin
+    title: Kakoune Plugin
+    url: https://github.com/wakatime/kakoune-wakatime
+  - type: Plugin
+    title: SQL Server Management Studio (SSMS) Plugin
+    url: https://github.com/wakatime/ssms-wakatime
+  - type: Plugin
+    title: Office Add-ins Plugin
+    url: https://github.com/wakatime/office-wakatime
+  - type: Plugin
+    title: Delphi Plugin
+    url: https://github.com/wakatime/delphi-wakatime
+  - type: Plugin
+    title: Coda Plugin
+    url: https://github.com/wakatime/coda-wakatime
+  - type: Plugin
+    title: Cloud9 Plugin
+    url: https://github.com/wakatime/c9-wakatime
+  - type: Plugin
+    title: Wing IDE Plugin
+    url: https://github.com/wakatime/wing-wakatime
+  - type: Plugin
+    title: SlickEdit Plugin
+    url: https://github.com/wakatime/se_wakatime
+  - type: Plugin
+    title: IDA Pro Plugin
+    url: https://github.com/wakatime/ida-wakatime-py
+  - type: Plugin
+    title: Eric IDE Plugin
+    url: https://github.com/wakatime/eric6-wakatime
+  - type: Plugin
+    title: macOS System Tray (tracks Xcode, Figma, Postman, etc.)
+    url: https://github.com/wakatime/macos-wakatime
+  - type: Plugin
+    title: Windows & Linux Desktop System Tray
+    url: https://github.com/wakatime/desktop-wakatime
+  - type: Plugin
+    title: Chrome / browser extension
+    url: https://github.com/wakatime/browser-wakatime
+  - type: Plugin
+    title: Figma Plugin
+    url: https://github.com/wakatime/figma-wakatime
+  - type: Plugin
+    title: Sketch Plugin
+    url: https://github.com/wakatime/sketch-wakatime
+  - type: Plugin
+    title: Adobe XD Plugin
+    url: https://github.com/wakatime/adobe-xd-wakatime
+  - type: Plugin
+    title: Blender Plugin
+    url: https://github.com/wakatime/blender-wakatime
+  - type: Plugin
+    title: Godot Plugin
+    url: https://github.com/wakatime/godot-wakatime
+  - type: Plugin
+    title: Unity Plugin
+    url: https://github.com/wakatime/wakatime-unity
+  - type: Plugin
+    title: Roblox Studio Plugin
+    url: https://github.com/wakatime/roblox-studio-wakatime
+  - type: Plugin
+    title: Obsidian Plugin
+    url: https://github.com/wakatime/obsidian-wakatime
+  - type: Plugin
+    title: JupyterLab Plugin
+    url: https://github.com/wakatime/jupyterlab-wakatime
+  - type: Plugin
+    title: Zotero Plugin
+    url: https://github.com/wakatime/zotero-wakatime
+  - type: Plugin
+    title: Discord BetterDiscord Plugin
+    url: https://github.com/wakatime/discord-wakatime
+  - type: Plugin
+    title: Discord Vencord Plugin
+    url: https://github.com/wakatime/vencord-wakatime
+  - type: Plugin
+    title: Python REPL Plugin (repl-python-wakatime)
+    url: https://github.com/wakatime/repl-python-wakatime
+  - type: Plugin
+    title: Processing 3 Plugin
+    url: https://github.com/wakatime/processing-wakatime
+  - type: Plugin
+    title: TeXstudio Plugin
+    url: https://github.com/wakatime/texstudio-wakatime
+  - type: Plugin
+    title: ReclassEx Plugin
+    url: https://github.com/wakatime/reclassex-wakatime
+  - type: Plugin
+    title: Codex Plugin
+    url: https://github.com/wakatime/codex-wakatime
+  - type: Plugin
+    title: Claude Code Plugin (track Claude Code AI coding time)
+    url: https://github.com/wakatime/claude-code-wakatime
+  - type: Plugin
+    title: Camunda Modeler Plugin
+    url: https://github.com/wakatime/camunda-modeler-wakatime-plugin
+  - type: Tools
+    title: WakaTime Mobile (dashboard viewer)
+    url: https://github.com/wakatime/wakatime-mobile
+  - type: Integrations
+    title: WakaTime + Slack chat relay demo
+    url: https://github.com/wakatime/slack-demo-chat
+  - type: SimilarAPIs
+    title: Wakapi (self-hosted WakaTime-compatible backend)
+    url: https://github.com/muety/wakapi
+  - type: SimilarAPIs
+    title: Code::Stats
+    url: https://codestats.net/
+  - type: SimilarAPIs
+    title: Toggl Track
+    url: https://toggl.com/track/
+  - type: Tools
+    title: MCP Server (geeknees, Node.js, third-party)
+    url: https://github.com/geeknees/wakatime-mcp
+  - type: Tools
+    title: MCP Server (geeknees Ruby implementation, third-party)
+    url: https://github.com/geeknees/wakatime-mcp-rb
+  - type: Tools
+    title: MCP Server (dpshde, third-party)
+    url: https://github.com/dpshde/wakatime-mcp
+  - type: Tools
+    title: MCP Server (pipeworx-io, third-party)
+    url: https://github.com/pipeworx-io/mcp-wakatime
+
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

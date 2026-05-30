@@ -1,0 +1,205 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WakaTime API — External Durations
+  description: 'WakaTime API — External Durations. 4 operations. Lead operation: List External Durations. Self-contained Naftiko capability covering one WakaTime business surface.'
+  tags:
+  - WakaTime
+  - Developer Productivity
+  - External Durations
+  created: '2026-05-30'
+  modified: '2026-05-30'
+binds:
+- namespace: env
+  keys:
+    WAKATIME_API_KEY: WAKATIME_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: wakatime-api-v1-external-durations
+    baseUri: https://wakatime.com/api/v1
+    description: WakaTime API — External Durations business capability. Self-contained, no shared references.
+    authentication:
+      type: basic
+      username: '{{env.WAKATIME_API_KEY}}'
+      password: ''
+    resources:
+    - name: users-current-external-durations
+      path: /users/current/external_durations
+      operations:
+      - name: listExternalDurations
+        method: GET
+        description: List External Durations
+        inputParameters:
+        - name: date
+          in: query
+          type: string
+          required: true
+          description: Day to query (YYYY-MM-DD).
+        - name: project
+          in: query
+          type: string
+          required: false
+          description: Filter by project name.
+        - name: timezone
+          in: query
+          type: string
+          required: false
+          description: Timezone to use (defaults to the user's profile timezone).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createExternalDuration
+        method: POST
+        description: Create External Duration
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body payload.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-current-external-durations-bulk
+      path: /users/current/external_durations.bulk
+      operations:
+      - name: createExternalDurationsBulk
+        method: POST
+        description: Create External Durations Bulk
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body payload.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deleteExternalDurationsBulk
+        method: DELETE
+        description: Delete External Durations Bulk
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body payload.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: wakatime-api-v1-external-durations-rest
+    port: 8080
+    description: REST adapter for WakaTime API — External Durations. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/users/current/external-durations
+      name: users-current-external-durations
+      description: REST surface for /users/current/external_durations.
+      operations:
+      - method: GET
+        name: listExternalDurations
+        description: List External Durations
+        call: wakatime-api-v1-external-durations.listExternalDurations
+        with:
+          date: rest.date
+          project: rest.project
+          timezone: rest.timezone
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createExternalDuration
+        description: Create External Duration
+        call: wakatime-api-v1-external-durations.createExternalDuration
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/current/external-durations-bulk
+      name: users-current-external-durations-bulk
+      description: REST surface for /users/current/external_durations.bulk.
+      operations:
+      - method: POST
+        name: createExternalDurationsBulk
+        description: Create External Durations Bulk
+        call: wakatime-api-v1-external-durations.createExternalDurationsBulk
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteExternalDurationsBulk
+        description: Delete External Durations Bulk
+        call: wakatime-api-v1-external-durations.deleteExternalDurationsBulk
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: wakatime-api-v1-external-durations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WakaTime API — External Durations. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: list-external-durations
+      description: List External Durations
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: true
+      call: wakatime-api-v1-external-durations.listExternalDurations
+      with:
+        date: tools.date
+        project: tools.project
+        timezone: tools.timezone
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-external-duration
+      description: Create External Duration
+      hints:
+        destructive: false
+        idempotent: false
+        readOnly: false
+      call: wakatime-api-v1-external-durations.createExternalDuration
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-external-durations-bulk
+      description: Create External Durations Bulk
+      hints:
+        destructive: false
+        idempotent: false
+        readOnly: false
+      call: wakatime-api-v1-external-durations.createExternalDurationsBulk
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-external-durations-bulk
+      description: Delete External Durations Bulk
+      hints:
+        destructive: true
+        idempotent: true
+        readOnly: false
+      call: wakatime-api-v1-external-durations.deleteExternalDurationsBulk
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

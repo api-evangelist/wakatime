@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/wakatime/main/json-schema/wakatime-heartbeat-schema.json",
+  "title": "Heartbeat",
+  "description": "A single coding heartbeat sent from a WakaTime IDE plugin to the WakaTime API v1. Heartbeats are the atomic unit of WakaTime — every dashboard, summary, stat, goal, and leaderboard entry is computed from heartbeats.",
+  "type": "object",
+  "required": ["entity", "type", "time"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "description": "WakaTime-assigned heartbeat identifier (UUID).", "examples": ["5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c"] },
+    "user_id": { "type": "string", "description": "WakaTime user identifier owning this heartbeat." },
+    "entity": { "type": "string", "description": "File path, domain name, or app name that generated the heartbeat.", "examples": ["/Users/kin/code/wakatime-cli/main.go", "github.com", "Slack"] },
+    "type": { "type": "string", "enum": ["file", "domain", "app"], "description": "Nature of the entity that emitted the heartbeat." },
+    "category": {
+      "type": "string",
+      "enum": ["coding", "building", "indexing", "debugging", "browsing", "running tests", "writing tests", "manual testing", "code reviewing", "designing", "communicating", "meeting", "learning", "researching", "writing docs", "ai coding"],
+      "description": "Activity category attributed to this heartbeat (auto-detected by the plugin or set by a custom rule)."
+    },
+    "time": { "type": "number", "description": "Unix epoch seconds (with milliseconds) when the heartbeat was generated.", "examples": [1748600000.123] },
+    "project": { "type": ["string", "null"], "description": "Project name (typically the git repo name)." },
+    "project_root_count": { "type": ["integer", "null"], "description": "Distance from the project root in directory levels." },
+    "branch": { "type": ["string", "null"], "description": "Git branch name." },
+    "language": { "type": ["string", "null"], "description": "Programming language detected for the entity." },
+    "dependencies": { "type": "array", "items": { "type": "string" }, "description": "Detected package dependencies referenced from the entity." },
+    "lines": { "type": ["integer", "null"], "description": "Total line count of the file at heartbeat time." },
+    "line_additions": { "type": ["integer", "null"], "description": "Lines added since last heartbeat." },
+    "line_deletions": { "type": ["integer", "null"], "description": "Lines deleted since last heartbeat." },
+    "lineno": { "type": ["integer", "null"], "description": "Cursor line position." },
+    "cursorpos": { "type": ["integer", "null"], "description": "Cursor column position." },
+    "is_write": { "type": "boolean", "description": "Whether the heartbeat was triggered by a write/save action." },
+    "machine_name_id": { "type": ["string", "null"], "description": "Identifier of the machine that emitted the heartbeat." },
+    "user_agent_id": { "type": ["string", "null"], "description": "Identifier of the WakaTime editor user-agent that emitted the heartbeat." },
+    "created_at": { "type": "string", "format": "date-time", "description": "Timestamp when WakaTime received the heartbeat." },
+    "modified_at": { "type": "string", "format": "date-time" }
+  }
+}

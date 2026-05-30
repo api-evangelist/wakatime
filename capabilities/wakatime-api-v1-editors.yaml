@@ -1,0 +1,69 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WakaTime API — Editors
+  description: 'WakaTime API — Editors. 1 operations. Lead operation: List Editors. Self-contained Naftiko capability covering one WakaTime business surface.'
+  tags:
+  - WakaTime
+  - Developer Productivity
+  - Editors
+  created: '2026-05-30'
+  modified: '2026-05-30'
+binds:
+- namespace: env
+  keys:
+    WAKATIME_API_KEY: WAKATIME_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: wakatime-api-v1-editors
+    baseUri: https://wakatime.com/api/v1
+    description: WakaTime API — Editors business capability. Self-contained, no shared references.
+    authentication:
+      type: basic
+      username: '{{env.WAKATIME_API_KEY}}'
+      password: ''
+    resources:
+    - name: editors
+      path: /editors
+      operations:
+      - name: listEditors
+        method: GET
+        description: List Editors
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: wakatime-api-v1-editors-rest
+    port: 8080
+    description: REST adapter for WakaTime API — Editors. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/editors
+      name: editors
+      description: REST surface for /editors.
+      operations:
+      - method: GET
+        name: listEditors
+        description: List Editors
+        call: wakatime-api-v1-editors.listEditors
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: wakatime-api-v1-editors-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WakaTime API — Editors. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: list-editors
+      description: List Editors
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: true
+      call: wakatime-api-v1-editors.listEditors
+      outputParameters:
+      - type: object
+        mapping: $.

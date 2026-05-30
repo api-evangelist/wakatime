@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/wakatime/main/json-schema/wakatime-summary-schema.json",
+  "title": "SummaryDay",
+  "description": "A single day's coding-activity summary returned by the WakaTime Summaries API. Each summary aggregates a day's heartbeats by category, project, language, editor, OS, machine, branch, dependency, and entity.",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "grand_total": { "$ref": "#/$defs/SummaryTotal" },
+    "categories":        { "type": "array", "items": { "$ref": "#/$defs/SummaryBreakdown" } },
+    "projects":          { "type": "array", "items": { "$ref": "#/$defs/SummaryBreakdown" } },
+    "languages":         { "type": "array", "items": { "$ref": "#/$defs/SummaryBreakdown" } },
+    "editors":           { "type": "array", "items": { "$ref": "#/$defs/SummaryBreakdown" } },
+    "operating_systems": { "type": "array", "items": { "$ref": "#/$defs/SummaryBreakdown" } },
+    "machines":          { "type": "array", "items": { "$ref": "#/$defs/SummaryBreakdown" } },
+    "branches":          { "type": "array", "items": { "$ref": "#/$defs/SummaryBreakdown" } },
+    "dependencies":      { "type": "array", "items": { "$ref": "#/$defs/SummaryBreakdown" } },
+    "entities":          { "type": "array", "items": { "$ref": "#/$defs/SummaryBreakdown" } },
+    "range": {
+      "type": "object",
+      "properties": {
+        "date":  { "type": "string", "format": "date" },
+        "start": { "type": "string", "format": "date-time" },
+        "end":   { "type": "string", "format": "date-time" },
+        "text":  { "type": "string" },
+        "timezone": { "type": "string" }
+      }
+    }
+  },
+  "$defs": {
+    "SummaryTotal": {
+      "type": "object",
+      "properties": {
+        "hours":         { "type": "integer", "minimum": 0 },
+        "minutes":       { "type": "integer", "minimum": 0 },
+        "total_seconds": { "type": "number",  "minimum": 0 },
+        "digital":       { "type": "string", "description": "HH:MM formatted." },
+        "decimal":       { "type": "string", "description": "Hours as decimal string." },
+        "text":          { "type": "string", "description": "Human-readable string e.g. '4 hrs 12 mins'." }
+      }
+    },
+    "SummaryBreakdown": {
+      "type": "object",
+      "properties": {
+        "name":             { "type": "string" },
+        "total_seconds":    { "type": "number", "minimum": 0 },
+        "percent":          { "type": "number", "minimum": 0, "maximum": 100 },
+        "digital":          { "type": "string" },
+        "decimal":          { "type": "string" },
+        "text":             { "type": "string" },
+        "hours":            { "type": "integer", "minimum": 0 },
+        "minutes":          { "type": "integer", "minimum": 0 },
+        "seconds":          { "type": ["integer", "null"], "minimum": 0 },
+        "machine_name_id":  { "type": ["string", "null"] }
+      }
+    }
+  }
+}

@@ -1,0 +1,103 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: WakaTime
+providerId: wakatime
+created: '2026-05-30'
+modified: '2026-05-30'
+reconciled: true
+tags:
+  - Rate Limiting
+  - Developer Productivity
+  - Time Tracking
+  - OAuth 2.0
+description: >-
+  WakaTime enforces a single global rate limit on the WakaTime API v1 — under 10 requests per
+  second on average over any 5-minute window. The limit is per-user (not per-API-key or per-IP),
+  so the budget is shared across editor plugins, scripts, and OAuth-authenticated apps acting on
+  behalf of the same WakaTime account. OAuth has additional limits on token issuance: a maximum
+  of 8 active access tokens per user and at most 10 tokens issued per user per hour. Token
+  lifetimes are 365 days for the authorization-code flow and 12 hours for the implicit flow.
+  Bulk heartbeat submissions are capped at 25 heartbeats per request, and bulk external-duration
+  submissions at 1,000 entries per request. There is no separate sandbox tier — all keys hit the
+  same production limit.
+sources:
+  - https://wakatime.com/developers
+  - https://wakatime.com/developers#rate_limits
+  - https://wakatime.com/developers#authentication
+
+responseCodes:
+  throttled: 429
+  quotaExceeded: 429
+
+policies:
+  - name: per-user-budget
+    description: >-
+      The 10-rps-over-5-minutes budget is scoped to the WakaTime user, not the API key or IP.
+      Multiple editor plugins, CLIs, and OAuth apps acting for the same user share one budget —
+      so heavy script users should consolidate calls.
+  - name: bulk-endpoints
+    description: >-
+      Use POST /users/current/heartbeats.bulk (max 25 heartbeats per call) and POST
+      /users/current/external_durations.bulk (max 1,000 entries per call) to amortize the
+      per-request limit across many records.
+  - name: stats-eventual-consistency
+    description: >-
+      Stats endpoints may return 202 Accepted while WakaTime calculates results in the
+      background. Re-request after a short delay (60s+) rather than tight polling.
+  - name: oauth-token-issuance
+    description: >-
+      OAuth token issuance is capped at 10 per user per hour with a maximum of 8 concurrently
+      active tokens. Revoke unused tokens via POST /oauth/revoke instead of issuing new ones.
+  - name: exponential-backoff
+    description: >-
+      On 429 responses, back off exponentially and retry the same request body unchanged.
+      Heartbeat ingestion is idempotent on (entity, type, time, user_id), so re-sending the
+      same heartbeat is safe.
+  - name: never-call-from-public-site
+    description: >-
+      WakaTime explicitly recommends NOT calling the API from a public website (other than
+      the embeddable charts endpoint), since doing so exposes the API key and competes with
+      the user's own plugins for the shared rate budget.
+
+limits:
+  - name: Global request budget (per user)
+    scope: user
+    metric: requests_per_second
+    limit: 10
+    timeFrame: second
+    notes: >-
+      Averaged over any 5-minute window. Bursts above 10 rps are tolerated as long as the
+      5-minute average stays below the threshold.
+
+  - name: Heartbeats bulk batch size
+    scope: request
+    metric: items_per_request
+    limit: 25
+    timeFrame: request
+    notes: >-
+      Maximum heartbeats per POST /users/current/heartbeats.bulk call. Larger batches are
+      rejected.
+
+  - name: External durations bulk batch size
+    scope: request
+    metric: items_per_request
+    limit: 1000
+    timeFrame: request
+    notes: >-
+      Maximum external durations per POST /users/current/external_durations.bulk call.
+
+  - name: OAuth tokens issued per user
+    scope: user
+    metric: tokens_per_hour
+    limit: 10
+    timeFrame: hour
+    notes: Caps how often a single user can request new OAuth tokens.
+
+  - name: OAuth active tokens per user
+    scope: user
+    metric: concurrent_tokens
+    limit: 8
+    notes: >-
+      Beyond 8 active tokens, issuing a new token invalidates the oldest. Revoke tokens
+      explicitly via POST /oauth/revoke when no longer needed.

@@ -1,0 +1,157 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: WakaTime
+providerId: wakatime
+created: '2026-05-30'
+modified: '2026-05-30'
+reconciled: true
+tags:
+  - FinOps
+  - FOCUS
+  - Developer Productivity
+  - Time Tracking
+  - SaaS
+  - Per-Seat
+description: >-
+  FOCUS-aligned FinOps for WakaTime — a per-seat developer-productivity SaaS billed monthly or
+  annually with no per-API-call metering. Costs accrue on a Subscription model: individual plans
+  (Basic, Premium) are billed per-user; team plans (Team, Business) are billed per active
+  developer seat.
+sources:
+  - https://wakatime.com/pricing
+  - https://wakatime.com/developers
+  - https://wakatime.com/settings/account
+  - https://focus.finops.org/focus-specification/v1-3/
+
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+
+publisherName: WakaTime LLC
+serviceCategory: Developer Tools
+
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Monthly
+  billingFrequencyAlternative: Annual
+  billingCurrency: USD
+  chargeCategories:
+    - Usage
+    - Purchase
+    - Tax
+    - Adjustment
+    - Refund
+    - Credit
+
+focusColumns:
+  ServiceName: WakaTime
+  ServiceCategory: Developer Tools
+  ServiceSubcategory: Time Tracking and Coding Analytics
+  ProviderName: WakaTime
+  PublisherName: WakaTime LLC
+  InvoiceIssuerName: WakaTime LLC
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  ChargeClass: Standard
+  PricingCategory: Subscription
+  CommitmentDiscountCategory: None
+  RegionId: global
+  RegionName: Global
+  SkuId: '{plan-id} (free | basic | premium | team | business)'
+  SkuPriceId: '{plan-id}-{cadence} (monthly | annual)'
+
+meters:
+  - name: seat_month_individual
+    label: Individual seat-month
+    unit: seat-month
+    aggregation: sum
+    dimensions: [plan, cadence]
+    description: >-
+      One seat-month of Basic ($9/mo) or Premium ($14/mo) for individuals, or the annual
+      equivalents at $8.25/mo and $12.83/mo. Free plan emits zero billable usage but should
+      still be modeled for entitlement tracking.
+
+  - name: seat_month_team
+    label: Team seat-month
+    unit: seat-month
+    aggregation: sum
+    dimensions: [plan, cadence, organization_id]
+    description: >-
+      Per-developer seat-month for Team ($21/mo) and Business ($24/mo) plans. Aggregated per
+      organization for chargeback / showback.
+
+  - name: programming_goals_active
+    label: Active programming goals
+    unit: goal-month
+    aggregation: max
+    dimensions: [user_id]
+    description: >-
+      Soft entitlement meter — the count of active goals per user-month. Crosses a hard cap on
+      Free (1) and Basic (3); unlimited on Premium and above.
+
+  - name: dashboard_history_weeks
+    label: Dashboard history retention
+    unit: weeks-retained
+    aggregation: max
+    dimensions: [user_id, plan]
+    description: >-
+      Entitlement meter — number of weeks of dashboard history accessible to the user. 1 on
+      Free, 2 on Basic, unlimited on Premium / Team / Business.
+
+  - name: private_leaderboard_seats
+    label: Private leaderboard seats
+    unit: seat
+    aggregation: max
+    dimensions: [leaderboard_id, plan]
+    description: >-
+      Count of seats on the user's largest private leaderboard. Capped at 5 (Basic),
+      50 (Premium), 100 (Team), 1000 (Business).
+
+  - name: data_dumps
+    label: Data exports
+    unit: dump
+    aggregation: count
+    dimensions: [user_id, type]
+    description: >-
+      Number of data exports (heartbeats or daily) generated. Premium and above only.
+
+  - name: api_requests
+    label: API requests
+    unit: request
+    aggregation: count
+    dimensions: [user_id, endpoint]
+    description: >-
+      Observability meter — not directly billed but useful for capacity planning against the
+      shared 10-rps-over-5-min rate limit.
+
+principles:
+
+  - name: Visibility
+    description: >-
+      Use the WakaTime web dashboard, the /users/current/stats endpoints, and full data dumps
+      (heartbeats or daily, requested via POST /users/current/data_dumps) to see what each
+      seat is consuming. Premium and above can generate code-stat invoices.
+
+  - name: Allocation
+    description: >-
+      For team and business plans, attribute seat-months by organization_id and (optionally)
+      by org dashboards. Use private leaderboards to group cost by team. Tag external
+      activity via External Durations to attribute non-IDE work back to the same seat.
+
+  - name: Optimization
+    description: >-
+      Switch annual to capture the ~8% discount (Basic $9 → $8.25/mo, Premium $14 → $12.83/mo,
+      Team $21 → $19.25/mo, Business $24 → $22/mo). Deactivate seats for developers who have
+      gone 60+ days without a heartbeat — the public profile metric `last_heartbeat_at`
+      surfaces idle seats. Consider self-hosting via Wakapi for cost-sensitive workloads
+      where WakaTime's premium features are not needed.
+
+  - name: Accountability
+    description: >-
+      Engineering managers / RevOps own developer-productivity tooling spend. Establish a
+      quarterly review: pull org seat counts via /users/current/orgs and reconcile against
+      the active-developer roster; cancel or downgrade seats inactive >30 days.

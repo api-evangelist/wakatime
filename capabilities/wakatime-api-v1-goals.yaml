@@ -1,0 +1,111 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WakaTime API — Goals
+  description: 'WakaTime API — Goals. 2 operations. Lead operation: List Goals. Self-contained Naftiko capability covering one WakaTime business surface.'
+  tags:
+  - WakaTime
+  - Developer Productivity
+  - Goals
+  created: '2026-05-30'
+  modified: '2026-05-30'
+binds:
+- namespace: env
+  keys:
+    WAKATIME_API_KEY: WAKATIME_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: wakatime-api-v1-goals
+    baseUri: https://wakatime.com/api/v1
+    description: WakaTime API — Goals business capability. Self-contained, no shared references.
+    authentication:
+      type: basic
+      username: '{{env.WAKATIME_API_KEY}}'
+      password: ''
+    resources:
+    - name: users-current-goals
+      path: /users/current/goals
+      operations:
+      - name: listGoals
+        method: GET
+        description: List Goals
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-current-goals-goal
+      path: /users/current/goals/{goal}
+      operations:
+      - name: getGoal
+        method: GET
+        description: Get Goal
+        inputParameters:
+        - name: goal
+          in: path
+          type: string
+          required: true
+          description: Goal id.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: wakatime-api-v1-goals-rest
+    port: 8080
+    description: REST adapter for WakaTime API — Goals. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/users/current/goals
+      name: users-current-goals
+      description: REST surface for /users/current/goals.
+      operations:
+      - method: GET
+        name: listGoals
+        description: List Goals
+        call: wakatime-api-v1-goals.listGoals
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/current/goals/{goal}
+      name: users-current-goals-goal
+      description: REST surface for /users/current/goals/{goal}.
+      operations:
+      - method: GET
+        name: getGoal
+        description: Get Goal
+        call: wakatime-api-v1-goals.getGoal
+        with:
+          goal: rest.goal
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: wakatime-api-v1-goals-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WakaTime API — Goals. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: list-goals
+      description: List Goals
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: true
+      call: wakatime-api-v1-goals.listGoals
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-goal
+      description: Get Goal
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: true
+      call: wakatime-api-v1-goals.getGoal
+      with:
+        goal: tools.goal
+      outputParameters:
+      - type: object
+        mapping: $.

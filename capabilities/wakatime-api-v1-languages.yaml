@@ -1,0 +1,133 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WakaTime API — Languages
+  description: 'WakaTime API — Languages. 3 operations. Lead operation: List Languages. Self-contained Naftiko capability covering one WakaTime business surface.'
+  tags:
+  - WakaTime
+  - Developer Productivity
+  - Languages
+  created: '2026-05-30'
+  modified: '2026-05-30'
+binds:
+- namespace: env
+  keys:
+    WAKATIME_API_KEY: WAKATIME_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: wakatime-api-v1-languages
+    baseUri: https://wakatime.com/api/v1
+    description: WakaTime API — Languages business capability. Self-contained, no shared references.
+    authentication:
+      type: basic
+      username: '{{env.WAKATIME_API_KEY}}'
+      password: ''
+    resources:
+    - name: languages
+      path: /languages
+      operations:
+      - name: listLanguages
+        method: GET
+        description: List Languages
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: program-languages
+      path: /program_languages
+      operations:
+      - name: listProgramLanguages
+        method: GET
+        description: List Program Languages
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-current-languages
+      path: /users/current/languages
+      operations:
+      - name: listUserLanguages
+        method: GET
+        description: List User Languages
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: wakatime-api-v1-languages-rest
+    port: 8080
+    description: REST adapter for WakaTime API — Languages. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/languages
+      name: languages
+      description: REST surface for /languages.
+      operations:
+      - method: GET
+        name: listLanguages
+        description: List Languages
+        call: wakatime-api-v1-languages.listLanguages
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/program-languages
+      name: program-languages
+      description: REST surface for /program_languages.
+      operations:
+      - method: GET
+        name: listProgramLanguages
+        description: List Program Languages
+        call: wakatime-api-v1-languages.listProgramLanguages
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/current/languages
+      name: users-current-languages
+      description: REST surface for /users/current/languages.
+      operations:
+      - method: GET
+        name: listUserLanguages
+        description: List User Languages
+        call: wakatime-api-v1-languages.listUserLanguages
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: wakatime-api-v1-languages-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WakaTime API — Languages. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: list-languages
+      description: List Languages
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: true
+      call: wakatime-api-v1-languages.listLanguages
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-program-languages
+      description: List Program Languages
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: true
+      call: wakatime-api-v1-languages.listProgramLanguages
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-user-languages
+      description: List User Languages
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: true
+      call: wakatime-api-v1-languages.listUserLanguages
+      outputParameters:
+      - type: object
+        mapping: $.

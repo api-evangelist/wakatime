@@ -1,0 +1,128 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WakaTime API — Summaries
+  description: 'WakaTime API — Summaries. 1 operations. Lead operation: List Summaries. Self-contained Naftiko capability covering one WakaTime business surface.'
+  tags:
+  - WakaTime
+  - Developer Productivity
+  - Summaries
+  created: '2026-05-30'
+  modified: '2026-05-30'
+binds:
+- namespace: env
+  keys:
+    WAKATIME_API_KEY: WAKATIME_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: wakatime-api-v1-summaries
+    baseUri: https://wakatime.com/api/v1
+    description: WakaTime API — Summaries business capability. Self-contained, no shared references.
+    authentication:
+      type: basic
+      username: '{{env.WAKATIME_API_KEY}}'
+      password: ''
+    resources:
+    - name: users-current-summaries
+      path: /users/current/summaries
+      operations:
+      - name: listSummaries
+        method: GET
+        description: List Summaries
+        inputParameters:
+        - name: start
+          in: query
+          type: string
+          required: true
+          description: Start date (YYYY-MM-DD) inclusive.
+        - name: end
+          in: query
+          type: string
+          required: true
+          description: End date (YYYY-MM-DD) inclusive.
+        - name: project
+          in: query
+          type: string
+          required: false
+          description: Filter by project name.
+        - name: branches
+          in: query
+          type: string
+          required: false
+          description: Comma-separated list of git branches to include.
+        - name: timeout
+          in: query
+          type: integer
+          required: false
+          description: Keystroke timeout in minutes (defaults to user's account setting).
+        - name: writes_only
+          in: query
+          type: boolean
+          required: false
+          description: Whether to only include time editing (writing) files.
+        - name: timezone
+          in: query
+          type: string
+          required: false
+          description: Timezone to use (defaults to the user's profile timezone).
+        - name: range
+          in: query
+          type: string
+          required: false
+          description: Range filter (last_7_days, last_30_days, last_6_months, last_year, all_time).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: wakatime-api-v1-summaries-rest
+    port: 8080
+    description: REST adapter for WakaTime API — Summaries. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/users/current/summaries
+      name: users-current-summaries
+      description: REST surface for /users/current/summaries.
+      operations:
+      - method: GET
+        name: listSummaries
+        description: List Summaries
+        call: wakatime-api-v1-summaries.listSummaries
+        with:
+          start: rest.start
+          end: rest.end
+          project: rest.project
+          branches: rest.branches
+          timeout: rest.timeout
+          writes_only: rest.writes_only
+          timezone: rest.timezone
+          range: rest.range
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: wakatime-api-v1-summaries-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WakaTime API — Summaries. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: list-summaries
+      description: List Summaries
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: true
+      call: wakatime-api-v1-summaries.listSummaries
+      with:
+        start: tools.start
+        end: tools.end
+        project: tools.project
+        branches: tools.branches
+        timeout: tools.timeout
+        writes_only: tools.writes_only
+        timezone: tools.timezone
+        range: tools.range
+      outputParameters:
+      - type: object
+        mapping: $.

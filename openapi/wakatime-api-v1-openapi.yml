@@ -1,0 +1,2451 @@
+openapi: 3.0.3
+info:
+  title: WakaTime API
+  version: v1
+  description: |
+    WakaTime API v1 provides automated time-tracking analytics for software developers. IDE
+    plugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, Zed, and
+    many more) send "heartbeats" describing the file, project, language, branch, and editor a
+    developer is working in. WakaTime aggregates that data into dashboards, summaries, stats,
+    goals, leaderboards, and team/org dashboards.
+
+    Authentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as
+    `read_summaries`, `read_stats`, `read_goals`, `read_heartbeats`, `write_heartbeats`,
+    `read_orgs`, `write_orgs`, and `email`, or via API Key (HTTP Basic auth or `?api_key=`)
+    for personal use. The default rate limit is fewer than 10 requests per second on average
+    over any 5-minute window.
+
+    All responses follow the pattern `{"data": ...}` for successful requests or
+    `{"error": "message"}` for errors.
+  contact:
+    name: WakaTime Support
+    url: https://wakatime.com/contact
+    email: support@wakatime.com
+  termsOfService: https://wakatime.com/terms
+  license:
+    name: WakaTime Terms of Service
+    url: https://wakatime.com/terms
+  x-generated-from: documentation
+  x-source-url: https://wakatime.com/developers
+  x-last-validated: '2026-05-30'
+
+servers:
+- url: https://wakatime.com/api/v1
+  description: WakaTime production API
+- url: https://api.wakatime.com/api/v1
+  description: WakaTime alternate hostname
+
+tags:
+- name: Users
+  description: Authenticated user profile and public user lookups.
+- name: Heartbeats
+  description: Coding-activity pings sent by editor plugins.
+- name: Durations
+  description: Continuous time-on-task spans derived from heartbeats.
+- name: Summaries
+  description: Daily aggregations of coding activity by project, language, editor, OS, machine, branch, and category.
+- name: Stats
+  description: User-wide statistics over preset and custom ranges.
+- name: Insights
+  description: Curated analytics views (weekdays, days, projects, languages, editors, machines, operating systems, AI days, best day, daily average).
+- name: Projects
+  description: Projects the authenticated user has logged time against.
+- name: Commits
+  description: Per-project commits enriched with coding time.
+- name: Goals
+  description: User coding goals and their progress.
+- name: Custom Rules
+  description: User and organization custom-rule definitions for time attribution.
+- name: External Durations
+  description: Non-IDE activity durations created via the API.
+- name: Data Dumps
+  description: Full data exports.
+- name: Editors
+  description: Available editor plugins and versions.
+- name: Languages
+  description: Programming languages.
+- name: Machines
+  description: Devices that have sent heartbeats.
+- name: User Agents
+  description: Editor + OS user-agent inventory.
+- name: Leaderboards
+  description: Public and private leaderboard rankings.
+- name: Status Bar
+  description: Cached today-only stats for status-bar displays.
+- name: Organizations
+  description: Team/organization dashboards and member analytics.
+- name: Meta
+  description: WakaTime infrastructure metadata.
+- name: OAuth
+  description: OAuth 2.0 authorization endpoints.
+
+security:
+- oauth2: []
+- apiKey: []
+- bearerAuth: []
+
+paths:
+
+  /users/current:
+    get:
+      operationId: getCurrentUser
+      summary: Get Current User
+      description: Returns the authenticated user's profile.
+      tags: [Users]
+      security:
+      - oauth2: [email]
+      - apiKey: []
+      responses:
+        '200':
+          description: The authenticated user.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/User'
+              examples:
+                GetCurrentUser200Example:
+                  summary: Default getCurrentUser 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      username: kinlane
+                      display_name: Kin Lane
+                      full_name: Kin Lane
+                      email: support@example.com
+                      photo: https://wakatime.com/photo/5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      photo_public: true
+                      is_email_public: true
+                      is_email_confirmed: true
+                      timezone: America/Los_Angeles
+                      last_heartbeat_at: '2026-05-30T12:34:56Z'
+                      last_plugin: vscode-wakatime/24.0.0 vscode-wakatime/24.0.0
+                      last_plugin_name: vscode
+                      last_project: wakatime-cli
+                      plan: free
+                      bio: Founder of API Evangelist.
+                      location: Hermosa Beach, CA
+                      languages_used_public: true
+                      logged_time_public: true
+                      website: https://wakatime.com
+                      human_readable_website: wakatime.com
+                      wonderfuldev_username: kinlane
+                      github_username: kinlane
+                      twitter_username: kinlane
+                      linkedin_username: kinlane
+                      created_at: '2026-05-30T12:34:56Z'
+                      modified_at: '2026-05-30T12:34:56Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/{user}:
+    get:
+      operationId: getUser
+      summary: Get User
+      description: Returns the public profile for the given user.
+      tags: [Users]
+      parameters:
+      - $ref: '#/components/parameters/UserPath'
+      responses:
+        '200':
+          description: The requested user's public profile.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PublicUser'
+              examples:
+                GetUser200Example:
+                  summary: Default getUser 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      username: kinlane
+                      display_name: Kin Lane
+                      full_name: Kin Lane
+                      email: support@example.com
+                      photo: https://wakatime.com/photo/5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      photo_public: true
+                      is_email_public: true
+                      is_email_confirmed: true
+                      timezone: America/Los_Angeles
+                      last_heartbeat_at: '2026-05-30T12:34:56Z'
+                      last_plugin: vscode-wakatime/24.0.0 vscode-wakatime/24.0.0
+                      last_plugin_name: vscode
+                      last_project: wakatime-cli
+                      plan: free
+                      bio: Founder of API Evangelist.
+                      location: Hermosa Beach, CA
+                      languages_used_public: true
+                      logged_time_public: true
+                      website: https://wakatime.com
+                      human_readable_website: wakatime.com
+                      wonderfuldev_username: kinlane
+                      github_username: kinlane
+                      twitter_username: kinlane
+                      linkedin_username: kinlane
+                      created_at: '2026-05-30T12:34:56Z'
+                      modified_at: '2026-05-30T12:34:56Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/all_time_since_today:
+    get:
+      operationId: getAllTimeSinceTodayCurrent
+      summary: Get All Time Since Today
+      description: Returns the total coding activity the authenticated user has logged since the account was created, up to today.
+      tags: [Stats]
+      parameters:
+      - $ref: '#/components/parameters/ProjectQuery'
+      responses:
+        '200':
+          description: All-time-since-today totals.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AllTimeSinceToday'
+              examples:
+                GetAllTimeSinceTodayCurrent200Example:
+                  summary: Default getAllTimeSinceTodayCurrent 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      total_seconds: 4
+                      text: "1,234 hrs 5 mins"
+                      decimal: "1234.08"
+                      digital: "1234:05"
+                      is_up_to_date: '2026-05-30T12:34:56Z'
+                      percent_calculated: 1
+                      range: &id001 {}
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/{user}/all_time_since_today:
+    get:
+      operationId: getAllTimeSinceToday
+      summary: Get User All Time Since Today
+      description: Returns the all-time-since-today totals for a specific user (requires scope on that user's data).
+      tags: [Stats]
+      parameters:
+      - $ref: '#/components/parameters/UserPath'
+      - $ref: '#/components/parameters/ProjectQuery'
+      responses:
+        '200':
+          description: All-time-since-today totals for the user.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AllTimeSinceToday'
+              examples:
+                GetAllTimeSinceToday200Example:
+                  summary: Default getAllTimeSinceToday 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      total_seconds: 4
+                      text: "1,234 hrs 5 mins"
+                      decimal: "1234.08"
+                      digital: "1234:05"
+                      is_up_to_date: '2026-05-30T12:34:56Z'
+                      percent_calculated: 1
+                      range: *id001
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/heartbeats:
+    get:
+      operationId: listHeartbeats
+      summary: List Heartbeats
+      description: Returns the authenticated user's heartbeats for a given day.
+      tags: [Heartbeats]
+      parameters:
+      - $ref: '#/components/parameters/DateQueryRequired'
+      responses:
+        '200':
+          description: A list of heartbeats for the day.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Heartbeat'
+              examples:
+                ListHeartbeats200Example:
+                  summary: Default listHeartbeats 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - entity: /Users/kin/code/wakatime-cli/main.go
+                      type: file
+                      category: coding
+                      time: 1.0
+                      project: wakatime-cli
+                      project_root_count: 4
+                      branch: main
+                      language: Python
+                      dependencies: &id002
+                      - example
+                      lines: 1
+                      line_additions: 1
+                      line_deletions: 1
+                      lineno: 1
+                      cursorpos: 1
+                      is_write: true
+                      id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      user_id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      created_at: '2026-05-30T12:34:56Z'
+                      modified_at: '2026-05-30T12:34:56Z'
+                      machine_name_id: machine-001
+                      user_agent_id: ua-001
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createHeartbeat
+      summary: Create Heartbeat
+      description: Creates a single heartbeat from an editor plugin.
+      tags: [Heartbeats]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HeartbeatInput'
+            examples:
+              CreateHeartbeatRequestExample:
+                summary: Default createHeartbeat request
+                x-microcks-default: true
+                value:
+                  entity: /Users/kin/code/wakatime-cli/main.go
+                  type: file
+                  category: coding
+                  time: 1.0
+                  project: wakatime-cli
+                  project_root_count: 4
+                  branch: main
+                  language: Python
+                  dependencies: *id002
+                  lines: 1
+                  line_additions: 1
+                  line_deletions: 1
+                  lineno: 1
+                  cursorpos: 1
+                  is_write: true
+      responses:
+        '201':
+          description: The created heartbeat.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Heartbeat'
+              examples:
+                CreateHeartbeat201Example:
+                  summary: Default createHeartbeat 201 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      entity: /Users/kin/code/wakatime-cli/main.go
+                      type: file
+                      category: coding
+                      time: 1.0
+                      project: wakatime-cli
+                      project_root_count: 4
+                      branch: main
+                      language: Python
+                      dependencies: *id002
+                      lines: 1
+                      line_additions: 1
+                      line_deletions: 1
+                      lineno: 1
+                      cursorpos: 1
+                      is_write: true
+                      id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      user_id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      created_at: '2026-05-30T12:34:56Z'
+                      modified_at: '2026-05-30T12:34:56Z'
+                      machine_name_id: machine-001
+                      user_agent_id: ua-001
+        '202':
+          description: Heartbeat accepted for asynchronous processing.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/heartbeats.bulk:
+    post:
+      operationId: createHeartbeatsBulk
+      summary: Create Heartbeats Bulk
+      description: Creates multiple heartbeats in a single request (up to 25).
+      tags: [Heartbeats]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              maxItems: 25
+              items:
+                $ref: '#/components/schemas/HeartbeatInput'
+            examples:
+              CreateHeartbeatsBulkRequestExample:
+                summary: Default createHeartbeatsBulk request
+                x-microcks-default: true
+                value:
+                - entity: /Users/kin/code/wakatime-cli/main.go
+                  type: file
+                  category: coding
+                  time: 1.0
+                  project: wakatime-cli
+                  project_root_count: 4
+                  branch: main
+                  language: Python
+                  dependencies: *id002
+                  lines: 1
+                  line_additions: 1
+                  line_deletions: 1
+                  lineno: 1
+                  cursorpos: 1
+                  is_write: true
+      responses:
+        '201':
+          description: The created heartbeats and per-item statuses.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  responses:
+                    type: array
+                    items:
+                      type: array
+                      description: "Tuple of [body, status_code] per submitted heartbeat."
+              examples:
+                CreateHeartbeatsBulk201Example:
+                  summary: Default createHeartbeatsBulk 201 response
+                  x-microcks-default: true
+                  value:
+                    responses:
+                    - - example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteHeartbeatsBulk
+      summary: Delete Heartbeats Bulk
+      description: Deletes multiple heartbeats by date and id in a single request.
+      tags: [Heartbeats]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                required: [id, date]
+                properties:
+                  id:
+                    type: string
+                  date:
+                    type: string
+                    format: date
+            examples:
+              DeleteHeartbeatsBulkRequestExample:
+                summary: Default deleteHeartbeatsBulk request
+                x-microcks-default: true
+                value:
+                - id: example
+                  date: '2026-05-30'
+      responses:
+        '200':
+          description: Bulk delete results.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/durations:
+    get:
+      operationId: listDurations
+      summary: List Durations
+      description: Returns activity durations for a given day, derived from heartbeats.
+      tags: [Durations]
+      parameters:
+      - $ref: '#/components/parameters/DateQueryRequired'
+      - $ref: '#/components/parameters/ProjectQuery'
+      - $ref: '#/components/parameters/BranchesQuery'
+      - $ref: '#/components/parameters/TimeoutQuery'
+      - $ref: '#/components/parameters/WritesOnlyQuery'
+      - $ref: '#/components/parameters/TimezoneQuery'
+      - $ref: '#/components/parameters/SliceByQuery'
+      responses:
+        '200':
+          description: Durations for the day.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Duration'
+              examples:
+                ListDurations200Example:
+                  summary: Default listDurations 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - time: 1.0
+                      duration: 1.0
+                      project: wakatime-cli
+                      branch: main
+                      language: Python
+                      category: coding
+                      editor: example
+                      operating_system: example
+                      machine: example
+                      color: '#3498db'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/external_durations:
+    get:
+      operationId: listExternalDurations
+      summary: List External Durations
+      description: Returns external (non-editor) durations for a given day.
+      tags: [External Durations]
+      parameters:
+      - $ref: '#/components/parameters/DateQueryRequired'
+      - $ref: '#/components/parameters/ProjectQuery'
+      - $ref: '#/components/parameters/TimezoneQuery'
+      responses:
+        '200':
+          description: External durations for the day.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ExternalDuration'
+              examples:
+                ListExternalDurations200Example:
+                  summary: Default listExternalDurations 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - external_id: ext-001
+                      entity: /Users/kin/code/wakatime-cli/main.go
+                      type: file
+                      category: coding
+                      start_time: 1.0
+                      end_time: 1.0
+                      project: wakatime-cli
+                      branch: main
+                      language: Python
+                      meta: &id003 {}
+                      id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      user_id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      created_at: '2026-05-30T12:34:56Z'
+                      modified_at: '2026-05-30T12:34:56Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createExternalDuration
+      summary: Create External Duration
+      description: Creates a single external duration (for non-editor activity such as meetings, design tools, etc.).
+      tags: [External Durations]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalDurationInput'
+            examples:
+              CreateExternalDurationRequestExample:
+                summary: Default createExternalDuration request
+                x-microcks-default: true
+                value:
+                  external_id: ext-001
+                  entity: /Users/kin/code/wakatime-cli/main.go
+                  type: file
+                  category: coding
+                  start_time: 1.0
+                  end_time: 1.0
+                  project: wakatime-cli
+                  branch: main
+                  language: Python
+                  meta: *id003
+      responses:
+        '201':
+          description: The created external duration.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/external_durations.bulk:
+    post:
+      operationId: createExternalDurationsBulk
+      summary: Create External Durations Bulk
+      description: Creates multiple external durations in a single request (up to 1,000).
+      tags: [External Durations]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              maxItems: 1000
+              items:
+                $ref: '#/components/schemas/ExternalDurationInput'
+            examples:
+              CreateExternalDurationsBulkRequestExample:
+                summary: Default createExternalDurationsBulk request
+                x-microcks-default: true
+                value:
+                - external_id: ext-001
+                  entity: /Users/kin/code/wakatime-cli/main.go
+                  type: file
+                  category: coding
+                  start_time: 1.0
+                  end_time: 1.0
+                  project: wakatime-cli
+                  branch: main
+                  language: Python
+                  meta: *id003
+      responses:
+        '201':
+          description: Bulk creation results.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteExternalDurationsBulk
+      summary: Delete External Durations Bulk
+      description: Deletes multiple external durations by id and date.
+      tags: [External Durations]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                required: [id]
+                properties:
+                  id:
+                    type: string
+                  date:
+                    type: string
+                    format: date
+            examples:
+              DeleteExternalDurationsBulkRequestExample:
+                summary: Default deleteExternalDurationsBulk request
+                x-microcks-default: true
+                value:
+                - id: example
+                  date: '2026-05-30'
+      responses:
+        '200':
+          description: Bulk delete results.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/summaries:
+    get:
+      operationId: listSummaries
+      summary: List Summaries
+      description: Returns daily summaries of coding activity between a start and end date, broken down by project, language, editor, OS, machine, branch, category, and dependencies.
+      tags: [Summaries]
+      parameters:
+      - name: start
+        in: query
+        required: true
+        description: Start date (YYYY-MM-DD) inclusive.
+        schema: {type: string, format: date}
+        example: '2026-05-30'
+      - name: end
+        in: query
+        required: true
+        description: End date (YYYY-MM-DD) inclusive.
+        schema: {type: string, format: date}
+        example: '2026-05-30'
+      - $ref: '#/components/parameters/ProjectQuery'
+      - $ref: '#/components/parameters/BranchesQuery'
+      - $ref: '#/components/parameters/TimeoutQuery'
+      - $ref: '#/components/parameters/WritesOnlyQuery'
+      - $ref: '#/components/parameters/TimezoneQuery'
+      - $ref: '#/components/parameters/RangeQuery'
+      responses:
+        '200':
+          description: Daily summaries.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SummariesResponse'
+              examples:
+                ListSummaries200Example:
+                  summary: Default listSummaries 200 response
+                  x-microcks-default: true
+                  value:
+                    data: &id023 []
+                    cumulative_total: &id024 {}
+                    daily_average: &id025 {}
+                    start: '2026-05-30'
+                    end: '2026-05-30'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/stats:
+    get:
+      operationId: getStatsForRange
+      summary: Get Stats For Range
+      description: Returns coding stats for the authenticated user over a date range. May return 202 while WakaTime is calculating the stats.
+      tags: [Stats]
+      parameters:
+      - $ref: '#/components/parameters/RangeQuery'
+      - $ref: '#/components/parameters/TimeoutQuery'
+      - $ref: '#/components/parameters/WritesOnlyQuery'
+      - $ref: '#/components/parameters/TimezoneQuery'
+      - $ref: '#/components/parameters/ProjectQuery'
+      responses:
+        '200':
+          description: Stats payload.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Stats'
+              examples:
+                GetStatsForRange200Example:
+                  summary: Default getStatsForRange 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      user_id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      username: kinlane
+                      range: example
+                      start: '2026-05-30T12:34:56Z'
+                      end: '2026-05-30T12:34:56Z'
+                      days_including_holidays: 1
+                      days_minus_holidays: 1
+                      holidays: 1
+                      status: ok
+                      is_up_to_date: '2026-05-30T12:34:56Z'
+                      percent_calculated: 1
+                      timeout: 1
+                      writes_only: true
+                      timezone: America/Los_Angeles
+                      total_seconds: 4
+                      total_seconds_including_other_language: 1.0
+                      daily_average: 1.0
+                      daily_average_including_other_language: 1.0
+                      human_readable_total: 4 hrs 12 mins
+                      human_readable_daily_average: 3 hrs 30 mins
+                      best_day: &id004 {}
+                      languages: &id005 []
+                      projects: &id006 []
+                      editors: &id007 []
+                      operating_systems: &id008 []
+                      machines: &id009 []
+                      categories: &id010 []
+                      dependencies: &id011 []
+                      created_at: '2026-05-30T12:34:56Z'
+                      modified_at: '2026-05-30T12:34:56Z'
+        '202':
+          description: Stats are still being calculated.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/stats/{range}:
+    get:
+      operationId: getStatsByRange
+      summary: Get Stats By Named Range
+      description: Returns coding stats for a preset named range (last_7_days, last_30_days, last_6_months, last_year, all_time).
+      tags: [Stats]
+      parameters:
+      - name: range
+        in: path
+        required: true
+        description: Preset range.
+        schema:
+          type: string
+          enum: [last_7_days, last_30_days, last_6_months, last_year, all_time]
+        example: last_7_days
+      responses:
+        '200':
+          description: Stats payload.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Stats'
+              examples:
+                GetStatsByRange200Example:
+                  summary: Default getStatsByRange 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      user_id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      username: kinlane
+                      range: example
+                      start: '2026-05-30T12:34:56Z'
+                      end: '2026-05-30T12:34:56Z'
+                      days_including_holidays: 1
+                      days_minus_holidays: 1
+                      holidays: 1
+                      status: ok
+                      is_up_to_date: '2026-05-30T12:34:56Z'
+                      percent_calculated: 1
+                      timeout: 1
+                      writes_only: true
+                      timezone: America/Los_Angeles
+                      total_seconds: 4
+                      total_seconds_including_other_language: 1.0
+                      daily_average: 1.0
+                      daily_average_including_other_language: 1.0
+                      human_readable_total: 4 hrs 12 mins
+                      human_readable_daily_average: 3 hrs 30 mins
+                      best_day: *id004
+                      languages: *id005
+                      projects: *id006
+                      editors: *id007
+                      operating_systems: *id008
+                      machines: *id009
+                      categories: *id010
+                      dependencies: *id011
+                      created_at: '2026-05-30T12:34:56Z'
+                      modified_at: '2026-05-30T12:34:56Z'
+        '202':
+          description: Stats are still being calculated.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/stats_aggregated:
+    get:
+      operationId: getStatsAggregated
+      summary: Get Stats Aggregated
+      description: Returns aggregated coding stats across all WakaTime users.
+      tags: [Stats]
+      parameters:
+      - $ref: '#/components/parameters/RangeQuery'
+      responses:
+        '200':
+          description: Aggregated stats.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/insights/{insight_type}/{range}:
+    get:
+      operationId: getInsight
+      summary: Get Insight
+      description: Returns an insight slice for a given type and range.
+      tags: [Insights]
+      parameters:
+      - name: insight_type
+        in: path
+        required: true
+        description: The insight type.
+        schema:
+          type: string
+          enum: [stats, weekdays, days, ai_days, best_day, daily_average, projects, languages, editors, categories, machines, operating_systems]
+        example: stats
+      - name: range
+        in: path
+        required: true
+        description: The range for the insight (e.g. last_7_days, last_year).
+        schema:
+          type: string
+        example: example
+      - $ref: '#/components/parameters/TimezoneQuery'
+      - $ref: '#/components/parameters/WritesOnlyQuery'
+      responses:
+        '200':
+          description: Insight payload.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/projects:
+    get:
+      operationId: listProjects
+      summary: List Projects
+      description: Returns projects the authenticated user has logged time against.
+      tags: [Projects]
+      parameters:
+      - name: q
+        in: query
+        description: Filter projects by name.
+        schema: {type: string}
+        example: example
+      responses:
+        '200':
+          description: Project list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Project'
+              examples:
+                ListProjects200Example:
+                  summary: Default listProjects 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      name: WakaTime
+                      repository: https://github.com/wakatime/wakatime-cli
+                      badge: https://wakatime.com/badge/user/abc/project/wakatime-cli.svg
+                      color: '#3498db'
+                      clients: &id012
+                      - example
+                      has_public_url: https://wakatime.com/example
+                      human_readable_last_heartbeat_at: '2026-05-30T12:34:56Z'
+                      last_heartbeat_at: '2026-05-30T12:34:56Z'
+                      url: https://wakatime.com/@kinlane/projects/wakatime-cli
+                      urlencoded_name: wakatime-cli
+                      created_at: '2026-05-30T12:34:56Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/projects/{project}:
+    get:
+      operationId: getProject
+      summary: Get Project
+      description: Returns details for the specified project.
+      tags: [Projects]
+      parameters:
+      - $ref: '#/components/parameters/ProjectPath'
+      responses:
+        '200':
+          description: The project details.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Project'
+              examples:
+                GetProject200Example:
+                  summary: Default getProject 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      name: WakaTime
+                      repository: https://github.com/wakatime/wakatime-cli
+                      badge: https://wakatime.com/badge/user/abc/project/wakatime-cli.svg
+                      color: '#3498db'
+                      clients: *id012
+                      has_public_url: https://wakatime.com/example
+                      human_readable_last_heartbeat_at: '2026-05-30T12:34:56Z'
+                      last_heartbeat_at: '2026-05-30T12:34:56Z'
+                      url: https://wakatime.com/@kinlane/projects/wakatime-cli
+                      urlencoded_name: wakatime-cli
+                      created_at: '2026-05-30T12:34:56Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/projects/{project}/commits:
+    get:
+      operationId: listProjectCommits
+      summary: List Project Commits
+      description: Returns commits for the specified project, each enriched with coding-time totals.
+      tags: [Commits]
+      parameters:
+      - $ref: '#/components/parameters/ProjectPath'
+      - name: page
+        in: query
+        schema: {type: integer, minimum: 1}
+        example: 1
+      - name: author
+        in: query
+        description: Filter by commit author.
+        schema: {type: string}
+        example: example
+      responses:
+        '200':
+          description: Commits list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Commit'
+              examples:
+                ListProjectCommits200Example:
+                  summary: Default listProjectCommits 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      author_avatar_url: https://wakatime.com/photo/5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      author_date: '2026-05-30T12:34:56Z'
+                      author_email: kin@apievangelist.com
+                      author_html_url: https://github.com/kinlane
+                      author_id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      author_name: Kin Lane
+                      author_url: https://wakatime.com/@kinlane
+                      author_username: kinlane
+                      branch: main
+                      committer_avatar_url: https://wakatime.com/photo/5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      created_at: '2026-05-30T12:34:56Z'
+                      hash: 9b8c4d2e6f1a3b5c7d9e8f0a1b2c3d4e5f6a7b8c
+                      html_url: https://github.com/wakatime/wakatime-cli/commit/9b8c4d2e6f1a3b5c7d9e8f0a1b2c3d4e5f6a7b8c
+                      human_readable_natural_total_time: about 4 hours
+                      human_readable_total: 4 hrs 12 mins
+                      human_readable_total_with_seconds: 4 hrs 12 mins 5 secs
+                      is_authored_by_user: true
+                      message: Initial commit
+                      ref: refs/heads/main
+                      total_seconds: 4
+                      truncated_hash: 9b8c4d2
+                      url: https://wakatime.com/@kinlane/projects/wakatime-cli
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/projects/{project}/commits/{hash}:
+    get:
+      operationId: getProjectCommit
+      summary: Get Project Commit
+      description: Returns a single commit for the specified project.
+      tags: [Commits]
+      parameters:
+      - $ref: '#/components/parameters/ProjectPath'
+      - name: hash
+        in: path
+        required: true
+        description: Commit hash.
+        schema: {type: string}
+        example: example
+      responses:
+        '200':
+          description: Commit details.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Commit'
+              examples:
+                GetProjectCommit200Example:
+                  summary: Default getProjectCommit 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      author_avatar_url: https://wakatime.com/photo/5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      author_date: '2026-05-30T12:34:56Z'
+                      author_email: kin@apievangelist.com
+                      author_html_url: https://github.com/kinlane
+                      author_id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      author_name: Kin Lane
+                      author_url: https://wakatime.com/@kinlane
+                      author_username: kinlane
+                      branch: main
+                      committer_avatar_url: https://wakatime.com/photo/5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      created_at: '2026-05-30T12:34:56Z'
+                      hash: 9b8c4d2e6f1a3b5c7d9e8f0a1b2c3d4e5f6a7b8c
+                      html_url: https://github.com/wakatime/wakatime-cli/commit/9b8c4d2e6f1a3b5c7d9e8f0a1b2c3d4e5f6a7b8c
+                      human_readable_natural_total_time: about 4 hours
+                      human_readable_total: 4 hrs 12 mins
+                      human_readable_total_with_seconds: 4 hrs 12 mins 5 secs
+                      is_authored_by_user: true
+                      message: Initial commit
+                      ref: refs/heads/main
+                      total_seconds: 4
+                      truncated_hash: 9b8c4d2
+                      url: https://wakatime.com/@kinlane/projects/wakatime-cli
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/goals:
+    get:
+      operationId: listGoals
+      summary: List Goals
+      description: Returns the authenticated user's coding goals.
+      tags: [Goals]
+      responses:
+        '200':
+          description: Goals list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Goal'
+              examples:
+                ListGoals200Example:
+                  summary: Default listGoals 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      title: Code 4 hrs a day
+                      type: coding_activity
+                      delta: day
+                      seconds: 60
+                      status: success
+                      cumulative_status: example
+                      languages: &id013
+                      - example
+                      projects: &id014
+                      - example
+                      editors: &id015
+                      - example
+                      is_enabled: true
+                      is_inverse: true
+                      is_snoozed: true
+                      ignore_days: &id016
+                      - example
+                      modified_at: '2026-05-30T12:34:56Z'
+                      created_at: '2026-05-30T12:34:56Z'
+                      snooze_until: '2026-05-30T12:34:56Z'
+                      chart_data: &id017 []
+                      average_status: example
+                      owner: &id018 {}
+                      shared_with: &id019 []
+                      subscribers: &id020 []
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/goals/{goal}:
+    get:
+      operationId: getGoal
+      summary: Get Goal
+      description: Returns a specific goal with its progress data.
+      tags: [Goals]
+      parameters:
+      - name: goal
+        in: path
+        required: true
+        description: Goal id.
+        schema: {type: string}
+        example: example
+      responses:
+        '200':
+          description: Goal details.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Goal'
+              examples:
+                GetGoal200Example:
+                  summary: Default getGoal 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      title: Code 4 hrs a day
+                      type: coding_activity
+                      delta: day
+                      seconds: 60
+                      status: success
+                      cumulative_status: example
+                      languages: *id013
+                      projects: *id014
+                      editors: *id015
+                      is_enabled: true
+                      is_inverse: true
+                      is_snoozed: true
+                      ignore_days: *id016
+                      modified_at: '2026-05-30T12:34:56Z'
+                      created_at: '2026-05-30T12:34:56Z'
+                      snooze_until: '2026-05-30T12:34:56Z'
+                      chart_data: *id017
+                      average_status: example
+                      owner: *id018
+                      shared_with: *id019
+                      subscribers: *id020
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/custom_rules:
+    get:
+      operationId: listCustomRules
+      summary: List Custom Rules
+      description: Returns the authenticated user's custom time-attribution rules.
+      tags: [Custom Rules]
+      responses:
+        '200':
+          description: Custom rules.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CustomRule'
+              examples:
+                ListCustomRules200Example:
+                  summary: Default listCustomRules 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      name: WakaTime
+                      if_match: &id021 {}
+                      then_set: &id022 {}
+                      created_at: '2026-05-30T12:34:56Z'
+                      modified_at: '2026-05-30T12:34:56Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: putCustomRules
+      summary: Put Custom Rules
+      description: Creates or updates one or more custom rules.
+      tags: [Custom Rules]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CustomRuleInput'
+            examples:
+              PutCustomRulesRequestExample:
+                summary: Default putCustomRules request
+                x-microcks-default: true
+                value:
+                - id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                  name: WakaTime
+                  if_match: *id021
+                  then_set: *id022
+      responses:
+        '200':
+          description: Updated custom rules.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/custom_rules/{rule_id}:
+    delete:
+      operationId: deleteCustomRule
+      summary: Delete Custom Rule
+      description: Deletes a single custom rule.
+      tags: [Custom Rules]
+      parameters:
+      - name: rule_id
+        in: path
+        required: true
+        schema: {type: string}
+        example: example
+      responses:
+        '204':
+          description: Deleted.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/custom_rules_progress:
+    get:
+      operationId: getCustomRulesProgress
+      summary: Get Custom Rules Progress
+      description: Returns the status of any background job reprocessing the user's heartbeats against current custom rules.
+      tags: [Custom Rules]
+      responses:
+        '200':
+          description: Job progress.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: abortCustomRulesProgress
+      summary: Abort Custom Rules Progress
+      description: Aborts the background job currently reapplying custom rules.
+      tags: [Custom Rules]
+      responses:
+        '204':
+          description: Aborted.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/data_dumps:
+    get:
+      operationId: listDataDumps
+      summary: List Data Dumps
+      description: Returns the authenticated user's data exports.
+      tags: [Data Dumps]
+      responses:
+        '200':
+          description: Data dump list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DataDump'
+              examples:
+                ListDataDumps200Example:
+                  summary: Default listDataDumps 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      type: heartbeats
+                      status: Pending...
+                      percent_complete: 1
+                      created_at: '2026-05-30T12:34:56Z'
+                      download_url: https://wakatime.com/dumps/abc.json.gz
+                      expires: '2026-05-30T12:34:56Z'
+                      has_failed: true
+                      is_processing: true
+                      is_stuck: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createDataDump
+      summary: Create Data Dump
+      description: Triggers generation of a new data export.
+      tags: [Data Dumps]
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum: [heartbeats, daily]
+                  description: Dump type.
+                email_when_finished:
+                  type: boolean
+            examples:
+              CreateDataDumpRequestExample:
+                summary: Default createDataDump request
+                x-microcks-default: true
+                value:
+                  type: heartbeats
+                  email_when_finished: true
+      responses:
+        '201':
+          description: Created dump job.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DataDump'
+              examples:
+                CreateDataDump201Example:
+                  summary: Default createDataDump 201 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      type: heartbeats
+                      status: Pending...
+                      percent_complete: 1
+                      created_at: '2026-05-30T12:34:56Z'
+                      download_url: https://wakatime.com/dumps/abc.json.gz
+                      expires: '2026-05-30T12:34:56Z'
+                      has_failed: true
+                      is_processing: true
+                      is_stuck: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /editors:
+    get:
+      operationId: listEditors
+      summary: List Editors
+      description: Returns the available WakaTime editor plugins and their published versions.
+      tags: [Editors]
+      responses:
+        '200':
+          description: Editor list.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /languages:
+    get:
+      operationId: listLanguages
+      summary: List Languages
+      description: Returns all programming languages recognized by WakaTime.
+      tags: [Languages]
+      responses:
+        '200':
+          description: Language list.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /program_languages:
+    get:
+      operationId: listProgramLanguages
+      summary: List Program Languages
+      description: Returns programming-language metadata.
+      tags: [Languages]
+      responses:
+        '200':
+          description: Program-language metadata.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/languages:
+    get:
+      operationId: listUserLanguages
+      summary: List User Languages
+      description: Returns the programming languages the authenticated user has logged time in.
+      tags: [Languages]
+      responses:
+        '200':
+          description: User language list.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/machine_names:
+    get:
+      operationId: listMachineNames
+      summary: List Machine Names
+      description: Returns devices that have sent heartbeats for the authenticated user.
+      tags: [Machines]
+      responses:
+        '200':
+          description: Machine list.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/user_agents:
+    get:
+      operationId: listUserAgents
+      summary: List User Agents
+      description: Returns the editor + OS user-agents the authenticated user has used.
+      tags: [User Agents]
+      responses:
+        '200':
+          description: User-agent list.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /leaders:
+    get:
+      operationId: listLeaders
+      summary: List Leaders
+      description: Returns the public WakaTime leaderboard.
+      tags: [Leaderboards]
+      parameters:
+      - name: language
+        in: query
+        description: Filter by programming language.
+        schema: {type: string}
+        example: example
+      - name: country_code
+        in: query
+        description: Filter by ISO country code.
+        schema: {type: string}
+        example: example
+      - name: page
+        in: query
+        schema: {type: integer, minimum: 1}
+        example: 1
+      responses:
+        '200':
+          description: Leaderboard payload.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LeaderEntry'
+              examples:
+                ListLeaders200Example:
+                  summary: Default listLeaders 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - rank: 1
+                      running_total: &id026 {}
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/private_leaderboards:
+    get:
+      operationId: listPrivateLeaderboards
+      summary: List Private Leaderboards
+      description: Returns the authenticated user's private leaderboards.
+      tags: [Leaderboards]
+      responses:
+        '200':
+          description: Private leaderboards.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/private_leaderboards/{id}/leaders:
+    get:
+      operationId: listPrivateLeaderboardLeaders
+      summary: List Private Leaderboard Leaders
+      description: Returns rankings for a specific private leaderboard.
+      tags: [Leaderboards]
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Private leaderboard id.
+        schema: {type: string}
+        example: example
+      responses:
+        '200':
+          description: Private leaderboard rankings.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/status_bar:
+    get:
+      operationId: getStatusBar
+      summary: Get Status Bar
+      description: Returns a cached today-only stats payload for status-bar displays in editor plugins.
+      tags: [Status Bar]
+      responses:
+        '200':
+          description: Status-bar payload.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/orgs:
+    get:
+      operationId: listOrgs
+      summary: List Organizations
+      description: Returns the organizations the authenticated user belongs to.
+      tags: [Organizations]
+      responses:
+        '200':
+          description: Organization list.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/orgs/{org}/custom_rules:
+    get:
+      operationId: listOrgCustomRules
+      summary: List Org Custom Rules
+      description: Returns custom rules defined at the organization level.
+      tags: [Organizations]
+      parameters:
+      - $ref: '#/components/parameters/OrgPath'
+      responses:
+        '200':
+          description: Org custom rules.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: putOrgCustomRules
+      summary: Put Org Custom Rules
+      description: Replaces the custom rules for the organization.
+      tags: [Organizations]
+      parameters:
+      - $ref: '#/components/parameters/OrgPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CustomRuleInput'
+            examples:
+              PutOrgCustomRulesRequestExample:
+                summary: Default putOrgCustomRules request
+                x-microcks-default: true
+                value:
+                - id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                  name: WakaTime
+                  if_match: *id021
+                  then_set: *id022
+      responses:
+        '200':
+          description: Updated org custom rules.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/orgs/{org}/dashboards:
+    get:
+      operationId: listOrgDashboards
+      summary: List Org Dashboards
+      description: Returns dashboards available in the organization.
+      tags: [Organizations]
+      parameters:
+      - $ref: '#/components/parameters/OrgPath'
+      responses:
+        '200':
+          description: Org dashboard list.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/orgs/{org}/dashboards/{dashboard}/members:
+    get:
+      operationId: listDashboardMembers
+      summary: List Dashboard Members
+      description: Returns the members included in the dashboard.
+      tags: [Organizations]
+      parameters:
+      - $ref: '#/components/parameters/OrgPath'
+      - $ref: '#/components/parameters/DashboardPath'
+      responses:
+        '200':
+          description: Dashboard member list.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/orgs/{org}/dashboards/{dashboard}/summaries:
+    get:
+      operationId: listDashboardSummaries
+      summary: List Dashboard Summaries
+      description: Returns aggregated daily summaries for the dashboard.
+      tags: [Organizations]
+      parameters:
+      - $ref: '#/components/parameters/OrgPath'
+      - $ref: '#/components/parameters/DashboardPath'
+      - name: start
+        in: query
+        required: true
+        schema: {type: string, format: date}
+        example: '2026-05-30'
+      - name: end
+        in: query
+        required: true
+        schema: {type: string, format: date}
+        example: '2026-05-30'
+      - $ref: '#/components/parameters/ProjectQuery'
+      - $ref: '#/components/parameters/BranchesQuery'
+      responses:
+        '200':
+          description: Dashboard summaries.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/orgs/{org}/dashboards/{dashboard}/member/{member}/summaries:
+    get:
+      operationId: listDashboardMemberSummaries
+      summary: List Dashboard Member Summaries
+      description: Returns summaries for a specific member within the dashboard.
+      tags: [Organizations]
+      parameters:
+      - $ref: '#/components/parameters/OrgPath'
+      - $ref: '#/components/parameters/DashboardPath'
+      - $ref: '#/components/parameters/MemberPath'
+      - name: start
+        in: query
+        required: true
+        schema: {type: string, format: date}
+        example: '2026-05-30'
+      - name: end
+        in: query
+        required: true
+        schema: {type: string, format: date}
+        example: '2026-05-30'
+      responses:
+        '200':
+          description: Member summaries.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/orgs/{org}/dashboards/{dashboard}/durations:
+    get:
+      operationId: listDashboardDurations
+      summary: List Dashboard Durations
+      description: Returns durations for the dashboard for a given day.
+      tags: [Organizations]
+      parameters:
+      - $ref: '#/components/parameters/OrgPath'
+      - $ref: '#/components/parameters/DashboardPath'
+      - $ref: '#/components/parameters/DateQueryRequired'
+      responses:
+        '200':
+          description: Dashboard durations.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /users/current/orgs/{org}/dashboards/{dashboard}/member/{member}/durations:
+    get:
+      operationId: listDashboardMemberDurations
+      summary: List Dashboard Member Durations
+      description: Returns durations for a specific member within the dashboard for a given day.
+      tags: [Organizations]
+      parameters:
+      - $ref: '#/components/parameters/OrgPath'
+      - $ref: '#/components/parameters/DashboardPath'
+      - $ref: '#/components/parameters/MemberPath'
+      - $ref: '#/components/parameters/DateQueryRequired'
+      responses:
+        '200':
+          description: Member durations.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /meta:
+    get:
+      operationId: getMeta
+      summary: Get Meta
+      description: Returns WakaTime infrastructure metadata (IP ranges, etc.).
+      tags: [Meta]
+      responses:
+        '200':
+          description: Meta payload.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+components:
+
+  parameters:
+    UserPath:
+      name: user
+      in: path
+      required: true
+      description: User id, username, or "current".
+      schema: {type: string}
+      example: example
+    ProjectPath:
+      name: project
+      in: path
+      required: true
+      description: Project name.
+      schema: {type: string}
+      example: example
+    OrgPath:
+      name: org
+      in: path
+      required: true
+      description: Organization id.
+      schema: {type: string}
+      example: example
+    DashboardPath:
+      name: dashboard
+      in: path
+      required: true
+      description: Dashboard id.
+      schema: {type: string}
+      example: example
+    MemberPath:
+      name: member
+      in: path
+      required: true
+      description: Org member id.
+      schema: {type: string}
+      example: example
+    DateQueryRequired:
+      name: date
+      in: query
+      required: true
+      description: Day to query (YYYY-MM-DD).
+      schema: {type: string, format: date}
+      example: '2026-05-30'
+    ProjectQuery:
+      name: project
+      in: query
+      description: Filter by project name.
+      schema: {type: string}
+      example: example
+    BranchesQuery:
+      name: branches
+      in: query
+      description: Comma-separated list of git branches to include.
+      schema: {type: string}
+      example: example
+    TimeoutQuery:
+      name: timeout
+      in: query
+      description: Keystroke timeout in minutes (defaults to user's account setting).
+      schema: {type: integer, minimum: 1, maximum: 60}
+      example: 1
+    WritesOnlyQuery:
+      name: writes_only
+      in: query
+      description: Whether to only include time editing (writing) files.
+      schema: {type: boolean}
+      example: true
+    TimezoneQuery:
+      name: timezone
+      in: query
+      description: Timezone to use (defaults to the user's profile timezone).
+      schema: {type: string, example: America/Los_Angeles}
+      example: America/Los_Angeles
+    SliceByQuery:
+      name: slice_by
+      in: query
+      description: Slice durations by entity, language, dependencies, os, editor, category, or machine.
+      schema:
+        type: string
+        enum: [entity, language, dependencies, os, editor, category, machine]
+      example: entity
+    RangeQuery:
+      name: range
+      in: query
+      description: Range filter (last_7_days, last_30_days, last_6_months, last_year, all_time).
+      schema:
+        type: string
+        enum: [last_7_days, last_30_days, last_6_months, last_year, all_time]
+      example: last_7_days
+
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authorization code flow.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://wakatime.com/oauth/authorize
+          tokenUrl: https://wakatime.com/oauth/token
+          refreshUrl: https://wakatime.com/oauth/token
+          scopes:
+            email: Read user email.
+            read_summaries: Read coding-activity summaries.
+            read_stats: Read aggregate stats.
+            read_goals: Read coding goals.
+            read_heartbeats: Read raw heartbeats.
+            write_heartbeats: Send heartbeats.
+            read_orgs: Read organization data.
+            write_orgs: Modify organization data.
+        implicit:
+          authorizationUrl: https://wakatime.com/oauth/authorize
+          scopes:
+            email: Read user email.
+            read_summaries: Read coding-activity summaries.
+            read_stats: Read aggregate stats.
+            read_goals: Read coding goals.
+            read_heartbeats: Read raw heartbeats.
+            write_heartbeats: Send heartbeats.
+            read_orgs: Read organization data.
+            write_orgs: Modify organization data.
+    apiKey:
+      type: http
+      scheme: basic
+      description: HTTP Basic with the WakaTime API key as the username. Alternatively, pass `?api_key=...` as a query parameter.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth access token in the Authorization header as `Bearer waka_tok_...`.
+
+  schemas:
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: example
+        errors:
+          type: object
+          additionalProperties: true
+
+          example: {}
+    User:
+      type: object
+      description: The authenticated WakaTime user profile.
+      x-schema-source: documentation
+      x-source-url: https://wakatime.com/developers
+      properties:
+        id: {type: string, example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c}
+        username: {type: string, nullable: true, example: kinlane}
+        display_name: {type: string, example: Kin Lane}
+        full_name: {type: string, nullable: true, example: Kin Lane}
+        email: {type: string, format: email, nullable: true, example: support@example.com}
+        photo: {type: string, format: uri, example: https://wakatime.com/photo/5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c}
+        photo_public: {type: boolean, example: true}
+        is_email_public: {type: boolean, example: true}
+        is_email_confirmed: {type: boolean, example: true}
+        timezone: {type: string, example: America/Los_Angeles}
+        last_heartbeat_at: {type: string, format: date-time, nullable: true, example: '2026-05-30T12:34:56Z'}
+        last_plugin: {type: string, nullable: true, example: vscode-wakatime/24.0.0 vscode-wakatime/24.0.0}
+        last_plugin_name: {type: string, nullable: true, example: vscode}
+        last_project: {type: string, nullable: true, example: wakatime-cli}
+        plan: {type: string, enum: [free, basic, premium, team, business], example: free}
+        bio: {type: string, nullable: true, example: Founder of API Evangelist.}
+        location: {type: string, nullable: true, example: 'Hermosa Beach, CA'}
+        languages_used_public: {type: boolean, example: true}
+        logged_time_public: {type: boolean, example: true}
+        website: {type: string, format: uri, nullable: true, example: https://wakatime.com}
+        human_readable_website: {type: string, nullable: true, example: wakatime.com}
+        wonderfuldev_username: {type: string, nullable: true, example: kinlane}
+        github_username: {type: string, nullable: true, example: kinlane}
+        twitter_username: {type: string, nullable: true, example: kinlane}
+        linkedin_username: {type: string, nullable: true, example: kinlane}
+        created_at: {type: string, format: date-time, example: '2026-05-30T12:34:56Z'}
+        modified_at: {type: string, format: date-time, nullable: true, example: '2026-05-30T12:34:56Z'}
+
+    PublicUser:
+      allOf:
+      - $ref: '#/components/schemas/User'
+
+    AllTimeSinceToday:
+      type: object
+      properties:
+        total_seconds: {type: number, format: float, example: 4}
+        text: {type: string, example: "1,234 hrs 5 mins"}
+        decimal: {type: string, example: "1234.08"}
+        digital: {type: string, example: "1234:05"}
+        is_up_to_date: {type: boolean, example: '2026-05-30T12:34:56Z'}
+        percent_calculated: {type: integer, example: 1}
+        range:
+          type: object
+          properties:
+            start: {type: string, format: date}
+            end: {type: string, format: date}
+            start_date: {type: string, format: date}
+            end_date: {type: string, format: date}
+            start_text: {type: string}
+            end_text: {type: string}
+            timezone: {type: string}
+          example: *id001
+
+    HeartbeatInput:
+      type: object
+      description: A single coding heartbeat as sent by an editor plugin.
+      required: [entity, type, time]
+      properties:
+        entity: {type: string, description: "File path, domain, or app name.", example: /Users/kin/code/wakatime-cli/main.go}
+        type:
+          type: string
+          enum: [file, domain, app]
+          example: file
+        category:
+          type: string
+          enum: [coding, building, indexing, debugging, browsing, running tests, writing tests, manual testing, code reviewing, designing, communicating, meeting, learning, researching, writing docs, 
+              ai coding]
+          example: coding
+        time: {type: number, format: float, description: "Unix epoch seconds with milliseconds.", example: 1.0}
+        project: {type: string, nullable: true, example: wakatime-cli}
+        project_root_count: {type: integer, nullable: true, example: 4}
+        branch: {type: string, nullable: true, example: main}
+        language: {type: string, nullable: true, example: Python}
+        dependencies:
+          type: array
+          items: {type: string}
+          example: *id002
+        lines: {type: integer, nullable: true, example: 1}
+        line_additions: {type: integer, nullable: true, example: 1}
+        line_deletions: {type: integer, nullable: true, example: 1}
+        lineno: {type: integer, nullable: true, example: 1}
+        cursorpos: {type: integer, nullable: true, example: 1}
+        is_write: {type: boolean, example: true}
+
+    Heartbeat:
+      allOf:
+      - $ref: '#/components/schemas/HeartbeatInput'
+      - type: object
+        properties:
+          id: {type: string, example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c}
+          user_id: {type: string, example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c}
+          created_at: {type: string, format: date-time, example: '2026-05-30T12:34:56Z'}
+          modified_at: {type: string, format: date-time, example: '2026-05-30T12:34:56Z'}
+          machine_name_id: {type: string, nullable: true, example: machine-001}
+          user_agent_id: {type: string, nullable: true, example: ua-001}
+
+    ExternalDurationInput:
+      type: object
+      required: [external_id, entity, type, start_time, end_time]
+      properties:
+        external_id: {type: string, description: "Caller-supplied identifier; used as the dedupe key.", example: ext-001}
+        entity: {type: string, example: /Users/kin/code/wakatime-cli/main.go}
+        type:
+          type: string
+          enum: [file, domain, app]
+          example: file
+        category:
+          type: string
+          example: coding
+        start_time: {type: number, format: float, description: "Unix epoch seconds.", example: 1.0}
+        end_time: {type: number, format: float, description: "Unix epoch seconds.", example: 1.0}
+        project: {type: string, nullable: true, example: wakatime-cli}
+        branch: {type: string, nullable: true, example: main}
+        language: {type: string, nullable: true, example: Python}
+        meta:
+          type: object
+          additionalProperties: true
+
+          example: *id003
+    ExternalDuration:
+      allOf:
+      - $ref: '#/components/schemas/ExternalDurationInput'
+      - type: object
+        properties:
+          id: {type: string, example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c}
+          user_id: {type: string, example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c}
+          created_at: {type: string, format: date-time, example: '2026-05-30T12:34:56Z'}
+          modified_at: {type: string, format: date-time, example: '2026-05-30T12:34:56Z'}
+
+    Duration:
+      type: object
+      properties:
+        time: {type: number, format: float, description: "Unix epoch seconds when the duration started.", example: 1.0}
+        duration: {type: number, format: float, description: "Duration in seconds.", example: 1.0}
+        project: {type: string, nullable: true, example: wakatime-cli}
+        branch: {type: string, nullable: true, example: main}
+        language: {type: string, nullable: true, example: Python}
+        category: {type: string, nullable: true, example: coding}
+        editor: {type: string, nullable: true, example: example}
+        operating_system: {type: string, nullable: true, example: example}
+        machine: {type: string, nullable: true, example: example}
+        color: {type: string, nullable: true, example: '#3498db'}
+
+    SummariesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryDay'
+          example: *id023
+        cumulative_total:
+          type: object
+          properties:
+            seconds: {type: number, format: float}
+            text: {type: string}
+            decimal: {type: string}
+            digital: {type: string}
+          example: *id024
+        daily_average:
+          type: object
+          properties:
+            holidays: {type: integer}
+            days_minus_holidays: {type: integer}
+            days_including_holidays: {type: integer}
+            seconds: {type: number, format: float}
+            seconds_including_other_language: {type: number, format: float}
+            text: {type: string}
+            text_including_other_language: {type: string}
+          example: *id025
+        start: {type: string, format: date, example: '2026-05-30'}
+        end: {type: string, format: date, example: '2026-05-30'}
+
+    SummaryDay:
+      type: object
+      properties:
+        grand_total:
+          $ref: '#/components/schemas/SummaryTotal'
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        languages:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        editors:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        operating_systems:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        machines:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        branches:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        dependencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        entities:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        range:
+          type: object
+          properties:
+            date: {type: string, format: date}
+            start: {type: string, format: date-time}
+            end: {type: string, format: date-time}
+            text: {type: string}
+            timezone: {type: string}
+          example: {}
+
+    SummaryTotal:
+      type: object
+      properties:
+        hours: {type: integer, example: 4}
+        minutes: {type: integer, example: 60}
+        total_seconds: {type: number, format: float, example: 4}
+        digital: {type: string, example: 4:12}
+        decimal: {type: string, example: '4.20'}
+        text: {type: string, example: 4 hrs 12 mins}
+
+    SummaryBreakdown:
+      type: object
+      properties:
+        name: {type: string, example: WakaTime}
+        total_seconds: {type: number, format: float, example: 4}
+        percent: {type: number, format: float, example: 1.0}
+        digital: {type: string, example: 4:12}
+        decimal: {type: string, example: '4.20'}
+        text: {type: string, example: 4 hrs 12 mins}
+        hours: {type: integer, example: 4}
+        minutes: {type: integer, example: 60}
+        seconds: {type: integer, nullable: true, example: 60}
+        machine_name_id: {type: string, nullable: true, example: machine-001}
+
+    Stats:
+      type: object
+      properties:
+        id: {type: string, example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c}
+        user_id: {type: string, example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c}
+        username: {type: string, nullable: true, example: kinlane}
+        range: {type: string, example: example}
+        start: {type: string, format: date-time, example: '2026-05-30T12:34:56Z'}
+        end: {type: string, format: date-time, example: '2026-05-30T12:34:56Z'}
+        days_including_holidays: {type: integer, example: 1}
+        days_minus_holidays: {type: integer, example: 1}
+        holidays: {type: integer, example: 1}
+        status: {type: string, enum: [ok, updating, pending], example: ok}
+        is_up_to_date: {type: boolean, example: '2026-05-30T12:34:56Z'}
+        percent_calculated: {type: integer, example: 1}
+        timeout: {type: integer, example: 1}
+        writes_only: {type: boolean, example: true}
+        timezone: {type: string, example: America/Los_Angeles}
+        total_seconds: {type: number, format: float, example: 4}
+        total_seconds_including_other_language: {type: number, format: float, example: 1.0}
+        daily_average: {type: number, format: float, example: 1.0}
+        daily_average_including_other_language: {type: number, format: float, example: 1.0}
+        human_readable_total: {type: string, example: 4 hrs 12 mins}
+        human_readable_daily_average: {type: string, example: 3 hrs 30 mins}
+        best_day:
+          type: object
+          properties:
+            date: {type: string, format: date}
+            total_seconds: {type: number, format: float}
+            text: {type: string}
+          example: *id004
+        languages:
+          type: array
+          items: {$ref: '#/components/schemas/SummaryBreakdown'}
+          example: *id005
+        projects:
+          type: array
+          items: {$ref: '#/components/schemas/SummaryBreakdown'}
+          example: *id006
+        editors:
+          type: array
+          items: {$ref: '#/components/schemas/SummaryBreakdown'}
+          example: *id007
+        operating_systems:
+          type: array
+          items: {$ref: '#/components/schemas/SummaryBreakdown'}
+          example: *id008
+        machines:
+          type: array
+          items: {$ref: '#/components/schemas/SummaryBreakdown'}
+          example: *id009
+        categories:
+          type: array
+          items: {$ref: '#/components/schemas/SummaryBreakdown'}
+          example: *id010
+        dependencies:
+          type: array
+          items: {$ref: '#/components/schemas/SummaryBreakdown'}
+          example: *id011
+        created_at: {type: string, format: date-time, example: '2026-05-30T12:34:56Z'}
+        modified_at: {type: string, format: date-time, example: '2026-05-30T12:34:56Z'}
+
+    Project:
+      type: object
+      properties:
+        id: {type: string, example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c}
+        name: {type: string, example: WakaTime}
+        repository: {type: string, nullable: true, example: https://github.com/wakatime/wakatime-cli}
+        badge: {type: string, nullable: true, example: https://wakatime.com/badge/user/abc/project/wakatime-cli.svg}
+        color: {type: string, nullable: true, example: '#3498db'}
+        clients:
+          type: array
+          items: {type: string}
+          example: *id012
+        has_public_url: {type: boolean, example: https://wakatime.com/example}
+        human_readable_last_heartbeat_at: {type: string, nullable: true, example: '2026-05-30T12:34:56Z'}
+        last_heartbeat_at: {type: string, format: date-time, nullable: true, example: '2026-05-30T12:34:56Z'}
+        url: {type: string, format: uri, nullable: true, example: https://wakatime.com/@kinlane/projects/wakatime-cli}
+        urlencoded_name: {type: string, example: wakatime-cli}
+        created_at: {type: string, format: date-time, example: '2026-05-30T12:34:56Z'}
+
+    Commit:
+      type: object
+      properties:
+        id: {type: string, example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c}
+        author_avatar_url: {type: string, format: uri, nullable: true, example: https://wakatime.com/photo/5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c}
+        author_date: {type: string, format: date-time, example: '2026-05-30T12:34:56Z'}
+        author_email: {type: string, format: email, nullable: true, example: kin@apievangelist.com}
+        author_html_url: {type: string, format: uri, nullable: true, example: https://github.com/kinlane}
+        author_id: {type: string, nullable: true, example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c}
+        author_name: {type: string, example: Kin Lane}
+        author_url: {type: string, format: uri, nullable: true, example: https://wakatime.com/@kinlane}
+        author_username: {type: string, nullable: true, example: kinlane}
+        branch: {type: string, nullable: true, example: main}
+        committer_avatar_url: {type: string, format: uri, nullable: true, example: https://wakatime.com/photo/5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c}
+        created_at: {type: string, format: date-time, example: '2026-05-30T12:34:56Z'}
+        hash: {type: string, example: 9b8c4d2e6f1a3b5c7d9e8f0a1b2c3d4e5f6a7b8c}
+        html_url: {type: string, format: uri, nullable: true, example: https://github.com/wakatime/wakatime-cli/commit/9b8c4d2e6f1a3b5c7d9e8f0a1b2c3d4e5f6a7b8c}
+        human_readable_natural_total_time: {type: string, nullable: true, example: about 4 hours}
+        human_readable_total: {type: string, nullable: true, example: 4 hrs 12 mins}
+        human_readable_total_with_seconds: {type: string, nullable: true, example: 4 hrs 12 mins 5 secs}
+        is_authored_by_user: {type: boolean, example: true}
+        message: {type: string, example: Initial commit}
+        ref: {type: string, nullable: true, example: refs/heads/main}
+        total_seconds: {type: number, format: float, nullable: true, example: 4}
+        truncated_hash: {type: string, example: 9b8c4d2}
+        url: {type: string, format: uri, nullable: true, example: https://wakatime.com/@kinlane/projects/wakatime-cli}
+
+    Goal:
+      type: object
+      properties:
+        id: {type: string, example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c}
+        title: {type: string, example: Code 4 hrs a day}
+        type:
+          type: string
+          enum: [coding_activity, project, language]
+          example: coding_activity
+        delta:
+          type: string
+          enum: [day, week]
+          example: day
+        seconds: {type: integer, description: "Goal threshold in seconds.", example: 60}
+        status:
+          type: string
+          enum: [success, fail, pending, ignored]
+          example: success
+        cumulative_status:
+          type: string
+          example: example
+        languages:
+          type: array
+          items: {type: string}
+          example: *id013
+        projects:
+          type: array
+          items: {type: string}
+          example: *id014
+        editors:
+          type: array
+          items: {type: string}
+          example: *id015
+        is_enabled: {type: boolean, example: true}
+        is_inverse: {type: boolean, example: true}
+        is_snoozed: {type: boolean, example: true}
+        ignore_days:
+          type: array
+          items: {type: string}
+          example: *id016
+        modified_at: {type: string, format: date-time, example: '2026-05-30T12:34:56Z'}
+        created_at: {type: string, format: date-time, example: '2026-05-30T12:34:56Z'}
+        snooze_until: {type: string, format: date-time, nullable: true, example: '2026-05-30T12:34:56Z'}
+        chart_data:
+          type: array
+          items:
+            type: object
+            properties:
+              actual_seconds: {type: number, format: float}
+              actual_seconds_text: {type: string}
+              goal_seconds: {type: integer}
+              goal_seconds_text: {type: string}
+              range:
+                type: object
+                properties:
+                  date: {type: string, format: date}
+                  start: {type: string, format: date-time}
+                  end: {type: string, format: date-time}
+                  text: {type: string}
+                  timezone: {type: string}
+              range_status: {type: string}
+              range_status_reason: {type: string, nullable: true}
+              range_status_reason_short: {type: string, nullable: true}
+          example: *id017
+        average_status: {type: string, example: example}
+        owner:
+          type: object
+          properties:
+            id: {type: string}
+            display_name: {type: string}
+            email: {type: string, format: email, nullable: true}
+            photo: {type: string, format: uri}
+            username: {type: string, nullable: true}
+            full_name: {type: string, nullable: true}
+          example: *id018
+        shared_with:
+          type: array
+          items:
+            type: object
+            properties:
+              user_id: {type: string}
+              display_name: {type: string}
+              status: {type: string}
+              status_changed_at: {type: string, format: date-time}
+          example: *id019
+        subscribers:
+          type: array
+          items:
+            type: object
+            properties:
+              user_id: {type: string}
+              display_name: {type: string}
+              email_frequency: {type: string}
+          example: *id020
+
+    CustomRuleInput:
+      type: object
+      properties:
+        id: {type: string, nullable: true, example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c}
+        name: {type: string, example: WakaTime}
+        if_match:
+          type: object
+          additionalProperties: true
+          example: *id021
+        then_set:
+          type: object
+          additionalProperties: true
+
+          example: *id022
+    CustomRule:
+      allOf:
+      - $ref: '#/components/schemas/CustomRuleInput'
+      - type: object
+        properties:
+          created_at: {type: string, format: date-time, example: '2026-05-30T12:34:56Z'}
+          modified_at: {type: string, format: date-time, example: '2026-05-30T12:34:56Z'}
+
+    DataDump:
+      type: object
+      properties:
+        id: {type: string, example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c}
+        type:
+          type: string
+          enum: [heartbeats, daily]
+          example: heartbeats
+        status:
+          type: string
+          enum: [Pending..., Processing..., Completed, Failed]
+          example: Pending...
+        percent_complete: {type: integer, example: 1}
+        created_at: {type: string, format: date-time, example: '2026-05-30T12:34:56Z'}
+        download_url: {type: string, format: uri, nullable: true, example: https://wakatime.com/dumps/abc.json.gz}
+        expires: {type: string, format: date-time, nullable: true, example: '2026-05-30T12:34:56Z'}
+        has_failed: {type: boolean, example: true}
+        is_processing: {type: boolean, example: true}
+        is_stuck: {type: boolean, example: true}
+
+    LeaderEntry:
+      type: object
+      properties:
+        rank: {type: integer, example: 1}
+        running_total:
+          type: object
+          properties:
+            total_seconds: {type: number, format: float}
+            human_readable_total: {type: string}
+            daily_average: {type: number, format: float}
+            human_readable_daily_average: {type: string}
+            languages:
+              type: array
+              items:
+                type: object
+                properties:
+                  name: {type: string}
+                  total_seconds: {type: number, format: float}
+          example: *id026
+        user:
+          $ref: '#/components/schemas/User'

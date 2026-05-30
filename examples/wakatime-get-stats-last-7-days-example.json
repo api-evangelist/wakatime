@@ -1,0 +1,58 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://wakatime.com/api/v1/users/current/stats/last_7_days",
+    "headers": {
+      "Authorization": "Bearer waka_tok_abcdef012345"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "stats-5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c",
+        "user_id": "5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c",
+        "username": "kinlane",
+        "range": "last_7_days",
+        "start": "2026-05-23T07:00:00Z",
+        "end":   "2026-05-30T06:59:59Z",
+        "timezone": "America/Los_Angeles",
+        "status": "ok",
+        "is_up_to_date": true,
+        "percent_calculated": 100,
+        "timeout": 15,
+        "writes_only": false,
+        "days_including_holidays": 7,
+        "days_minus_holidays":     7,
+        "holidays":                0,
+        "total_seconds": 105864.15,
+        "total_seconds_including_other_language": 105864.15,
+        "daily_average": 15123.45,
+        "daily_average_including_other_language": 15123.45,
+        "human_readable_total":         "29 hrs 24 mins",
+        "human_readable_daily_average": "4 hrs 12 mins",
+        "best_day": {
+          "date": "2026-05-29",
+          "total_seconds": 21600.0,
+          "text": "6 hrs"
+        },
+        "languages": [
+          { "name": "Go",         "total_seconds": 56000.0, "percent": 52.90, "digital": "15:33", "text": "15 hrs 33 mins" },
+          { "name": "TypeScript", "total_seconds": 28000.0, "percent": 26.45, "digital": "7:46",  "text": "7 hrs 46 mins" },
+          { "name": "YAML",       "total_seconds": 21864.15,"percent": 20.65, "digital": "6:04",  "text": "6 hrs 4 mins"  }
+        ],
+        "projects": [
+          { "name": "wakatime-cli",       "total_seconds": 60000.0, "percent": 56.68 },
+          { "name": "api-evangelist",     "total_seconds": 30000.0, "percent": 28.34 },
+          { "name": "naftiko-sandboxes",  "total_seconds": 15864.15,"percent": 14.98 }
+        ],
+        "editors":           [{ "name": "VS Code", "total_seconds": 80000.0, "percent": 75.57 }, { "name": "IntelliJ", "total_seconds": 25864.15, "percent": 24.43 }],
+        "operating_systems": [{ "name": "Mac",     "total_seconds": 105864.15, "percent": 100.0 }],
+        "machines":          [{ "name": "kinlane-mbp", "total_seconds": 105864.15, "percent": 100.0 }],
+        "categories":        [{ "name": "coding",  "total_seconds": 85000.0, "percent": 80.29 }, { "name": "debugging", "total_seconds": 10000.0, "percent": 9.45 }, { "name": "ai coding", "total_seconds": 10864.15, "percent": 10.26 }],
+        "created_at":  "2026-05-30T07:00:00Z",
+        "modified_at": "2026-05-30T07:00:00Z"
+      }
+    }
+  }
+}

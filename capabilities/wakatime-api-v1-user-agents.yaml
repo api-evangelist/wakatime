@@ -1,0 +1,69 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WakaTime API — User Agents
+  description: 'WakaTime API — User Agents. 1 operations. Lead operation: List User Agents. Self-contained Naftiko capability covering one WakaTime business surface.'
+  tags:
+  - WakaTime
+  - Developer Productivity
+  - User Agents
+  created: '2026-05-30'
+  modified: '2026-05-30'
+binds:
+- namespace: env
+  keys:
+    WAKATIME_API_KEY: WAKATIME_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: wakatime-api-v1-user-agents
+    baseUri: https://wakatime.com/api/v1
+    description: WakaTime API — User Agents business capability. Self-contained, no shared references.
+    authentication:
+      type: basic
+      username: '{{env.WAKATIME_API_KEY}}'
+      password: ''
+    resources:
+    - name: users-current-user-agents
+      path: /users/current/user_agents
+      operations:
+      - name: listUserAgents
+        method: GET
+        description: List User Agents
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: wakatime-api-v1-user-agents-rest
+    port: 8080
+    description: REST adapter for WakaTime API — User Agents. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/users/current/user-agents
+      name: users-current-user-agents
+      description: REST surface for /users/current/user_agents.
+      operations:
+      - method: GET
+        name: listUserAgents
+        description: List User Agents
+        call: wakatime-api-v1-user-agents.listUserAgents
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: wakatime-api-v1-user-agents-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WakaTime API — User Agents. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: list-user-agents
+      description: List User Agents
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: true
+      call: wakatime-api-v1-user-agents.listUserAgents
+      outputParameters:
+      - type: object
+        mapping: $.

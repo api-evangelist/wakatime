@@ -1,0 +1,170 @@
+name: WakaTime Vocabulary
+description: >-
+  Domain vocabulary and taxonomy for the WakaTime API v1. Maps operational dimensions (heartbeats,
+  durations, summaries, stats, goals, leaderboards, org dashboards) and capability dimensions
+  (read vs write, personal vs org, public vs private, real-time vs aggregated) for use in
+  cross-API analysis and Naftiko capability authoring.
+provider: WakaTime
+modified: '2026-05-30'
+
+# ---------------------------------------------------------------------------
+# Core entities
+# ---------------------------------------------------------------------------
+entities:
+  - name: Heartbeat
+    description: Atomic coding event sent by an editor plugin. Carries entity (file/domain/app), project, branch, language, category, is_write flag, and timestamp.
+    schemaOrg: schema:CreativeWork
+  - name: Duration
+    description: Continuous time-on-task span derived from heartbeats once gaps exceed the user's keystroke timeout.
+  - name: ExternalDuration
+    description: Non-editor activity span pushed via the API (meetings, design tools, manual entries).
+  - name: Summary
+    description: Per-day aggregation of durations by project, language, editor, OS, machine, branch, dependency, category, and entity.
+  - name: Stats
+    description: User-wide aggregation across preset or custom date ranges (last_7_days, last_30_days, last_6_months, last_year, all_time).
+  - name: Insight
+    description: Curated analytics view (weekdays, days, projects, languages, editors, machines, operating_systems, AI days, best_day, daily_average).
+  - name: Project
+    description: Logical bucket of files, usually the git repo root. Heartbeats are attributed to a project.
+  - name: Commit
+    description: Per-project commit enriched with WakaTime coding-time totals.
+  - name: Goal
+    description: User-defined target (coding_activity / project / language) per day or per week with status tracking.
+  - name: CustomRule
+    description: User- or org-level rule that rewrites attributed project, language, category, or branch based on a match expression.
+  - name: DataDump
+    description: Full data export (heartbeats or daily summaries) requested by the user.
+  - name: Leader
+    description: Single entry on a (public or private) WakaTime leaderboard.
+  - name: PrivateLeaderboard
+    description: User-curated private leaderboard. Tier-limited by plan (5 for Basic, 50 for Premium, etc.).
+  - name: Organization
+    description: WakaTime team/business container of dashboards, members, and org custom rules.
+  - name: Dashboard
+    description: Organization-scoped view of member coding activity.
+  - name: Editor
+    description: WakaTime plugin (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, etc.).
+  - name: Language
+    description: Programming language recognised by the WakaTime CLI (sourced from GitHub Linguist).
+  - name: Machine
+    description: Device that emitted heartbeats (mapped by machine_name_id).
+  - name: UserAgent
+    description: Editor + OS combination tracked per heartbeat.
+  - name: Meta
+    description: WakaTime infrastructure metadata (IP ranges, etc.).
+
+# ---------------------------------------------------------------------------
+# Activity categories (heartbeat.category enum)
+# ---------------------------------------------------------------------------
+categories:
+  - coding
+  - building
+  - indexing
+  - debugging
+  - browsing
+  - running tests
+  - writing tests
+  - manual testing
+  - code reviewing
+  - designing
+  - communicating
+  - meeting
+  - learning
+  - researching
+  - writing docs
+  - ai coding
+
+# ---------------------------------------------------------------------------
+# Plans and entitlements
+# ---------------------------------------------------------------------------
+plans:
+  - id: free
+    label: Free
+    history: 1 week
+    goals: 1
+    privateLeaderboardSize: 0
+  - id: basic
+    label: Basic
+    monthly: 9
+    history: 2 weeks
+    goals: 3
+    privateLeaderboardSize: 5
+  - id: premium
+    label: Premium
+    monthly: 14
+    history: Unlimited
+    goals: Unlimited
+    privateLeaderboardSize: 50
+  - id: team
+    label: Team
+    monthly: 21
+    perDeveloper: true
+    maxDevelopers: 100
+    privateLeaderboardSize: 100
+  - id: business
+    label: Business
+    monthly: 24
+    perDeveloper: true
+    minDevelopers: 100
+    maxDevelopers: 1000
+    privateLeaderboardSize: 1000
+
+# ---------------------------------------------------------------------------
+# OAuth scopes
+# ---------------------------------------------------------------------------
+scopes:
+  - email
+  - read_summaries
+  - read_stats
+  - read_goals
+  - read_heartbeats
+  - write_heartbeats
+  - read_orgs
+  - write_orgs
+  - read_private_leaderboards
+  - write_private_leaderboards
+
+# ---------------------------------------------------------------------------
+# Capability axes — used when reasoning about which API to call
+# ---------------------------------------------------------------------------
+capabilityAxes:
+  - axis: direction
+    values: [read, write, delete]
+  - axis: scope
+    values: [personal, team, organization, public]
+  - axis: latency
+    values: [real-time, summarised, batched-export]
+  - axis: aggregation
+    values: [raw-heartbeat, daily-summary, range-stats, leaderboard-rank]
+  - axis: time-window
+    values: [today, last_7_days, last_30_days, last_6_months, last_year, all_time, custom-range]
+  - axis: subject
+    values: [user, project, language, editor, os, machine, branch, dependency, category]
+
+# ---------------------------------------------------------------------------
+# Common tag vocabulary applied across catalog
+# ---------------------------------------------------------------------------
+tags:
+  - Developer Productivity
+  - Developer Tools
+  - Time Tracking
+  - Coding Analytics
+  - Leaderboards
+  - IDE Plugins
+  - Heartbeats
+  - Summaries
+  - Stats
+  - Goals
+  - Org Dashboards
+  - OAuth 2.0
+  - Open Source
+
+# ---------------------------------------------------------------------------
+# Related projects / ecosystem
+# ---------------------------------------------------------------------------
+ecosystem:
+  cli: https://github.com/wakatime/wakatime-cli
+  selfHosted: https://github.com/muety/wakapi
+  legalDocs: https://github.com/wakatime/legal
+  publicLeaderboard: https://wakatime.com/leaders
+  embeddables: https://wakatime.com/share

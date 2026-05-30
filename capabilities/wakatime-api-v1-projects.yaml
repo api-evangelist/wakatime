@@ -1,0 +1,121 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WakaTime API — Projects
+  description: 'WakaTime API — Projects. 2 operations. Lead operation: List Projects. Self-contained Naftiko capability covering one WakaTime business surface.'
+  tags:
+  - WakaTime
+  - Developer Productivity
+  - Projects
+  created: '2026-05-30'
+  modified: '2026-05-30'
+binds:
+- namespace: env
+  keys:
+    WAKATIME_API_KEY: WAKATIME_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: wakatime-api-v1-projects
+    baseUri: https://wakatime.com/api/v1
+    description: WakaTime API — Projects business capability. Self-contained, no shared references.
+    authentication:
+      type: basic
+      username: '{{env.WAKATIME_API_KEY}}'
+      password: ''
+    resources:
+    - name: users-current-projects
+      path: /users/current/projects
+      operations:
+      - name: listProjects
+        method: GET
+        description: List Projects
+        inputParameters:
+        - name: q
+          in: query
+          type: string
+          required: false
+          description: Filter projects by name.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-current-projects-project
+      path: /users/current/projects/{project}
+      operations:
+      - name: getProject
+        method: GET
+        description: Get Project
+        inputParameters:
+        - name: project
+          in: path
+          type: string
+          required: true
+          description: Project name.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: wakatime-api-v1-projects-rest
+    port: 8080
+    description: REST adapter for WakaTime API — Projects. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/users/current/projects
+      name: users-current-projects
+      description: REST surface for /users/current/projects.
+      operations:
+      - method: GET
+        name: listProjects
+        description: List Projects
+        call: wakatime-api-v1-projects.listProjects
+        with:
+          q: rest.q
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/current/projects/{project}
+      name: users-current-projects-project
+      description: REST surface for /users/current/projects/{project}.
+      operations:
+      - method: GET
+        name: getProject
+        description: Get Project
+        call: wakatime-api-v1-projects.getProject
+        with:
+          project: rest.project
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: wakatime-api-v1-projects-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WakaTime API — Projects. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: list-projects
+      description: List Projects
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: true
+      call: wakatime-api-v1-projects.listProjects
+      with:
+        q: tools.q
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-project
+      description: Get Project
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: true
+      call: wakatime-api-v1-projects.getProject
+      with:
+        project: tools.project
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,100 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WakaTime API — Insights
+  description: 'WakaTime API — Insights. 1 operations. Lead operation: Get Insight. Self-contained Naftiko capability covering one WakaTime business surface.'
+  tags:
+  - WakaTime
+  - Developer Productivity
+  - Insights
+  created: '2026-05-30'
+  modified: '2026-05-30'
+binds:
+- namespace: env
+  keys:
+    WAKATIME_API_KEY: WAKATIME_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: wakatime-api-v1-insights
+    baseUri: https://wakatime.com/api/v1
+    description: WakaTime API — Insights business capability. Self-contained, no shared references.
+    authentication:
+      type: basic
+      username: '{{env.WAKATIME_API_KEY}}'
+      password: ''
+    resources:
+    - name: users-current-insights-insight-type-range
+      path: /users/current/insights/{insight_type}/{range}
+      operations:
+      - name: getInsight
+        method: GET
+        description: Get Insight
+        inputParameters:
+        - name: insight_type
+          in: path
+          type: string
+          required: true
+          description: The insight type.
+        - name: range
+          in: path
+          type: string
+          required: true
+          description: The range for the insight (e.g. last_7_days, last_year).
+        - name: timezone
+          in: query
+          type: string
+          required: false
+          description: Timezone to use (defaults to the user's profile timezone).
+        - name: writes_only
+          in: query
+          type: boolean
+          required: false
+          description: Whether to only include time editing (writing) files.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: wakatime-api-v1-insights-rest
+    port: 8080
+    description: REST adapter for WakaTime API — Insights. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/users/current/insights/{insight-type}/{range}
+      name: users-current-insights-insight-type-range
+      description: REST surface for /users/current/insights/{insight_type}/{range}.
+      operations:
+      - method: GET
+        name: getInsight
+        description: Get Insight
+        call: wakatime-api-v1-insights.getInsight
+        with:
+          insight_type: rest.insight_type
+          range: rest.range
+          timezone: rest.timezone
+          writes_only: rest.writes_only
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: wakatime-api-v1-insights-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WakaTime API — Insights. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: get-insight
+      description: Get Insight
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: true
+      call: wakatime-api-v1-insights.getInsight
+      with:
+        insight_type: tools.insight_type
+        range: tools.range
+        timezone: tools.timezone
+        writes_only: tools.writes_only
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,121 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WakaTime API — Durations
+  description: 'WakaTime API — Durations. 1 operations. Lead operation: List Durations. Self-contained Naftiko capability covering one WakaTime business surface.'
+  tags:
+  - WakaTime
+  - Developer Productivity
+  - Durations
+  created: '2026-05-30'
+  modified: '2026-05-30'
+binds:
+- namespace: env
+  keys:
+    WAKATIME_API_KEY: WAKATIME_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: wakatime-api-v1-durations
+    baseUri: https://wakatime.com/api/v1
+    description: WakaTime API — Durations business capability. Self-contained, no shared references.
+    authentication:
+      type: basic
+      username: '{{env.WAKATIME_API_KEY}}'
+      password: ''
+    resources:
+    - name: users-current-durations
+      path: /users/current/durations
+      operations:
+      - name: listDurations
+        method: GET
+        description: List Durations
+        inputParameters:
+        - name: date
+          in: query
+          type: string
+          required: true
+          description: Day to query (YYYY-MM-DD).
+        - name: project
+          in: query
+          type: string
+          required: false
+          description: Filter by project name.
+        - name: branches
+          in: query
+          type: string
+          required: false
+          description: Comma-separated list of git branches to include.
+        - name: timeout
+          in: query
+          type: integer
+          required: false
+          description: Keystroke timeout in minutes (defaults to user's account setting).
+        - name: writes_only
+          in: query
+          type: boolean
+          required: false
+          description: Whether to only include time editing (writing) files.
+        - name: timezone
+          in: query
+          type: string
+          required: false
+          description: Timezone to use (defaults to the user's profile timezone).
+        - name: slice_by
+          in: query
+          type: string
+          required: false
+          description: Slice durations by entity, language, dependencies, os, editor, category, or machine.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: wakatime-api-v1-durations-rest
+    port: 8080
+    description: REST adapter for WakaTime API — Durations. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/users/current/durations
+      name: users-current-durations
+      description: REST surface for /users/current/durations.
+      operations:
+      - method: GET
+        name: listDurations
+        description: List Durations
+        call: wakatime-api-v1-durations.listDurations
+        with:
+          date: rest.date
+          project: rest.project
+          branches: rest.branches
+          timeout: rest.timeout
+          writes_only: rest.writes_only
+          timezone: rest.timezone
+          slice_by: rest.slice_by
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: wakatime-api-v1-durations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WakaTime API — Durations. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: list-durations
+      description: List Durations
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: true
+      call: wakatime-api-v1-durations.listDurations
+      with:
+        date: tools.date
+        project: tools.project
+        branches: tools.branches
+        timeout: tools.timeout
+        writes_only: tools.writes_only
+        timezone: tools.timezone
+        slice_by: tools.slice_by
+      outputParameters:
+      - type: object
+        mapping: $.

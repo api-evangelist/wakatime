@@ -1,0 +1,191 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WakaTime API — Heartbeats
+  description: 'WakaTime API — Heartbeats. 4 operations. Lead operation: List Heartbeats. Self-contained Naftiko capability covering one WakaTime business surface.'
+  tags:
+  - WakaTime
+  - Developer Productivity
+  - Heartbeats
+  created: '2026-05-30'
+  modified: '2026-05-30'
+binds:
+- namespace: env
+  keys:
+    WAKATIME_API_KEY: WAKATIME_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: wakatime-api-v1-heartbeats
+    baseUri: https://wakatime.com/api/v1
+    description: WakaTime API — Heartbeats business capability. Self-contained, no shared references.
+    authentication:
+      type: basic
+      username: '{{env.WAKATIME_API_KEY}}'
+      password: ''
+    resources:
+    - name: users-current-heartbeats
+      path: /users/current/heartbeats
+      operations:
+      - name: listHeartbeats
+        method: GET
+        description: List Heartbeats
+        inputParameters:
+        - name: date
+          in: query
+          type: string
+          required: true
+          description: Day to query (YYYY-MM-DD).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createHeartbeat
+        method: POST
+        description: Create Heartbeat
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body payload.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-current-heartbeats-bulk
+      path: /users/current/heartbeats.bulk
+      operations:
+      - name: createHeartbeatsBulk
+        method: POST
+        description: Create Heartbeats Bulk
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body payload.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deleteHeartbeatsBulk
+        method: DELETE
+        description: Delete Heartbeats Bulk
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body payload.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: wakatime-api-v1-heartbeats-rest
+    port: 8080
+    description: REST adapter for WakaTime API — Heartbeats. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/users/current/heartbeats
+      name: users-current-heartbeats
+      description: REST surface for /users/current/heartbeats.
+      operations:
+      - method: GET
+        name: listHeartbeats
+        description: List Heartbeats
+        call: wakatime-api-v1-heartbeats.listHeartbeats
+        with:
+          date: rest.date
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createHeartbeat
+        description: Create Heartbeat
+        call: wakatime-api-v1-heartbeats.createHeartbeat
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/current/heartbeats-bulk
+      name: users-current-heartbeats-bulk
+      description: REST surface for /users/current/heartbeats.bulk.
+      operations:
+      - method: POST
+        name: createHeartbeatsBulk
+        description: Create Heartbeats Bulk
+        call: wakatime-api-v1-heartbeats.createHeartbeatsBulk
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteHeartbeatsBulk
+        description: Delete Heartbeats Bulk
+        call: wakatime-api-v1-heartbeats.deleteHeartbeatsBulk
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: wakatime-api-v1-heartbeats-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WakaTime API — Heartbeats. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: list-heartbeats
+      description: List Heartbeats
+      hints:
+        destructive: false
+        idempotent: true
+        readOnly: true
+      call: wakatime-api-v1-heartbeats.listHeartbeats
+      with:
+        date: tools.date
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-heartbeat
+      description: Create Heartbeat
+      hints:
+        destructive: false
+        idempotent: false
+        readOnly: false
+      call: wakatime-api-v1-heartbeats.createHeartbeat
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-heartbeats-bulk
+      description: Create Heartbeats Bulk
+      hints:
+        destructive: false
+        idempotent: false
+        readOnly: false
+      call: wakatime-api-v1-heartbeats.createHeartbeatsBulk
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-heartbeats-bulk
+      description: Delete Heartbeats Bulk
+      hints:
+        destructive: true
+        idempotent: true
+        readOnly: false
+      call: wakatime-api-v1-heartbeats.deleteHeartbeatsBulk
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

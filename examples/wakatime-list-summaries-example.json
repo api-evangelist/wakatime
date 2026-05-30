@@ -1,0 +1,72 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://wakatime.com/api/v1/users/current/summaries?start=2026-05-23&end=2026-05-29&timezone=America%2FLos_Angeles",
+    "headers": {
+      "Authorization": "Basic d2FrYV9zZWNyZXRfNTAwMTIzOg=="
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "grand_total": {
+            "hours": 4,
+            "minutes": 12,
+            "total_seconds": 15123.45,
+            "digital": "4:12",
+            "decimal": "4.20",
+            "text": "4 hrs 12 mins"
+          },
+          "categories": [
+            { "name": "coding",   "total_seconds": 12000.0, "percent": 79.34, "digital": "3:20", "decimal": "3.33", "text": "3 hrs 20 mins", "hours": 3, "minutes": 20 },
+            { "name": "debugging","total_seconds": 1800.0,  "percent": 11.90, "digital": "0:30", "decimal": "0.50", "text": "30 mins",       "hours": 0, "minutes": 30 },
+            { "name": "ai coding","total_seconds": 1323.45, "percent":  8.75, "digital": "0:22", "decimal": "0.37", "text": "22 mins",       "hours": 0, "minutes": 22 }
+          ],
+          "projects": [
+            { "name": "wakatime-cli",       "total_seconds": 9000.0, "percent": 59.51 },
+            { "name": "api-evangelist",     "total_seconds": 4123.45, "percent": 27.27 },
+            { "name": "naftiko-sandboxes",  "total_seconds": 2000.0, "percent": 13.22 }
+          ],
+          "languages": [
+            { "name": "Go",         "total_seconds": 8000.0, "percent": 52.90 },
+            { "name": "TypeScript", "total_seconds": 4000.0, "percent": 26.45 },
+            { "name": "YAML",       "total_seconds": 3123.45, "percent": 20.65 }
+          ],
+          "editors": [
+            { "name": "VS Code",    "total_seconds": 11000.0, "percent": 72.73 },
+            { "name": "IntelliJ",   "total_seconds": 4123.45, "percent": 27.27 }
+          ],
+          "operating_systems": [
+            { "name": "Mac",   "total_seconds": 15123.45, "percent": 100.0 }
+          ],
+          "range": {
+            "date":  "2026-05-29",
+            "start": "2026-05-29T07:00:00Z",
+            "end":   "2026-05-30T06:59:59Z",
+            "text":  "Friday May 29 2026",
+            "timezone": "America/Los_Angeles"
+          }
+        }
+      ],
+      "cumulative_total": {
+        "seconds": 105864.15,
+        "text":    "29 hrs 24 mins",
+        "decimal": "29.41",
+        "digital": "29:24"
+      },
+      "daily_average": {
+        "holidays":                 0,
+        "days_minus_holidays":      7,
+        "days_including_holidays":  7,
+        "seconds":                  15123.45,
+        "seconds_including_other_language": 15123.45,
+        "text":                     "4 hrs 12 mins",
+        "text_including_other_language": "4 hrs 12 mins"
+      },
+      "start": "2026-05-23",
+      "end":   "2026-05-29"
+    }
+  }
+}

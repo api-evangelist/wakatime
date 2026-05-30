@@ -1,0 +1,46 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://wakatime.com/api/v1/leaders?language=Go&country_code=US&page=1"
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "current_user": {
+        "rank": 1234,
+        "page": 13
+      },
+      "language": "Go",
+      "modified_at": "2026-05-30T07:00:00Z",
+      "page": 1,
+      "total_pages": 200,
+      "range": {
+        "start_date": "2026-05-23",
+        "end_date":   "2026-05-29",
+        "name":       "last_7_days",
+        "text":       "Last 7 Days"
+      },
+      "data": [
+        {
+          "rank": 1,
+          "running_total": {
+            "total_seconds": 432000.0,
+            "human_readable_total": "120 hrs",
+            "daily_average": 61714.29,
+            "human_readable_daily_average": "17 hrs 8 mins",
+            "languages": [
+              { "name": "Go", "total_seconds": 432000.0 }
+            ]
+          },
+          "user": {
+            "id": "user-001",
+            "display_name": "Top Coder",
+            "username": "topcoder",
+            "photo": "https://wakatime.com/photo/user-001",
+            "city": { "name": "San Francisco", "country_code": "US" }
+          }
+        }
+      ]
+    }
+  }
+}
