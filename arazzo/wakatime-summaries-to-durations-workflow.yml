@@ -1,0 +1,102 @@
+arazzo: 1.0.1
+info:
+  title: WakaTime Summaries To Durations Drilldown
+  summary: Pull daily summaries over a date range, then drill into a single day's activity durations.
+  description: >-
+    Provides a coarse-to-fine view of coding activity. It first requests daily
+    summaries between a start and end date, then drills into a single day by
+    requesting the heartbeat-derived activity durations for that date. The
+    duration step is only taken when the summaries response actually contains
+    data. Every step spells out its request inline, including HTTP Basic
+    authentication with the WakaTime API key as the username, so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: wakatimeApi
+  url: ../openapi/wakatime-api-v1-openapi.yml
+  type: openapi
+workflows:
+- workflowId: summaries-to-durations
+  summary: Fetch daily summaries for a range, then the durations for a chosen day.
+  description: >-
+    Loads daily summaries across the supplied date range and, when summaries are
+    present, drills into the durations for the chosen day.
+  inputs:
+    type: object
+    required:
+    - apiKeyBasicAuth
+    - start
+    - end
+    - date
+    properties:
+      apiKeyBasicAuth:
+        type: string
+        description: Base64 of "<api_key>:" for HTTP Basic auth (WakaTime API key as username).
+      start:
+        type: string
+        description: Start date (YYYY-MM-DD) inclusive for the summaries range.
+      end:
+        type: string
+        description: End date (YYYY-MM-DD) inclusive for the summaries range.
+      date:
+        type: string
+        description: The single day (YYYY-MM-DD) to drill into for durations.
+      project:
+        type: string
+        description: Optional project name filter for the durations drilldown.
+  steps:
+  - stepId: listSummaries
+    description: Request daily coding-activity summaries between the start and end dates.
+    operationId: listSummaries
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    - name: start
+      in: query
+      value: $inputs.start
+    - name: end
+      in: query
+      value: $inputs.end
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      summaries: $response.body#/data
+      cumulativeTotal: $response.body#/cumulative_total
+      dailyAverage: $response.body#/daily_average
+    onSuccess:
+    - name: hasSummaries
+      type: goto
+      stepId: listDurations
+      criteria:
+      - context: $response.body
+        condition: $.data.length > 0
+        type: jsonpath
+    - name: noSummaries
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.data.length == 0
+        type: jsonpath
+  - stepId: listDurations
+    description: Drill into the heartbeat-derived activity durations for the chosen day.
+    operationId: listDurations
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    - name: date
+      in: query
+      value: $inputs.date
+    - name: project
+      in: query
+      value: $inputs.project
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      durations: $response.body#/data
+      firstDurationProject: $response.body#/data/0/project
+  outputs:
+    summaries: $steps.listSummaries.outputs.summaries
+    cumulativeTotal: $steps.listSummaries.outputs.cumulativeTotal
+    durations: $steps.listDurations.outputs.durations

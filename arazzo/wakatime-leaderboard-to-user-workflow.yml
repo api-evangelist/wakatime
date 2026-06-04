@@ -1,0 +1,105 @@
+arazzo: 1.0.1
+info:
+  title: WakaTime Leaderboard To User
+  summary: Read the public leaderboard, resolve the top leader's public profile, and their all-time totals.
+  description: >-
+    Explores the public WakaTime leaderboard and then pivots to the top-ranked
+    coder. It reads the public leaders list, extracts the username embedded in
+    the first leader entry, loads that user's public profile, and fetches their
+    all-time-since-today totals. The profile and totals steps are only taken
+    when the leaderboard returns at least one entry. Every step spells out its
+    request inline, including HTTP Basic authentication with the WakaTime API
+    key as the username, so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: wakatimeApi
+  url: ../openapi/wakatime-api-v1-openapi.yml
+  type: openapi
+workflows:
+- workflowId: leaderboard-to-user
+  summary: Find the top public leader, then load their profile and all-time totals.
+  description: >-
+    Reads the public leaderboard, resolves the top leader's username, and
+    enriches it with the public profile and all-time-since-today totals.
+  inputs:
+    type: object
+    required:
+    - apiKeyBasicAuth
+    properties:
+      apiKeyBasicAuth:
+        type: string
+        description: Base64 of "<api_key>:" for HTTP Basic auth (WakaTime API key as username).
+      language:
+        type: string
+        description: Optional programming-language filter for the leaderboard.
+      countryCode:
+        type: string
+        description: Optional ISO country-code filter for the leaderboard.
+  steps:
+  - stepId: listLeaders
+    description: Read the public WakaTime leaderboard, optionally filtered by language or country.
+    operationId: listLeaders
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    - name: language
+      in: query
+      value: $inputs.language
+    - name: country_code
+      in: query
+      value: $inputs.countryCode
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      leaders: $response.body#/data
+      topUsername: $response.body#/data/0/user/username
+    onSuccess:
+    - name: hasLeaders
+      type: goto
+      stepId: getUser
+      criteria:
+      - context: $response.body
+        condition: $.data.length > 0
+        type: jsonpath
+    - name: noLeaders
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.data.length == 0
+        type: jsonpath
+  - stepId: getUser
+    description: Load the public profile for the top-ranked leader.
+    operationId: getUser
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    - name: user
+      in: path
+      value: $steps.listLeaders.outputs.topUsername
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      displayName: $response.body#/data/display_name
+      website: $response.body#/data/website
+  - stepId: getAllTime
+    description: Fetch the top leader's all-time-since-today coding totals.
+    operationId: getAllTimeSinceToday
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    - name: user
+      in: path
+      value: $steps.listLeaders.outputs.topUsername
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      allTimeText: $response.body#/data/text
+  outputs:
+    leaders: $steps.listLeaders.outputs.leaders
+    topUsername: $steps.listLeaders.outputs.topUsername
+    displayName: $steps.getUser.outputs.displayName
+    allTimeText: $steps.getAllTime.outputs.allTimeText

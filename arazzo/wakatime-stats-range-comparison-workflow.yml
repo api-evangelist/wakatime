@@ -1,0 +1,90 @@
+arazzo: 1.0.1
+info:
+  title: WakaTime Stats Range Comparison
+  summary: Compare a preset named-range stat set against a custom-range stat set and the global aggregate.
+  description: >-
+    Compares the authenticated user's coding stats across two lenses and then
+    against the community. It loads stats for a preset named range, loads stats
+    for a custom range value, and finally loads the aggregated stats across all
+    WakaTime users for the same range. Because the stats endpoints may answer
+    202 while WakaTime calculates, each step documents both the ready and
+    calculating status codes. Every step spells out its request inline,
+    including HTTP Basic authentication with the WakaTime API key as the
+    username, so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: wakatimeApi
+  url: ../openapi/wakatime-api-v1-openapi.yml
+  type: openapi
+workflows:
+- workflowId: stats-range-comparison
+  summary: Named-range stats, custom-range stats, and the global aggregate side by side.
+  description: >-
+    Loads preset-range stats, custom-range stats, and the all-users aggregate so
+    the same range can be compared across personal and community views.
+  inputs:
+    type: object
+    required:
+    - apiKeyBasicAuth
+    - namedRange
+    - customRange
+    properties:
+      apiKeyBasicAuth:
+        type: string
+        description: Base64 of "<api_key>:" for HTTP Basic auth (WakaTime API key as username).
+      namedRange:
+        type: string
+        description: Preset range path value (last_7_days, last_30_days, last_6_months, last_year, all_time).
+      customRange:
+        type: string
+        description: Range query value for the custom-range stats and aggregate requests.
+  steps:
+  - stepId: getStatsByRange
+    description: Load personal coding stats for the preset named range.
+    operationId: getStatsByRange
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    - name: range
+      in: path
+      value: $inputs.namedRange
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      namedTotal: $response.body#/data/human_readable_total
+      namedLanguages: $response.body#/data/languages
+  - stepId: getStatsForRange
+    description: Load personal coding stats for the custom range value.
+    operationId: getStatsForRange
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    - name: range
+      in: query
+      value: $inputs.customRange
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      customTotal: $response.body#/data/human_readable_total
+      customDailyAverage: $response.body#/data/human_readable_daily_average
+  - stepId: getStatsAggregated
+    description: Load aggregated coding stats across all WakaTime users for the same range.
+    operationId: getStatsAggregated
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    - name: range
+      in: query
+      value: $inputs.customRange
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      aggregate: $response.body
+  outputs:
+    namedTotal: $steps.getStatsByRange.outputs.namedTotal
+    customTotal: $steps.getStatsForRange.outputs.customTotal
+    aggregate: $steps.getStatsAggregated.outputs.aggregate

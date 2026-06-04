@@ -1,0 +1,112 @@
+arazzo: 1.0.1
+info:
+  title: WakaTime Send Heartbeat And Verify
+  summary: Send a single editor heartbeat, then list the day's heartbeats to confirm it landed.
+  description: >-
+    Emulates what an editor plugin does and then verifies the result. It posts a
+    single heartbeat describing editor activity and branches on the response:
+    when the heartbeat is stored synchronously it is returned immediately, and
+    when it is accepted for asynchronous processing the workflow lists the day's
+    heartbeats to confirm the activity was recorded. Every step spells out its
+    request inline, including HTTP Basic authentication with the WakaTime API
+    key as the username, so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: wakatimeApi
+  url: ../openapi/wakatime-api-v1-openapi.yml
+  type: openapi
+workflows:
+- workflowId: send-heartbeat-and-verify
+  summary: Post one heartbeat, then read back the day's heartbeats to verify it.
+  description: >-
+    Sends a single editor heartbeat and, when it is accepted asynchronously,
+    lists the day's heartbeats to confirm the activity was recorded.
+  inputs:
+    type: object
+    required:
+    - apiKeyBasicAuth
+    - entity
+    - time
+    - date
+    properties:
+      apiKeyBasicAuth:
+        type: string
+        description: Base64 of "<api_key>:" for HTTP Basic auth (WakaTime API key as username).
+      entity:
+        type: string
+        description: The file path or entity the activity is attributed to.
+      type:
+        type: string
+        description: The heartbeat entity type (e.g. file).
+        default: file
+      category:
+        type: string
+        description: The activity category (e.g. coding).
+        default: coding
+      time:
+        type: number
+        description: UNIX epoch timestamp of the heartbeat.
+      project:
+        type: string
+        description: Optional project name for the heartbeat.
+      language:
+        type: string
+        description: Optional language for the heartbeat.
+      isWrite:
+        type: boolean
+        description: Whether the heartbeat represents a write/save.
+        default: true
+      date:
+        type: string
+        description: The day (YYYY-MM-DD) used to verify the heartbeat landed.
+  steps:
+  - stepId: createHeartbeat
+    description: Post a single heartbeat describing editor activity.
+    operationId: createHeartbeat
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    requestBody:
+      contentType: application/json
+      payload:
+        entity: $inputs.entity
+        type: $inputs.type
+        category: $inputs.category
+        time: $inputs.time
+        project: $inputs.project
+        language: $inputs.language
+        is_write: $inputs.isWrite
+    successCriteria:
+    - condition: $statusCode == 201 || $statusCode == 202
+    outputs:
+      heartbeatId: $response.body#/data/id
+    onSuccess:
+    - name: storedSynchronously
+      type: end
+      criteria:
+      - condition: $statusCode == 201
+    - name: acceptedAsync
+      type: goto
+      stepId: verifyHeartbeats
+      criteria:
+      - condition: $statusCode == 202
+  - stepId: verifyHeartbeats
+    description: List the day's heartbeats to confirm the posted activity was recorded.
+    operationId: listHeartbeats
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    - name: date
+      in: query
+      value: $inputs.date
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      heartbeats: $response.body#/data
+      count: $response.body#/data/0/id
+  outputs:
+    heartbeatId: $steps.createHeartbeat.outputs.heartbeatId
+    heartbeats: $steps.verifyHeartbeats.outputs.heartbeats

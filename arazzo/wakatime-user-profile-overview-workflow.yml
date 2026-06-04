@@ -1,0 +1,93 @@
+arazzo: 1.0.1
+info:
+  title: WakaTime User Profile Overview
+  summary: Assemble a snapshot of the authenticated user's profile, all-time totals, recent stats, and projects.
+  description: >-
+    Builds a complete at-a-glance picture of the authenticated WakaTime user by
+    chaining four read operations: it loads the current user profile, fetches
+    the all-time-since-today totals, pulls preset-range coding stats, and lists
+    the projects the user has logged time against. Every step spells out its
+    request inline, including HTTP Basic authentication with the WakaTime API
+    key as the username, so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: wakatimeApi
+  url: ../openapi/wakatime-api-v1-openapi.yml
+  type: openapi
+workflows:
+- workflowId: user-profile-overview
+  summary: Load the current user, their all-time totals, range stats, and project list.
+  description: >-
+    Resolves the authenticated user, then enriches that identity with all-time
+    coding totals, stats for a preset named range, and the full project list.
+  inputs:
+    type: object
+    required:
+    - apiKeyBasicAuth
+    properties:
+      apiKeyBasicAuth:
+        type: string
+        description: Base64 of "<api_key>:" for HTTP Basic auth (WakaTime API key as username).
+      range:
+        type: string
+        description: Preset stats range (last_7_days, last_30_days, last_6_months, last_year, all_time).
+        default: last_7_days
+  steps:
+  - stepId: getCurrentUser
+    description: Load the authenticated user's profile to confirm identity and capture the username.
+    operationId: getCurrentUser
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      userId: $response.body#/data/id
+      username: $response.body#/data/username
+      lastProject: $response.body#/data/last_project
+  - stepId: getAllTime
+    description: Fetch the total coding activity the user has logged since account creation up to today.
+    operationId: getAllTimeSinceTodayCurrent
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      allTimeText: $response.body#/data/text
+      allTimeSeconds: $response.body#/data/total_seconds
+  - stepId: getStats
+    description: Pull coding stats for the requested preset named range.
+    operationId: getStatsByRange
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    - name: range
+      in: path
+      value: $inputs.range
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      humanReadableTotal: $response.body#/data/human_readable_total
+      dailyAverage: $response.body#/data/human_readable_daily_average
+  - stepId: listProjects
+    description: List the projects the authenticated user has logged time against.
+    operationId: listProjects
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      projects: $response.body#/data
+      firstProjectName: $response.body#/data/0/name
+  outputs:
+    username: $steps.getCurrentUser.outputs.username
+    allTimeText: $steps.getAllTime.outputs.allTimeText
+    humanReadableTotal: $steps.getStats.outputs.humanReadableTotal
+    projects: $steps.listProjects.outputs.projects

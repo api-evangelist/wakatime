@@ -1,0 +1,84 @@
+arazzo: 1.0.1
+info:
+  title: WakaTime Private Leaderboard Rankings
+  summary: List the user's private leaderboards, load one board's rankings, then resolve the top member.
+  description: >-
+    Inspects a private (team) leaderboard end to end. It lists the authenticated
+    user's private leaderboards, loads the rankings for a chosen board, and then
+    resolves the public profile of the top-ranked member. The ranking and member
+    steps are taken in sequence so a team lead can see who is on top and look
+    them up. Every step spells out its request inline, including HTTP Basic
+    authentication with the WakaTime API key as the username, so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: wakatimeApi
+  url: ../openapi/wakatime-api-v1-openapi.yml
+  type: openapi
+workflows:
+- workflowId: private-leaderboard-rankings
+  summary: List private leaderboards, load one board's rankings, resolve the top member.
+  description: >-
+    Lists the user's private leaderboards, loads the rankings for the supplied
+    board id, and looks up the top-ranked member's public profile.
+  inputs:
+    type: object
+    required:
+    - apiKeyBasicAuth
+    - leaderboardId
+    - topMemberUsername
+    properties:
+      apiKeyBasicAuth:
+        type: string
+        description: Base64 of "<api_key>:" for HTTP Basic auth (WakaTime API key as username).
+      leaderboardId:
+        type: string
+        description: The private leaderboard id whose rankings to load.
+      topMemberUsername:
+        type: string
+        description: Username of the member to resolve a public profile for after viewing rankings.
+  steps:
+  - stepId: listPrivateLeaderboards
+    description: List the authenticated user's private leaderboards.
+    operationId: listPrivateLeaderboards
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      leaderboards: $response.body
+  - stepId: listPrivateLeaderboardLeaders
+    description: Load the rankings for the chosen private leaderboard.
+    operationId: listPrivateLeaderboardLeaders
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    - name: id
+      in: path
+      value: $inputs.leaderboardId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      rankings: $response.body
+  - stepId: getUser
+    description: Resolve the public profile for the named top member.
+    operationId: getUser
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    - name: user
+      in: path
+      value: $inputs.topMemberUsername
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      displayName: $response.body#/data/display_name
+      lastProject: $response.body#/data/last_project
+  outputs:
+    leaderboards: $steps.listPrivateLeaderboards.outputs.leaderboards
+    rankings: $steps.listPrivateLeaderboardLeaders.outputs.rankings
+    displayName: $steps.getUser.outputs.displayName

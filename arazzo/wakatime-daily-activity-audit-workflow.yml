@@ -1,0 +1,81 @@
+arazzo: 1.0.1
+info:
+  title: WakaTime Daily Activity Audit
+  summary: Pull the status-bar today snapshot, then the day's raw heartbeats and computed durations.
+  description: >-
+    Audits a single day's coding activity at three levels of granularity. It
+    pulls the cached status-bar today snapshot, lists the raw heartbeats for the
+    chosen date, and lists the heartbeat-derived activity durations for the same
+    date. Together these reveal both the raw editor signals and the computed
+    durations behind a day's totals. Every step spells out its request inline,
+    including HTTP Basic authentication with the WakaTime API key as the
+    username, so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: wakatimeApi
+  url: ../openapi/wakatime-api-v1-openapi.yml
+  type: openapi
+workflows:
+- workflowId: daily-activity-audit
+  summary: Status-bar snapshot, then raw heartbeats and durations for one day.
+  description: >-
+    Loads the today status-bar snapshot and then the raw heartbeats and computed
+    durations for the supplied date.
+  inputs:
+    type: object
+    required:
+    - apiKeyBasicAuth
+    - date
+    properties:
+      apiKeyBasicAuth:
+        type: string
+        description: Base64 of "<api_key>:" for HTTP Basic auth (WakaTime API key as username).
+      date:
+        type: string
+        description: The day (YYYY-MM-DD) to audit heartbeats and durations for.
+  steps:
+  - stepId: getStatusBar
+    description: Pull the cached today-only status-bar stats payload.
+    operationId: getStatusBar
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      statusBar: $response.body
+  - stepId: listHeartbeats
+    description: List the raw heartbeats for the chosen day.
+    operationId: listHeartbeats
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    - name: date
+      in: query
+      value: $inputs.date
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      heartbeats: $response.body#/data
+      firstHeartbeatProject: $response.body#/data/0/project
+  - stepId: listDurations
+    description: List the heartbeat-derived activity durations for the same day.
+    operationId: listDurations
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    - name: date
+      in: query
+      value: $inputs.date
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      durations: $response.body#/data
+  outputs:
+    statusBar: $steps.getStatusBar.outputs.statusBar
+    heartbeats: $steps.listHeartbeats.outputs.heartbeats
+    durations: $steps.listDurations.outputs.durations

@@ -155,6 +155,39 @@ apis:
         url: https://wakatime.com/share
 
 common:
+  - type: ArazzoWorkflows
+    url: arazzo/
+    workflows:
+    - url: arazzo/wakatime-daily-activity-audit-workflow.yml
+      name: WakaTime Daily Activity Audit
+      summary: Pull the status-bar today snapshot, then the day's raw heartbeats and computed durations.
+    - url: arazzo/wakatime-data-dump-export-workflow.yml
+      name: WakaTime Data Dump Export
+      summary: Check for existing data exports, create a new dump when none exist, then re-list to confirm.
+    - url: arazzo/wakatime-goals-review-workflow.yml
+      name: WakaTime Goals Review
+      summary: List the user's coding goals, then load the detailed progress for the first goal.
+    - url: arazzo/wakatime-leaderboard-to-user-workflow.yml
+      name: WakaTime Leaderboard To User
+      summary: Read the public leaderboard, resolve the top leader's public profile, and their all-time totals.
+    - url: arazzo/wakatime-private-leaderboard-rankings-workflow.yml
+      name: WakaTime Private Leaderboard Rankings
+      summary: List the user's private leaderboards, load one board's rankings, then resolve the top member.
+    - url: arazzo/wakatime-project-deep-dive-workflow.yml
+      name: WakaTime Project Deep Dive
+      summary: Resolve the current user, load a project's details, list its commits, then fetch one commit.
+    - url: arazzo/wakatime-send-heartbeat-and-verify-workflow.yml
+      name: WakaTime Send Heartbeat And Verify
+      summary: Send a single editor heartbeat, then list the day's heartbeats to confirm it landed.
+    - url: arazzo/wakatime-stats-range-comparison-workflow.yml
+      name: WakaTime Stats Range Comparison
+      summary: Compare a preset named-range stat set against a custom-range stat set and the global aggregate.
+    - url: arazzo/wakatime-summaries-to-durations-workflow.yml
+      name: WakaTime Summaries To Durations Drilldown
+      summary: Pull daily summaries over a date range, then drill into a single day's activity durations.
+    - url: arazzo/wakatime-user-profile-overview-workflow.yml
+      name: WakaTime User Profile Overview
+      summary: Assemble a snapshot of the authenticated user's profile, all-time totals, recent stats, and projects.
   - type: Plans
     url: plans/wakatime-plans-pricing.yml
   - type: RateLimits

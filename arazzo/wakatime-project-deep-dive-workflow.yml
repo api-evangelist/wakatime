@@ -1,0 +1,121 @@
+arazzo: 1.0.1
+info:
+  title: WakaTime Project Deep Dive
+  summary: Resolve the current user, load a project's details, list its commits, then fetch one commit.
+  description: >-
+    Performs a top-down investigation of a single project. It confirms the
+    authenticated user, loads the project's detail record, lists the commits for
+    that project enriched with coding-time totals, and then fetches the full
+    detail for the first commit returned. The commit-detail step is only taken
+    when the project has at least one commit. Every step spells out its request
+    inline, including HTTP Basic authentication with the WakaTime API key as the
+    username, so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: wakatimeApi
+  url: ../openapi/wakatime-api-v1-openapi.yml
+  type: openapi
+workflows:
+- workflowId: project-deep-dive
+  summary: Load a project, list its commits, and fetch the first commit's detail.
+  description: >-
+    Confirms identity, loads project details, lists project commits, and drills
+    into the first commit when one exists.
+  inputs:
+    type: object
+    required:
+    - apiKeyBasicAuth
+    - project
+    properties:
+      apiKeyBasicAuth:
+        type: string
+        description: Base64 of "<api_key>:" for HTTP Basic auth (WakaTime API key as username).
+      project:
+        type: string
+        description: The project name (or url-encoded name) to investigate.
+      author:
+        type: string
+        description: Optional commit author filter.
+  steps:
+  - stepId: getCurrentUser
+    description: Confirm the authenticated user before reading project data.
+    operationId: getCurrentUser
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      username: $response.body#/data/username
+  - stepId: getProject
+    description: Load the detail record for the requested project.
+    operationId: getProject
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    - name: project
+      in: path
+      value: $inputs.project
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      projectId: $response.body#/data/id
+      projectName: $response.body#/data/name
+      repository: $response.body#/data/repository
+  - stepId: listProjectCommits
+    description: List the commits for the project, each enriched with coding-time totals.
+    operationId: listProjectCommits
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    - name: project
+      in: path
+      value: $inputs.project
+    - name: author
+      in: query
+      value: $inputs.author
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      commits: $response.body#/data
+      firstCommitHash: $response.body#/data/0/hash
+    onSuccess:
+    - name: hasCommits
+      type: goto
+      stepId: getProjectCommit
+      criteria:
+      - context: $response.body
+        condition: $.data.length > 0
+        type: jsonpath
+    - name: noCommits
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.data.length == 0
+        type: jsonpath
+  - stepId: getProjectCommit
+    description: Fetch the full detail for the first commit returned for the project.
+    operationId: getProjectCommit
+    parameters:
+    - name: Authorization
+      in: header
+      value: Basic $inputs.apiKeyBasicAuth
+    - name: project
+      in: path
+      value: $inputs.project
+    - name: hash
+      in: path
+      value: $steps.listProjectCommits.outputs.firstCommitHash
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      commitMessage: $response.body#/data/message
+      commitTotal: $response.body#/data/human_readable_total
+  outputs:
+    projectName: $steps.getProject.outputs.projectName
+    commits: $steps.listProjectCommits.outputs.commits
+    commitMessage: $steps.getProjectCommit.outputs.commitMessage
