@@ -1,0 +1,5490 @@
+{
+  "item": [
+    {
+      "id": "6934b5d4-ac85-41f5-ade4-3e4f0dbac35d",
+      "name": "Users",
+      "description": {
+        "content": "Authenticated user profile and public user lookups.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c82a1583-de3e-4b60-b32a-1786b1bbdff2",
+          "name": "Get Current User",
+          "request": {
+            "name": "Get Current User",
+            "description": {
+              "content": "Returns the authenticated user's profile.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "email read_summaries read_stats read_goals read_heartbeats write_heartbeats read_orgs write_orgs"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://wakatime.com/oauth/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://wakatime.com/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://wakatime.com/oauth/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7735367c-6bd4-4ee7-b938-f8ed373bbad7",
+              "name": "The authenticated user.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"username\": \"kinlane\",\n    \"display_name\": \"Kin Lane\",\n    \"full_name\": \"Kin Lane\",\n    \"email\": \"support@example.com\",\n    \"photo\": \"https://wakatime.com/photo/5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"photo_public\": true,\n    \"is_email_public\": true,\n    \"is_email_confirmed\": true,\n    \"timezone\": \"America/Los_Angeles\",\n    \"last_heartbeat_at\": \"2026-05-30T12:34:56Z\",\n    \"last_plugin\": \"vscode-wakatime/24.0.0 vscode-wakatime/24.0.0\",\n    \"last_plugin_name\": \"vscode\",\n    \"last_project\": \"wakatime-cli\",\n    \"plan\": \"free\",\n    \"bio\": \"Founder of API Evangelist.\",\n    \"location\": \"Hermosa Beach, CA\",\n    \"languages_used_public\": true,\n    \"logged_time_public\": true,\n    \"website\": \"https://wakatime.com\",\n    \"human_readable_website\": \"wakatime.com\",\n    \"wonderfuldev_username\": \"kinlane\",\n    \"github_username\": \"kinlane\",\n    \"twitter_username\": \"kinlane\",\n    \"linkedin_username\": \"kinlane\",\n    \"created_at\": \"2026-05-30T12:34:56Z\",\n    \"modified_at\": \"2026-05-30T12:34:56Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d0907813-fe70-420b-bbfd-6653012a7f25",
+          "name": "Get User",
+          "request": {
+            "name": "Get User",
+            "description": {
+              "content": "Returns the public profile for the given user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "user",
+                  "description": "(Required) User id, username, or \"current\"."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "18593501-7f45-4dae-8a33-6b0b5fc4b5b7",
+              "name": "The requested user's public profile.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user",
+                      "description": "(Required) User id, username, or \"current\"."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"username\": \"kinlane\",\n    \"display_name\": \"Kin Lane\",\n    \"full_name\": \"Kin Lane\",\n    \"email\": \"support@example.com\",\n    \"photo\": \"https://wakatime.com/photo/5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"photo_public\": true,\n    \"is_email_public\": true,\n    \"is_email_confirmed\": true,\n    \"timezone\": \"America/Los_Angeles\",\n    \"last_heartbeat_at\": \"2026-05-30T12:34:56Z\",\n    \"last_plugin\": \"vscode-wakatime/24.0.0 vscode-wakatime/24.0.0\",\n    \"last_plugin_name\": \"vscode\",\n    \"last_project\": \"wakatime-cli\",\n    \"plan\": \"free\",\n    \"bio\": \"Founder of API Evangelist.\",\n    \"location\": \"Hermosa Beach, CA\",\n    \"languages_used_public\": true,\n    \"logged_time_public\": true,\n    \"website\": \"https://wakatime.com\",\n    \"human_readable_website\": \"wakatime.com\",\n    \"wonderfuldev_username\": \"kinlane\",\n    \"github_username\": \"kinlane\",\n    \"twitter_username\": \"kinlane\",\n    \"linkedin_username\": \"kinlane\",\n    \"created_at\": \"2026-05-30T12:34:56Z\",\n    \"modified_at\": \"2026-05-30T12:34:56Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "f9c01842-f629-40a7-9cd1-2f1a52de9b8e",
+      "name": "Heartbeats",
+      "description": {
+        "content": "Coding-activity pings sent by editor plugins.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "81aa6a1a-914f-4405-ad0c-25f2b277ece5",
+          "name": "List Heartbeats",
+          "request": {
+            "name": "List Heartbeats",
+            "description": {
+              "content": "Returns the authenticated user's heartbeats for a given day.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "heartbeats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "(Required) Day to query (YYYY-MM-DD)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "41dd4017-61de-4eae-9a24-c01f8da314fc",
+              "name": "A list of heartbeats for the day.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "heartbeats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "2026-05-30"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"entity\": \"/Users/kin/code/wakatime-cli/main.go\",\n      \"type\": \"file\",\n      \"category\": \"coding\",\n      \"time\": 1,\n      \"project\": \"wakatime-cli\",\n      \"project_root_count\": 4,\n      \"branch\": \"main\",\n      \"language\": \"Python\",\n      \"dependencies\": [\n        \"example\"\n      ],\n      \"lines\": 1,\n      \"line_additions\": 1,\n      \"line_deletions\": 1,\n      \"lineno\": 1,\n      \"cursorpos\": 1,\n      \"is_write\": true,\n      \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n      \"user_id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n      \"created_at\": \"2026-05-30T12:34:56Z\",\n      \"modified_at\": \"2026-05-30T12:34:56Z\",\n      \"machine_name_id\": \"machine-001\",\n      \"user_agent_id\": \"ua-001\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b2d5025d-fed1-42ec-841b-f182e69f960d",
+          "name": "Create Heartbeat",
+          "request": {
+            "name": "Create Heartbeat",
+            "description": {
+              "content": "Creates a single heartbeat from an editor plugin.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "heartbeats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entity\": \"<string>\",\n  \"type\": \"<string>\",\n  \"time\": \"<float>\",\n  \"category\": \"<string>\",\n  \"project\": \"<string>\",\n  \"project_root_count\": \"<integer>\",\n  \"branch\": \"<string>\",\n  \"language\": \"<string>\",\n  \"dependencies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"lines\": \"<integer>\",\n  \"line_additions\": \"<integer>\",\n  \"line_deletions\": \"<integer>\",\n  \"lineno\": \"<integer>\",\n  \"cursorpos\": \"<integer>\",\n  \"is_write\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a24eee68-f3da-4e1f-8edb-292b94c4175a",
+              "name": "The created heartbeat.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "heartbeats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity\": \"/Users/kin/code/wakatime-cli/main.go\",\n  \"type\": \"file\",\n  \"category\": \"coding\",\n  \"time\": 1,\n  \"project\": \"wakatime-cli\",\n  \"project_root_count\": 4,\n  \"branch\": \"main\",\n  \"language\": \"Python\",\n  \"dependencies\": [\n    \"example\"\n  ],\n  \"lines\": 1,\n  \"line_additions\": 1,\n  \"line_deletions\": 1,\n  \"lineno\": 1,\n  \"cursorpos\": 1,\n  \"is_write\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"entity\": \"/Users/kin/code/wakatime-cli/main.go\",\n    \"type\": \"file\",\n    \"category\": \"coding\",\n    \"time\": 1,\n    \"project\": \"wakatime-cli\",\n    \"project_root_count\": 4,\n    \"branch\": \"main\",\n    \"language\": \"Python\",\n    \"dependencies\": [\n      \"example\"\n    ],\n    \"lines\": 1,\n    \"line_additions\": 1,\n    \"line_deletions\": 1,\n    \"lineno\": 1,\n    \"cursorpos\": 1,\n    \"is_write\": true,\n    \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"user_id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"created_at\": \"2026-05-30T12:34:56Z\",\n    \"modified_at\": \"2026-05-30T12:34:56Z\",\n    \"machine_name_id\": \"machine-001\",\n    \"user_agent_id\": \"ua-001\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "966a625c-42e3-47b8-9241-780412d94b31",
+              "name": "Heartbeat accepted for asynchronous processing.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "heartbeats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity\": \"/Users/kin/code/wakatime-cli/main.go\",\n  \"type\": \"file\",\n  \"category\": \"coding\",\n  \"time\": 1,\n  \"project\": \"wakatime-cli\",\n  \"project_root_count\": 4,\n  \"branch\": \"main\",\n  \"language\": \"Python\",\n  \"dependencies\": [\n    \"example\"\n  ],\n  \"lines\": 1,\n  \"line_additions\": 1,\n  \"line_deletions\": 1,\n  \"lineno\": 1,\n  \"cursorpos\": 1,\n  \"is_write\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "94ab49c4-b8d3-4cb6-9ad0-a2ea37421231",
+          "name": "Create Heartbeats Bulk",
+          "request": {
+            "name": "Create Heartbeats Bulk",
+            "description": {
+              "content": "Creates multiple heartbeats in a single request (up to 25).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "heartbeats.bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"entity\": \"<string>\",\n    \"type\": \"<string>\",\n    \"time\": \"<float>\",\n    \"category\": \"<string>\",\n    \"project\": \"<string>\",\n    \"project_root_count\": \"<integer>\",\n    \"branch\": \"<string>\",\n    \"language\": \"<string>\",\n    \"dependencies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"lines\": \"<integer>\",\n    \"line_additions\": \"<integer>\",\n    \"line_deletions\": \"<integer>\",\n    \"lineno\": \"<integer>\",\n    \"cursorpos\": \"<integer>\",\n    \"is_write\": \"<boolean>\"\n  },\n  {\n    \"entity\": \"<string>\",\n    \"type\": \"<string>\",\n    \"time\": \"<float>\",\n    \"category\": \"<string>\",\n    \"project\": \"<string>\",\n    \"project_root_count\": \"<integer>\",\n    \"branch\": \"<string>\",\n    \"language\": \"<string>\",\n    \"dependencies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"lines\": \"<integer>\",\n    \"line_additions\": \"<integer>\",\n    \"line_deletions\": \"<integer>\",\n    \"lineno\": \"<integer>\",\n    \"cursorpos\": \"<integer>\",\n    \"is_write\": \"<boolean>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ee248069-ecbd-4d4e-b4ee-efd7ebba5fc0",
+              "name": "The created heartbeats and per-item statuses.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "heartbeats.bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"entity\": \"/Users/kin/code/wakatime-cli/main.go\",\n    \"type\": \"file\",\n    \"category\": \"coding\",\n    \"time\": 1,\n    \"project\": \"wakatime-cli\",\n    \"project_root_count\": 4,\n    \"branch\": \"main\",\n    \"language\": \"Python\",\n    \"dependencies\": [\n      \"example\"\n    ],\n    \"lines\": 1,\n    \"line_additions\": 1,\n    \"line_deletions\": 1,\n    \"lineno\": 1,\n    \"cursorpos\": 1,\n    \"is_write\": true\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"responses\": [\n    [\n      \"example\"\n    ]\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "04fc0308-38a4-4629-8ff8-b8d353518f99",
+          "name": "Delete Heartbeats Bulk",
+          "request": {
+            "name": "Delete Heartbeats Bulk",
+            "description": {
+              "content": "Deletes multiple heartbeats by date and id in a single request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "heartbeats.bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"id\": \"<string>\",\n    \"date\": \"<date>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"date\": \"<date>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4dacb7c2-73a9-46e3-90a9-09a16957ab54",
+              "name": "Bulk delete results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "heartbeats.bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"id\": \"example\",\n    \"date\": \"2026-05-30\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "329533fb-24cf-4838-bf20-efd5584a21cf",
+      "name": "Durations",
+      "description": {
+        "content": "Continuous time-on-task spans derived from heartbeats.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "07c69408-5aee-4100-847a-74e563403504",
+          "name": "List Durations",
+          "request": {
+            "name": "List Durations",
+            "description": {
+              "content": "Returns activity durations for a given day, derived from heartbeats.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "durations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "(Required) Day to query (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "project",
+                  "value": "<string>",
+                  "description": "Filter by project name."
+                },
+                {
+                  "disabled": false,
+                  "key": "branches",
+                  "value": "<string>",
+                  "description": "Comma-separated list of git branches to include."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeout",
+                  "value": "<integer>",
+                  "description": "Keystroke timeout in minutes (defaults to user's account setting)."
+                },
+                {
+                  "disabled": false,
+                  "key": "writes_only",
+                  "value": "<boolean>",
+                  "description": "Whether to only include time editing (writing) files."
+                },
+                {
+                  "disabled": false,
+                  "key": "timezone",
+                  "value": "<string>",
+                  "description": "Timezone to use (defaults to the user's profile timezone)."
+                },
+                {
+                  "disabled": false,
+                  "key": "slice_by",
+                  "value": "<string>",
+                  "description": "Slice durations by entity, language, dependencies, os, editor, category, or machine."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ee1fdca2-793f-4988-b171-a5d31e542f9b",
+              "name": "Durations for the day.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "durations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "2026-05-30"
+                    },
+                    {
+                      "key": "project",
+                      "value": "example"
+                    },
+                    {
+                      "key": "branches",
+                      "value": "example"
+                    },
+                    {
+                      "key": "timeout",
+                      "value": "1"
+                    },
+                    {
+                      "key": "writes_only",
+                      "value": "true"
+                    },
+                    {
+                      "key": "timezone",
+                      "value": "America/Los_Angeles"
+                    },
+                    {
+                      "key": "slice_by",
+                      "value": "entity"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"time\": 1,\n      \"duration\": 1,\n      \"project\": \"wakatime-cli\",\n      \"branch\": \"main\",\n      \"language\": \"Python\",\n      \"category\": \"coding\",\n      \"editor\": \"example\",\n      \"operating_system\": \"example\",\n      \"machine\": \"example\",\n      \"color\": \"#3498db\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "50838f74-e888-4159-bfba-d5ff419dfc74",
+      "name": "Summaries",
+      "description": {
+        "content": "Daily aggregations of coding activity by project, language, editor, OS, machine, branch, and category.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "64c5cda2-c3cc-4106-966e-87203f63dc7a",
+          "name": "List Summaries",
+          "request": {
+            "name": "List Summaries",
+            "description": {
+              "content": "Returns daily summaries of coding activity between a start and end date, broken down by project, language, editor, OS, machine, branch, category, and dependencies.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "summaries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<date>",
+                  "description": "(Required) Start date (YYYY-MM-DD) inclusive."
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<date>",
+                  "description": "(Required) End date (YYYY-MM-DD) inclusive."
+                },
+                {
+                  "disabled": false,
+                  "key": "project",
+                  "value": "<string>",
+                  "description": "Filter by project name."
+                },
+                {
+                  "disabled": false,
+                  "key": "branches",
+                  "value": "<string>",
+                  "description": "Comma-separated list of git branches to include."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeout",
+                  "value": "<integer>",
+                  "description": "Keystroke timeout in minutes (defaults to user's account setting)."
+                },
+                {
+                  "disabled": false,
+                  "key": "writes_only",
+                  "value": "<boolean>",
+                  "description": "Whether to only include time editing (writing) files."
+                },
+                {
+                  "disabled": false,
+                  "key": "timezone",
+                  "value": "<string>",
+                  "description": "Timezone to use (defaults to the user's profile timezone)."
+                },
+                {
+                  "disabled": false,
+                  "key": "range",
+                  "value": "<string>",
+                  "description": "Range filter (last_7_days, last_30_days, last_6_months, last_year, all_time)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dafbb374-ce2f-4130-9de7-20b315f8ee93",
+              "name": "Daily summaries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "summaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "2026-05-30"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2026-05-30"
+                    },
+                    {
+                      "key": "project",
+                      "value": "example"
+                    },
+                    {
+                      "key": "branches",
+                      "value": "example"
+                    },
+                    {
+                      "key": "timeout",
+                      "value": "1"
+                    },
+                    {
+                      "key": "writes_only",
+                      "value": "true"
+                    },
+                    {
+                      "key": "timezone",
+                      "value": "America/Los_Angeles"
+                    },
+                    {
+                      "key": "range",
+                      "value": "last_7_days"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [],\n  \"cumulative_total\": {},\n  \"daily_average\": {},\n  \"start\": \"2026-05-30\",\n  \"end\": \"2026-05-30\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "07d8b7d3-9412-48ea-8108-f383d6d29af4",
+      "name": "Stats",
+      "description": {
+        "content": "User-wide statistics over preset and custom ranges.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d44000c0-da5d-468d-a8a8-73c5b33cc7ee",
+          "name": "Get All Time Since Today",
+          "request": {
+            "name": "Get All Time Since Today",
+            "description": {
+              "content": "Returns the total coding activity the authenticated user has logged since the account was created, up to today.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "all_time_since_today"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "project",
+                  "value": "<string>",
+                  "description": "Filter by project name."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "10f485eb-30cb-4175-8361-49a6625d82cd",
+              "name": "All-time-since-today totals.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "all_time_since_today"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "project",
+                      "value": "example"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"total_seconds\": 4,\n    \"text\": \"1,234 hrs 5 mins\",\n    \"decimal\": \"1234.08\",\n    \"digital\": \"1234:05\",\n    \"is_up_to_date\": \"2026-05-30T12:34:56Z\",\n    \"percent_calculated\": 1,\n    \"range\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c5c3005f-6f1a-4b38-ad0a-6bd1d0be9b8f",
+          "name": "Get User All Time Since Today",
+          "request": {
+            "name": "Get User All Time Since Today",
+            "description": {
+              "content": "Returns the all-time-since-today totals for a specific user (requires scope on that user's data).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":user",
+                "all_time_since_today"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "project",
+                  "value": "<string>",
+                  "description": "Filter by project name."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "user",
+                  "description": "(Required) User id, username, or \"current\"."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "204d60dc-f70e-40a1-a1e8-bb2a15ede407",
+              "name": "All-time-since-today totals for the user.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":user",
+                    "all_time_since_today"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "project",
+                      "value": "example"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user",
+                      "description": "(Required) User id, username, or \"current\"."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"total_seconds\": 4,\n    \"text\": \"1,234 hrs 5 mins\",\n    \"decimal\": \"1234.08\",\n    \"digital\": \"1234:05\",\n    \"is_up_to_date\": \"2026-05-30T12:34:56Z\",\n    \"percent_calculated\": 1,\n    \"range\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "714227a6-5b57-4b84-b5b4-d2a6b8b90f42",
+          "name": "Get Stats For Range",
+          "request": {
+            "name": "Get Stats For Range",
+            "description": {
+              "content": "Returns coding stats for the authenticated user over a date range. May return 202 while WakaTime is calculating the stats.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "range",
+                  "value": "<string>",
+                  "description": "Range filter (last_7_days, last_30_days, last_6_months, last_year, all_time)."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeout",
+                  "value": "<integer>",
+                  "description": "Keystroke timeout in minutes (defaults to user's account setting)."
+                },
+                {
+                  "disabled": false,
+                  "key": "writes_only",
+                  "value": "<boolean>",
+                  "description": "Whether to only include time editing (writing) files."
+                },
+                {
+                  "disabled": false,
+                  "key": "timezone",
+                  "value": "<string>",
+                  "description": "Timezone to use (defaults to the user's profile timezone)."
+                },
+                {
+                  "disabled": false,
+                  "key": "project",
+                  "value": "<string>",
+                  "description": "Filter by project name."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2a0527f1-c206-4602-9651-35d96f2da23e",
+              "name": "Stats payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "range",
+                      "value": "last_7_days"
+                    },
+                    {
+                      "key": "timeout",
+                      "value": "1"
+                    },
+                    {
+                      "key": "writes_only",
+                      "value": "true"
+                    },
+                    {
+                      "key": "timezone",
+                      "value": "America/Los_Angeles"
+                    },
+                    {
+                      "key": "project",
+                      "value": "example"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"user_id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"username\": \"kinlane\",\n    \"range\": \"example\",\n    \"start\": \"2026-05-30T12:34:56Z\",\n    \"end\": \"2026-05-30T12:34:56Z\",\n    \"days_including_holidays\": 1,\n    \"days_minus_holidays\": 1,\n    \"holidays\": 1,\n    \"status\": \"ok\",\n    \"is_up_to_date\": \"2026-05-30T12:34:56Z\",\n    \"percent_calculated\": 1,\n    \"timeout\": 1,\n    \"writes_only\": true,\n    \"timezone\": \"America/Los_Angeles\",\n    \"total_seconds\": 4,\n    \"total_seconds_including_other_language\": 1,\n    \"daily_average\": 1,\n    \"daily_average_including_other_language\": 1,\n    \"human_readable_total\": \"4 hrs 12 mins\",\n    \"human_readable_daily_average\": \"3 hrs 30 mins\",\n    \"best_day\": {},\n    \"languages\": [],\n    \"projects\": [],\n    \"editors\": [],\n    \"operating_systems\": [],\n    \"machines\": [],\n    \"categories\": [],\n    \"dependencies\": [],\n    \"created_at\": \"2026-05-30T12:34:56Z\",\n    \"modified_at\": \"2026-05-30T12:34:56Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f18869e-8ea9-4748-9643-b0fbb62db57a",
+              "name": "Stats are still being calculated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "range",
+                      "value": "last_7_days"
+                    },
+                    {
+                      "key": "timeout",
+                      "value": "1"
+                    },
+                    {
+                      "key": "writes_only",
+                      "value": "true"
+                    },
+                    {
+                      "key": "timezone",
+                      "value": "America/Los_Angeles"
+                    },
+                    {
+                      "key": "project",
+                      "value": "example"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4eedc573-bf54-4b3d-aaf3-1344e9417257",
+          "name": "Get Stats By Named Range",
+          "request": {
+            "name": "Get Stats By Named Range",
+            "description": {
+              "content": "Returns coding stats for a preset named range (last_7_days, last_30_days, last_6_months, last_year, all_time).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "stats",
+                ":range"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "range",
+                  "description": "(Required) Preset range."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e114e9cd-531e-4711-bdc5-1adc658deed5",
+              "name": "Stats payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "stats",
+                    ":range"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "range",
+                      "description": "(Required) Preset range."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"user_id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"username\": \"kinlane\",\n    \"range\": \"example\",\n    \"start\": \"2026-05-30T12:34:56Z\",\n    \"end\": \"2026-05-30T12:34:56Z\",\n    \"days_including_holidays\": 1,\n    \"days_minus_holidays\": 1,\n    \"holidays\": 1,\n    \"status\": \"ok\",\n    \"is_up_to_date\": \"2026-05-30T12:34:56Z\",\n    \"percent_calculated\": 1,\n    \"timeout\": 1,\n    \"writes_only\": true,\n    \"timezone\": \"America/Los_Angeles\",\n    \"total_seconds\": 4,\n    \"total_seconds_including_other_language\": 1,\n    \"daily_average\": 1,\n    \"daily_average_including_other_language\": 1,\n    \"human_readable_total\": \"4 hrs 12 mins\",\n    \"human_readable_daily_average\": \"3 hrs 30 mins\",\n    \"best_day\": {},\n    \"languages\": [],\n    \"projects\": [],\n    \"editors\": [],\n    \"operating_systems\": [],\n    \"machines\": [],\n    \"categories\": [],\n    \"dependencies\": [],\n    \"created_at\": \"2026-05-30T12:34:56Z\",\n    \"modified_at\": \"2026-05-30T12:34:56Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be409caf-9b0d-49bd-b4c8-33b9b7347d44",
+              "name": "Stats are still being calculated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "stats",
+                    ":range"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "range",
+                      "description": "(Required) Preset range."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8b58ad62-8c52-4753-9735-165b5d02b995",
+          "name": "Get Stats Aggregated",
+          "request": {
+            "name": "Get Stats Aggregated",
+            "description": {
+              "content": "Returns aggregated coding stats across all WakaTime users.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "stats_aggregated"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "range",
+                  "value": "<string>",
+                  "description": "Range filter (last_7_days, last_30_days, last_6_months, last_year, all_time)."
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e8ccf035-196b-4a3f-adba-0d06ad62868f",
+              "name": "Aggregated stats.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "stats_aggregated"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "range",
+                      "value": "last_7_days"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "5c4c5b26-16cd-4f4a-9621-6ec32a6f0a07",
+      "name": "Insights",
+      "description": {
+        "content": "Curated analytics views (weekdays, days, projects, languages, editors, machines, operating systems, AI days, best day, daily average).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d80c2f15-cd4a-48f0-8e6c-bcafb84c3802",
+          "name": "Get Insight",
+          "request": {
+            "name": "Get Insight",
+            "description": {
+              "content": "Returns an insight slice for a given type and range.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "insights",
+                ":insight_type",
+                ":range"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "timezone",
+                  "value": "<string>",
+                  "description": "Timezone to use (defaults to the user's profile timezone)."
+                },
+                {
+                  "disabled": false,
+                  "key": "writes_only",
+                  "value": "<boolean>",
+                  "description": "Whether to only include time editing (writing) files."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "insight_type",
+                  "description": "(Required) The insight type."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "range",
+                  "description": "(Required) The range for the insight (e.g. last_7_days, last_year)."
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e11bdf54-0ab9-4413-9cc0-77884a902fd6",
+              "name": "Insight payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "insights",
+                    ":insight_type",
+                    ":range"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "timezone",
+                      "value": "America/Los_Angeles"
+                    },
+                    {
+                      "key": "writes_only",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "insight_type",
+                      "description": "(Required) The insight type."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "range",
+                      "description": "(Required) The range for the insight (e.g. last_7_days, last_year)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "58ae8961-fb7f-482c-8da1-3bf77ce95ce6",
+      "name": "Projects",
+      "description": {
+        "content": "Projects the authenticated user has logged time against.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2a4023c8-e34b-409c-b36b-5af980c5ab05",
+          "name": "List Projects",
+          "request": {
+            "name": "List Projects",
+            "description": {
+              "content": "Returns projects the authenticated user has logged time against.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "Filter projects by name."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5d128651-2e73-40d2-9612-15af71143db0",
+              "name": "Project list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "example"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n      \"name\": \"WakaTime\",\n      \"repository\": \"https://github.com/wakatime/wakatime-cli\",\n      \"badge\": \"https://wakatime.com/badge/user/abc/project/wakatime-cli.svg\",\n      \"color\": \"#3498db\",\n      \"clients\": [\n        \"example\"\n      ],\n      \"has_public_url\": \"https://wakatime.com/example\",\n      \"human_readable_last_heartbeat_at\": \"2026-05-30T12:34:56Z\",\n      \"last_heartbeat_at\": \"2026-05-30T12:34:56Z\",\n      \"url\": \"https://wakatime.com/@kinlane/projects/wakatime-cli\",\n      \"urlencoded_name\": \"wakatime-cli\",\n      \"created_at\": \"2026-05-30T12:34:56Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0585f673-f3d9-4ed5-b95f-2be1d5f02d17",
+          "name": "Get Project",
+          "request": {
+            "name": "Get Project",
+            "description": {
+              "content": "Returns details for the specified project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "projects",
+                ":project"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) Project name."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "062170ce-cb1f-4384-8347-f19fa2b56b9f",
+              "name": "The project details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "projects",
+                    ":project"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) Project name."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"name\": \"WakaTime\",\n    \"repository\": \"https://github.com/wakatime/wakatime-cli\",\n    \"badge\": \"https://wakatime.com/badge/user/abc/project/wakatime-cli.svg\",\n    \"color\": \"#3498db\",\n    \"clients\": [\n      \"example\"\n    ],\n    \"has_public_url\": \"https://wakatime.com/example\",\n    \"human_readable_last_heartbeat_at\": \"2026-05-30T12:34:56Z\",\n    \"last_heartbeat_at\": \"2026-05-30T12:34:56Z\",\n    \"url\": \"https://wakatime.com/@kinlane/projects/wakatime-cli\",\n    \"urlencoded_name\": \"wakatime-cli\",\n    \"created_at\": \"2026-05-30T12:34:56Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "c22fbf4f-0388-4f4d-8946-0ea15cc665b8",
+      "name": "Commits",
+      "description": {
+        "content": "Per-project commits enriched with coding time.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c93e6069-cc83-4319-872b-ff719ae32cdc",
+          "name": "List Project Commits",
+          "request": {
+            "name": "List Project Commits",
+            "description": {
+              "content": "Returns commits for the specified project, each enriched with coding-time totals.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "projects",
+                ":project",
+                "commits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "author",
+                  "value": "<string>",
+                  "description": "Filter by commit author."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) Project name."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "791778fa-7085-41bc-b43a-005e42f6794b",
+              "name": "Commits list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "projects",
+                    ":project",
+                    "commits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "author",
+                      "value": "example"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) Project name."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n      \"author_avatar_url\": \"https://wakatime.com/photo/5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n      \"author_date\": \"2026-05-30T12:34:56Z\",\n      \"author_email\": \"kin@apievangelist.com\",\n      \"author_html_url\": \"https://github.com/kinlane\",\n      \"author_id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n      \"author_name\": \"Kin Lane\",\n      \"author_url\": \"https://wakatime.com/@kinlane\",\n      \"author_username\": \"kinlane\",\n      \"branch\": \"main\",\n      \"committer_avatar_url\": \"https://wakatime.com/photo/5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n      \"created_at\": \"2026-05-30T12:34:56Z\",\n      \"hash\": \"9b8c4d2e6f1a3b5c7d9e8f0a1b2c3d4e5f6a7b8c\",\n      \"html_url\": \"https://github.com/wakatime/wakatime-cli/commit/9b8c4d2e6f1a3b5c7d9e8f0a1b2c3d4e5f6a7b8c\",\n      \"human_readable_natural_total_time\": \"about 4 hours\",\n      \"human_readable_total\": \"4 hrs 12 mins\",\n      \"human_readable_total_with_seconds\": \"4 hrs 12 mins 5 secs\",\n      \"is_authored_by_user\": true,\n      \"message\": \"Initial commit\",\n      \"ref\": \"refs/heads/main\",\n      \"total_seconds\": 4,\n      \"truncated_hash\": \"9b8c4d2\",\n      \"url\": \"https://wakatime.com/@kinlane/projects/wakatime-cli\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a36fe1b1-0169-4b4d-a8bd-9d2380bfe45c",
+          "name": "Get Project Commit",
+          "request": {
+            "name": "Get Project Commit",
+            "description": {
+              "content": "Returns a single commit for the specified project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "projects",
+                ":project",
+                "commits",
+                ":hash"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) Project name."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hash",
+                  "description": "(Required) Commit hash."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "81dae59d-3c69-4689-8513-1327160b821b",
+              "name": "Commit details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "projects",
+                    ":project",
+                    "commits",
+                    ":hash"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) Project name."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) Commit hash."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"author_avatar_url\": \"https://wakatime.com/photo/5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"author_date\": \"2026-05-30T12:34:56Z\",\n    \"author_email\": \"kin@apievangelist.com\",\n    \"author_html_url\": \"https://github.com/kinlane\",\n    \"author_id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"author_name\": \"Kin Lane\",\n    \"author_url\": \"https://wakatime.com/@kinlane\",\n    \"author_username\": \"kinlane\",\n    \"branch\": \"main\",\n    \"committer_avatar_url\": \"https://wakatime.com/photo/5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"created_at\": \"2026-05-30T12:34:56Z\",\n    \"hash\": \"9b8c4d2e6f1a3b5c7d9e8f0a1b2c3d4e5f6a7b8c\",\n    \"html_url\": \"https://github.com/wakatime/wakatime-cli/commit/9b8c4d2e6f1a3b5c7d9e8f0a1b2c3d4e5f6a7b8c\",\n    \"human_readable_natural_total_time\": \"about 4 hours\",\n    \"human_readable_total\": \"4 hrs 12 mins\",\n    \"human_readable_total_with_seconds\": \"4 hrs 12 mins 5 secs\",\n    \"is_authored_by_user\": true,\n    \"message\": \"Initial commit\",\n    \"ref\": \"refs/heads/main\",\n    \"total_seconds\": 4,\n    \"truncated_hash\": \"9b8c4d2\",\n    \"url\": \"https://wakatime.com/@kinlane/projects/wakatime-cli\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "185505ac-0611-4a67-bb9b-b8323ccdc244",
+      "name": "Goals",
+      "description": {
+        "content": "User coding goals and their progress.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a8d83d6b-e16c-4735-92db-720aeca3dce9",
+          "name": "List Goals",
+          "request": {
+            "name": "List Goals",
+            "description": {
+              "content": "Returns the authenticated user's coding goals.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "goals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c7fc3059-43f3-46d6-a33a-dd5da87a77d2",
+              "name": "Goals list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "goals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n      \"title\": \"Code 4 hrs a day\",\n      \"type\": \"coding_activity\",\n      \"delta\": \"day\",\n      \"seconds\": 60,\n      \"status\": \"success\",\n      \"cumulative_status\": \"example\",\n      \"languages\": [\n        \"example\"\n      ],\n      \"projects\": [\n        \"example\"\n      ],\n      \"editors\": [\n        \"example\"\n      ],\n      \"is_enabled\": true,\n      \"is_inverse\": true,\n      \"is_snoozed\": true,\n      \"ignore_days\": [\n        \"example\"\n      ],\n      \"modified_at\": \"2026-05-30T12:34:56Z\",\n      \"created_at\": \"2026-05-30T12:34:56Z\",\n      \"snooze_until\": \"2026-05-30T12:34:56Z\",\n      \"chart_data\": [],\n      \"average_status\": \"example\",\n      \"owner\": {},\n      \"shared_with\": [],\n      \"subscribers\": []\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "27decd35-2535-4400-b1ab-2ec8328dcef3",
+          "name": "Get Goal",
+          "request": {
+            "name": "Get Goal",
+            "description": {
+              "content": "Returns a specific goal with its progress data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "goals",
+                ":goal"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "goal",
+                  "description": "(Required) Goal id."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6e884975-4260-448c-a326-60b70d0175f0",
+              "name": "Goal details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "goals",
+                    ":goal"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "goal",
+                      "description": "(Required) Goal id."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"title\": \"Code 4 hrs a day\",\n    \"type\": \"coding_activity\",\n    \"delta\": \"day\",\n    \"seconds\": 60,\n    \"status\": \"success\",\n    \"cumulative_status\": \"example\",\n    \"languages\": [\n      \"example\"\n    ],\n    \"projects\": [\n      \"example\"\n    ],\n    \"editors\": [\n      \"example\"\n    ],\n    \"is_enabled\": true,\n    \"is_inverse\": true,\n    \"is_snoozed\": true,\n    \"ignore_days\": [\n      \"example\"\n    ],\n    \"modified_at\": \"2026-05-30T12:34:56Z\",\n    \"created_at\": \"2026-05-30T12:34:56Z\",\n    \"snooze_until\": \"2026-05-30T12:34:56Z\",\n    \"chart_data\": [],\n    \"average_status\": \"example\",\n    \"owner\": {},\n    \"shared_with\": [],\n    \"subscribers\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "87b15763-5286-46de-ade9-f0790602f7e7",
+      "name": "Custom Rules",
+      "description": {
+        "content": "User and organization custom-rule definitions for time attribution.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3165a792-ee26-4cc4-b563-355031bcda17",
+          "name": "List Custom Rules",
+          "request": {
+            "name": "List Custom Rules",
+            "description": {
+              "content": "Returns the authenticated user's custom time-attribution rules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "custom_rules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "08964599-1fda-460b-98a0-7d4e973ee8d8",
+              "name": "Custom rules.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "custom_rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n      \"name\": \"WakaTime\",\n      \"if_match\": {},\n      \"then_set\": {},\n      \"created_at\": \"2026-05-30T12:34:56Z\",\n      \"modified_at\": \"2026-05-30T12:34:56Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "662d1d33-5b1c-41c7-8af5-cdbd2ece1d66",
+          "name": "Put Custom Rules",
+          "request": {
+            "name": "Put Custom Rules",
+            "description": {
+              "content": "Creates or updates one or more custom rules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "custom_rules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"if_match\": {\n      \"key_0\": false,\n      \"key_1\": \"string\",\n      \"key_2\": 5870\n    },\n    \"then_set\": {\n      \"key_0\": \"string\",\n      \"key_1\": 3798.2485650216067,\n      \"key_2\": \"string\"\n    }\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"if_match\": {\n      \"key_0\": 3488,\n      \"key_1\": false,\n      \"key_2\": true,\n      \"key_3\": 3030.7633840984304\n    },\n    \"then_set\": {\n      \"key_0\": 7965.328723181824\n    }\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "89530ff9-d453-45eb-918a-0d6547e165bc",
+              "name": "Updated custom rules.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "custom_rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"name\": \"WakaTime\",\n    \"if_match\": {},\n    \"then_set\": {}\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc46f2ca-7b4b-4d9b-b3fd-bfab637b4df9",
+          "name": "Delete Custom Rule",
+          "request": {
+            "name": "Delete Custom Rule",
+            "description": {
+              "content": "Deletes a single custom rule.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "custom_rules",
+                ":rule_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "rule_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3868de75-5c6b-4573-8889-3537aee1b3be",
+              "name": "Deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "custom_rules",
+                    ":rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "rule_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "174a8d27-e395-4e9e-ac58-b74467b497ea",
+          "name": "Get Custom Rules Progress",
+          "request": {
+            "name": "Get Custom Rules Progress",
+            "description": {
+              "content": "Returns the status of any background job reprocessing the user's heartbeats against current custom rules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "custom_rules_progress"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cafdd90c-352c-4618-aee8-a4c003c9f89d",
+              "name": "Job progress.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "custom_rules_progress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e29f836-66c6-4f73-90bc-2abf74220c26",
+          "name": "Abort Custom Rules Progress",
+          "request": {
+            "name": "Abort Custom Rules Progress",
+            "description": {
+              "content": "Aborts the background job currently reapplying custom rules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "custom_rules_progress"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5cae6379-50c6-4fe6-9bf5-930f26735c3f",
+              "name": "Aborted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "custom_rules_progress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "973ca647-dfe7-4c14-8812-594773449089",
+      "name": "External Durations",
+      "description": {
+        "content": "Non-IDE activity durations created via the API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "194b7cc4-4f9b-4a51-b3c0-fa0c5f34c086",
+          "name": "List External Durations",
+          "request": {
+            "name": "List External Durations",
+            "description": {
+              "content": "Returns external (non-editor) durations for a given day.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "external_durations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "(Required) Day to query (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "project",
+                  "value": "<string>",
+                  "description": "Filter by project name."
+                },
+                {
+                  "disabled": false,
+                  "key": "timezone",
+                  "value": "<string>",
+                  "description": "Timezone to use (defaults to the user's profile timezone)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d7e64860-d447-42ec-bfec-f8fb1e7dd44d",
+              "name": "External durations for the day.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "external_durations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "2026-05-30"
+                    },
+                    {
+                      "key": "project",
+                      "value": "example"
+                    },
+                    {
+                      "key": "timezone",
+                      "value": "America/Los_Angeles"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"external_id\": \"ext-001\",\n      \"entity\": \"/Users/kin/code/wakatime-cli/main.go\",\n      \"type\": \"file\",\n      \"category\": \"coding\",\n      \"start_time\": 1,\n      \"end_time\": 1,\n      \"project\": \"wakatime-cli\",\n      \"branch\": \"main\",\n      \"language\": \"Python\",\n      \"meta\": {},\n      \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n      \"user_id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n      \"created_at\": \"2026-05-30T12:34:56Z\",\n      \"modified_at\": \"2026-05-30T12:34:56Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b353731-3ecd-4c87-9f03-cdb77bb12686",
+          "name": "Create External Duration",
+          "request": {
+            "name": "Create External Duration",
+            "description": {
+              "content": "Creates a single external duration (for non-editor activity such as meetings, design tools, etc.).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "external_durations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"external_id\": \"<string>\",\n  \"entity\": \"<string>\",\n  \"type\": \"<string>\",\n  \"start_time\": \"<float>\",\n  \"end_time\": \"<float>\",\n  \"category\": \"<string>\",\n  \"project\": \"<string>\",\n  \"branch\": \"<string>\",\n  \"language\": \"<string>\",\n  \"meta\": {\n    \"key_0\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "118729b1-315e-4f3d-9f06-1bc68abbcf36",
+              "name": "The created external duration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "external_durations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"external_id\": \"ext-001\",\n  \"entity\": \"/Users/kin/code/wakatime-cli/main.go\",\n  \"type\": \"file\",\n  \"category\": \"coding\",\n  \"start_time\": 1,\n  \"end_time\": 1,\n  \"project\": \"wakatime-cli\",\n  \"branch\": \"main\",\n  \"language\": \"Python\",\n  \"meta\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ec512381-5d28-4842-92d5-081094a4445f",
+          "name": "Create External Durations Bulk",
+          "request": {
+            "name": "Create External Durations Bulk",
+            "description": {
+              "content": "Creates multiple external durations in a single request (up to 1,000).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "external_durations.bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"external_id\": \"<string>\",\n    \"entity\": \"<string>\",\n    \"type\": \"<string>\",\n    \"start_time\": \"<float>\",\n    \"end_time\": \"<float>\",\n    \"category\": \"<string>\",\n    \"project\": \"<string>\",\n    \"branch\": \"<string>\",\n    \"language\": \"<string>\",\n    \"meta\": {\n      \"key_0\": \"string\"\n    }\n  },\n  {\n    \"external_id\": \"<string>\",\n    \"entity\": \"<string>\",\n    \"type\": \"<string>\",\n    \"start_time\": \"<float>\",\n    \"end_time\": \"<float>\",\n    \"category\": \"<string>\",\n    \"project\": \"<string>\",\n    \"branch\": \"<string>\",\n    \"language\": \"<string>\",\n    \"meta\": {\n      \"key_0\": false,\n      \"key_1\": 2059\n    }\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e0b3679e-7c18-4aa3-81fd-7254b0ca5edd",
+              "name": "Bulk creation results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "external_durations.bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"external_id\": \"ext-001\",\n    \"entity\": \"/Users/kin/code/wakatime-cli/main.go\",\n    \"type\": \"file\",\n    \"category\": \"coding\",\n    \"start_time\": 1,\n    \"end_time\": 1,\n    \"project\": \"wakatime-cli\",\n    \"branch\": \"main\",\n    \"language\": \"Python\",\n    \"meta\": {}\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a36233bc-5c6d-4c53-9928-3bbd7e204b5b",
+          "name": "Delete External Durations Bulk",
+          "request": {
+            "name": "Delete External Durations Bulk",
+            "description": {
+              "content": "Deletes multiple external durations by id and date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "external_durations.bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"id\": \"<string>\",\n    \"date\": \"<date>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"date\": \"<date>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8a9c21bd-ab85-41a4-b5f6-1907fdc3fc67",
+              "name": "Bulk delete results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "external_durations.bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"id\": \"example\",\n    \"date\": \"2026-05-30\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "b537cefd-5b03-4803-bc77-a5831090d049",
+      "name": "Data Dumps",
+      "description": {
+        "content": "Full data exports.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8ed1c9f2-fa32-4a0f-b9a9-5eb51236143a",
+          "name": "List Data Dumps",
+          "request": {
+            "name": "List Data Dumps",
+            "description": {
+              "content": "Returns the authenticated user's data exports.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "data_dumps"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0479c25f-c6da-4687-9a7d-15bc368d0118",
+              "name": "Data dump list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "data_dumps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n      \"type\": \"heartbeats\",\n      \"status\": \"Pending...\",\n      \"percent_complete\": 1,\n      \"created_at\": \"2026-05-30T12:34:56Z\",\n      \"download_url\": \"https://wakatime.com/dumps/abc.json.gz\",\n      \"expires\": \"2026-05-30T12:34:56Z\",\n      \"has_failed\": true,\n      \"is_processing\": true,\n      \"is_stuck\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e7e6fc42-7913-41f6-bb32-0217353fc72b",
+          "name": "Create Data Dump",
+          "request": {
+            "name": "Create Data Dump",
+            "description": {
+              "content": "Triggers generation of a new data export.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "data_dumps"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"email_when_finished\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e57e6fee-acdb-4474-bfaa-2637cd2a8d1f",
+              "name": "Created dump job.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "data_dumps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"heartbeats\",\n  \"email_when_finished\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"type\": \"heartbeats\",\n    \"status\": \"Pending...\",\n    \"percent_complete\": 1,\n    \"created_at\": \"2026-05-30T12:34:56Z\",\n    \"download_url\": \"https://wakatime.com/dumps/abc.json.gz\",\n    \"expires\": \"2026-05-30T12:34:56Z\",\n    \"has_failed\": true,\n    \"is_processing\": true,\n    \"is_stuck\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "4882ab87-334e-49dd-b0cc-3f135cb8fa96",
+      "name": "Editors",
+      "description": {
+        "content": "Available editor plugins and versions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cc7cd6de-5a52-4a18-a702-a1a4642b5ae4",
+          "name": "List Editors",
+          "request": {
+            "name": "List Editors",
+            "description": {
+              "content": "Returns the available WakaTime editor plugins and their published versions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "editors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5b06fde1-0fe3-42c5-8d64-126d46a30ee6",
+              "name": "Editor list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "editors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "6c080080-0d62-44c0-8690-c58ec79f278f",
+      "name": "Languages",
+      "description": {
+        "content": "Programming languages.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9a1eea32-ba14-47a4-bd2a-60b0f2cc10b1",
+          "name": "List Languages",
+          "request": {
+            "name": "List Languages",
+            "description": {
+              "content": "Returns all programming languages recognized by WakaTime.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "languages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a5730571-4803-4d01-94cc-4dbbaff91b00",
+              "name": "Language list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "languages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fa47fd78-a5c2-4edd-bc05-22b9bbbe966d",
+          "name": "List Program Languages",
+          "request": {
+            "name": "List Program Languages",
+            "description": {
+              "content": "Returns programming-language metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "program_languages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "81e9ac5d-befa-425f-b0cf-38f0fbcd2943",
+              "name": "Program-language metadata.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "program_languages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2e4e871c-ea61-4814-9277-f166382e06c3",
+          "name": "List User Languages",
+          "request": {
+            "name": "List User Languages",
+            "description": {
+              "content": "Returns the programming languages the authenticated user has logged time in.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "languages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8d29acc2-ab7b-4213-b85a-ed20eb8f21ad",
+              "name": "User language list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "languages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "8a6a4aca-1926-45fb-bdaf-b437a38b44ab",
+      "name": "Machines",
+      "description": {
+        "content": "Devices that have sent heartbeats.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "df28c46b-e327-4b7f-9193-a49d2a007638",
+          "name": "List Machine Names",
+          "request": {
+            "name": "List Machine Names",
+            "description": {
+              "content": "Returns devices that have sent heartbeats for the authenticated user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "machine_names"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "389e7f4c-c4cd-44da-910d-1b05ec152738",
+              "name": "Machine list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "machine_names"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "b8f6ac32-4422-4c7d-9889-05c947127adb",
+      "name": "User Agents",
+      "description": {
+        "content": "Editor + OS user-agent inventory.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "53a1f323-0e59-4a94-b4f6-aa9c0d2b45f4",
+          "name": "List User Agents",
+          "request": {
+            "name": "List User Agents",
+            "description": {
+              "content": "Returns the editor + OS user-agents the authenticated user has used.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "user_agents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cc4a3f57-7fa8-4855-bd60-6a875d8ffdd9",
+              "name": "User-agent list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "user_agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "886ca12b-663d-4bdd-be9c-0937b6128fe7",
+      "name": "Leaderboards",
+      "description": {
+        "content": "Public and private leaderboard rankings.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "285807ed-3abc-4ed6-aef3-58e1ff40edd9",
+          "name": "List Leaders",
+          "request": {
+            "name": "List Leaders",
+            "description": {
+              "content": "Returns the public WakaTime leaderboard.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "leaders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "language",
+                  "value": "<string>",
+                  "description": "Filter by programming language."
+                },
+                {
+                  "disabled": false,
+                  "key": "country_code",
+                  "value": "<string>",
+                  "description": "Filter by ISO country code."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "677e198a-abf3-40b6-89e4-c71d9da8d441",
+              "name": "Leaderboard payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "leaders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "language",
+                      "value": "example"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "example"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"rank\": 1,\n      \"running_total\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d215f1f9-dc8b-4b3f-96e7-a7839612e728",
+          "name": "List Private Leaderboards",
+          "request": {
+            "name": "List Private Leaderboards",
+            "description": {
+              "content": "Returns the authenticated user's private leaderboards.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "private_leaderboards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "853e6954-45c6-41d2-9ab8-3fbac6294692",
+              "name": "Private leaderboards.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "private_leaderboards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8eb29c33-39a4-4d19-8c58-5f3352885711",
+          "name": "List Private Leaderboard Leaders",
+          "request": {
+            "name": "List Private Leaderboard Leaders",
+            "description": {
+              "content": "Returns rankings for a specific private leaderboard.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "private_leaderboards",
+                ":id",
+                "leaders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Private leaderboard id."
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a8d1c636-3a8c-4ce0-b93b-e93c482ffdf9",
+              "name": "Private leaderboard rankings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "private_leaderboards",
+                    ":id",
+                    "leaders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Private leaderboard id."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "b6dcc445-d44f-4b53-8a09-18869adade53",
+      "name": "Status Bar",
+      "description": {
+        "content": "Cached today-only stats for status-bar displays.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8a5143a5-bf93-4a98-8c1f-0f03eca28c81",
+          "name": "Get Status Bar",
+          "request": {
+            "name": "Get Status Bar",
+            "description": {
+              "content": "Returns a cached today-only stats payload for status-bar displays in editor plugins.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "status_bar"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "79438508-ff9b-4297-a31a-6e582a33c2b2",
+              "name": "Status-bar payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "status_bar"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "9c141ed3-6fe2-4080-858b-be373f091fca",
+      "name": "Organizations",
+      "description": {
+        "content": "Team/organization dashboards and member analytics.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e02960f9-b067-4d5b-8559-14abca8a8228",
+          "name": "List Organizations",
+          "request": {
+            "name": "List Organizations",
+            "description": {
+              "content": "Returns the organizations the authenticated user belongs to.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "orgs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ac98871c-3783-43ef-b118-8769152e28e2",
+              "name": "Organization list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "orgs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ac3f81cf-0e6c-42a9-ad35-dd245daeb8e3",
+          "name": "List Org Custom Rules",
+          "request": {
+            "name": "List Org Custom Rules",
+            "description": {
+              "content": "Returns custom rules defined at the organization level.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "orgs",
+                ":org",
+                "custom_rules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org",
+                  "description": "(Required) Organization id."
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "812b5bfa-9372-4de4-93d1-b9599f007f5d",
+              "name": "Org custom rules.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "orgs",
+                    ":org",
+                    "custom_rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org",
+                      "description": "(Required) Organization id."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "adaa91ff-281d-4be9-b3d7-bf311742ed47",
+          "name": "Put Org Custom Rules",
+          "request": {
+            "name": "Put Org Custom Rules",
+            "description": {
+              "content": "Replaces the custom rules for the organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "orgs",
+                ":org",
+                "custom_rules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org",
+                  "description": "(Required) Organization id."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"if_match\": {\n      \"key_0\": false,\n      \"key_1\": \"string\",\n      \"key_2\": 5870\n    },\n    \"then_set\": {\n      \"key_0\": \"string\",\n      \"key_1\": 3798.2485650216067,\n      \"key_2\": \"string\"\n    }\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"if_match\": {\n      \"key_0\": 3488,\n      \"key_1\": false,\n      \"key_2\": true,\n      \"key_3\": 3030.7633840984304\n    },\n    \"then_set\": {\n      \"key_0\": 7965.328723181824\n    }\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5edac818-11fc-4150-80e1-be6a8973df91",
+              "name": "Updated org custom rules.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "orgs",
+                    ":org",
+                    "custom_rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org",
+                      "description": "(Required) Organization id."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"name\": \"WakaTime\",\n    \"if_match\": {},\n    \"then_set\": {}\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "03837ca4-0a0f-4061-9449-cdab3687d5f0",
+          "name": "List Org Dashboards",
+          "request": {
+            "name": "List Org Dashboards",
+            "description": {
+              "content": "Returns dashboards available in the organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "orgs",
+                ":org",
+                "dashboards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org",
+                  "description": "(Required) Organization id."
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "da81b64a-076c-444d-94d9-3dbf606bd342",
+              "name": "Org dashboard list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "orgs",
+                    ":org",
+                    "dashboards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org",
+                      "description": "(Required) Organization id."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9436d2ae-7612-4d03-8c82-1c4cc54e1f15",
+          "name": "List Dashboard Members",
+          "request": {
+            "name": "List Dashboard Members",
+            "description": {
+              "content": "Returns the members included in the dashboard.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "orgs",
+                ":org",
+                "dashboards",
+                ":dashboard",
+                "members"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org",
+                  "description": "(Required) Organization id."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dashboard",
+                  "description": "(Required) Dashboard id."
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1e53d0ba-ed8a-4c78-a93c-bdd4293a9aa0",
+              "name": "Dashboard member list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "orgs",
+                    ":org",
+                    "dashboards",
+                    ":dashboard",
+                    "members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org",
+                      "description": "(Required) Organization id."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard",
+                      "description": "(Required) Dashboard id."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "02439d77-70d5-4a1b-a5d3-5d32c6117dc3",
+          "name": "List Dashboard Summaries",
+          "request": {
+            "name": "List Dashboard Summaries",
+            "description": {
+              "content": "Returns aggregated daily summaries for the dashboard.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "orgs",
+                ":org",
+                "dashboards",
+                ":dashboard",
+                "summaries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<date>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<date>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "project",
+                  "value": "<string>",
+                  "description": "Filter by project name."
+                },
+                {
+                  "disabled": false,
+                  "key": "branches",
+                  "value": "<string>",
+                  "description": "Comma-separated list of git branches to include."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org",
+                  "description": "(Required) Organization id."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dashboard",
+                  "description": "(Required) Dashboard id."
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1323e2e5-c627-446e-baed-de0860b61b07",
+              "name": "Dashboard summaries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "orgs",
+                    ":org",
+                    "dashboards",
+                    ":dashboard",
+                    "summaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "2026-05-30"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2026-05-30"
+                    },
+                    {
+                      "key": "project",
+                      "value": "example"
+                    },
+                    {
+                      "key": "branches",
+                      "value": "example"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org",
+                      "description": "(Required) Organization id."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard",
+                      "description": "(Required) Dashboard id."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "47033c4c-2d4c-4a16-9802-7a92a228c1aa",
+          "name": "List Dashboard Member Summaries",
+          "request": {
+            "name": "List Dashboard Member Summaries",
+            "description": {
+              "content": "Returns summaries for a specific member within the dashboard.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "orgs",
+                ":org",
+                "dashboards",
+                ":dashboard",
+                "member",
+                ":member",
+                "summaries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<date>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<date>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org",
+                  "description": "(Required) Organization id."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dashboard",
+                  "description": "(Required) Dashboard id."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "member",
+                  "description": "(Required) Org member id."
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d0ab94a4-b3b5-42a9-ab92-e219d83c9a41",
+              "name": "Member summaries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "orgs",
+                    ":org",
+                    "dashboards",
+                    ":dashboard",
+                    "member",
+                    ":member",
+                    "summaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "2026-05-30"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2026-05-30"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org",
+                      "description": "(Required) Organization id."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard",
+                      "description": "(Required) Dashboard id."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "member",
+                      "description": "(Required) Org member id."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "07dd0881-8e6d-45e5-963e-8591c0a2952f",
+          "name": "List Dashboard Durations",
+          "request": {
+            "name": "List Dashboard Durations",
+            "description": {
+              "content": "Returns durations for the dashboard for a given day.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "orgs",
+                ":org",
+                "dashboards",
+                ":dashboard",
+                "durations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "(Required) Day to query (YYYY-MM-DD)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org",
+                  "description": "(Required) Organization id."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dashboard",
+                  "description": "(Required) Dashboard id."
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5ad83cba-60ec-4508-8276-0ec6f9afc1a0",
+              "name": "Dashboard durations.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "orgs",
+                    ":org",
+                    "dashboards",
+                    ":dashboard",
+                    "durations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "2026-05-30"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org",
+                      "description": "(Required) Organization id."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard",
+                      "description": "(Required) Dashboard id."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2da2794d-d4be-4569-b7d5-9964877f2f7f",
+          "name": "List Dashboard Member Durations",
+          "request": {
+            "name": "List Dashboard Member Durations",
+            "description": {
+              "content": "Returns durations for a specific member within the dashboard for a given day.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "orgs",
+                ":org",
+                "dashboards",
+                ":dashboard",
+                "member",
+                ":member",
+                "durations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "(Required) Day to query (YYYY-MM-DD)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org",
+                  "description": "(Required) Organization id."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dashboard",
+                  "description": "(Required) Dashboard id."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "member",
+                  "description": "(Required) Org member id."
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "deb8c137-9686-4e09-a679-de0e42d97a7c",
+              "name": "Member durations.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "orgs",
+                    ":org",
+                    "dashboards",
+                    ":dashboard",
+                    "member",
+                    ":member",
+                    "durations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "2026-05-30"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org",
+                      "description": "(Required) Organization id."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard",
+                      "description": "(Required) Dashboard id."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "member",
+                      "description": "(Required) Org member id."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "7d951f4b-858a-49ee-bc57-121f4cfbce35",
+      "name": "Meta",
+      "description": {
+        "content": "WakaTime infrastructure metadata.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "eb7d5702-a01c-48a6-93b9-a0a678b1616a",
+          "name": "Get Meta",
+          "request": {
+            "name": "Get Meta",
+            "description": {
+              "content": "Returns WakaTime infrastructure metadata (IP ranges, etc.).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "meta"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "89f0fc7f-5b4a-40ae-aa52-6e1c10863a74",
+              "name": "Meta payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "79b9bff7-848f-4d99-8e71-0eb3bdf0cb68",
+      "name": "OAuth",
+      "description": {
+        "content": "OAuth 2.0 authorization endpoints.",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://wakatime.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "email read_summaries read_stats read_goals read_heartbeats write_heartbeats read_orgs write_orgs"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://wakatime.com/oauth/token"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://wakatime.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://wakatime.com/oauth/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0eaf92fd-633c-4550-81cf-dff0845c68b7",
+    "name": "WakaTime API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "WakaTime API v1 provides automated time-tracking analytics for software developers. IDE\nplugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, Zed, and\nmany more) send \"heartbeats\" describing the file, project, language, branch, and editor a\ndeveloper is working in. WakaTime aggregates that data into dashboards, summaries, stats,\ngoals, leaderboards, and team/org dashboards.\n\nAuthentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as\n`read_summaries`, `read_stats`, `read_goals`, `read_heartbeats`, `write_heartbeats`,\n`read_orgs`, `write_orgs`, and `email`, or via API Key (HTTP Basic auth or `?api_key=`)\nfor personal use. The default rate limit is fewer than 10 requests per second on average\nover any 5-minute window.\n\nAll responses follow the pattern `{\"data\": ...}` for successful requests or\n`{\"error\": \"message\"}` for errors.\n\n\nContact Support:\n Name: WakaTime Support\n Email: support@wakatime.com",
+      "type": "text/plain"
+    }
+  }
+}

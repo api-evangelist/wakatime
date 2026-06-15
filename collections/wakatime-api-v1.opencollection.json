@@ -1,0 +1,1256 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WakaTime API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://wakatime.com/oauth/authorize",
+      "accessTokenUrl": "https://wakatime.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Current User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current",
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://wakatime.com/oauth/authorize",
+              "accessTokenUrl": "https://wakatime.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns the authenticated user's profile."
+        },
+        {
+          "info": {
+            "name": "Get User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/:user",
+            "params": [
+              {
+                "name": "user",
+                "value": "example",
+                "type": "path",
+                "description": "User id, username, or \"current\"."
+              }
+            ]
+          },
+          "docs": "Returns the public profile for the given user."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Stats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Time Since Today",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/all_time_since_today",
+            "params": [
+              {
+                "name": "project",
+                "value": "example",
+                "type": "query",
+                "description": "Filter by project name."
+              }
+            ]
+          },
+          "docs": "Returns the total coding activity the authenticated user has logged since the account was created, up to today."
+        },
+        {
+          "info": {
+            "name": "Get User All Time Since Today",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/:user/all_time_since_today",
+            "params": [
+              {
+                "name": "user",
+                "value": "example",
+                "type": "path",
+                "description": "User id, username, or \"current\"."
+              },
+              {
+                "name": "project",
+                "value": "example",
+                "type": "query",
+                "description": "Filter by project name."
+              }
+            ]
+          },
+          "docs": "Returns the all-time-since-today totals for a specific user (requires scope on that user's data)."
+        },
+        {
+          "info": {
+            "name": "Get Stats For Range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/stats",
+            "params": [
+              {
+                "name": "range",
+                "value": "last_7_days",
+                "type": "query",
+                "description": "Range filter (last_7_days, last_30_days, last_6_months, last_year, all_time)."
+              },
+              {
+                "name": "timeout",
+                "value": "1",
+                "type": "query",
+                "description": "Keystroke timeout in minutes (defaults to user's account setting)."
+              },
+              {
+                "name": "writes_only",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to only include time editing (writing) files."
+              },
+              {
+                "name": "timezone",
+                "value": "America/Los_Angeles",
+                "type": "query",
+                "description": "Timezone to use (defaults to the user's profile timezone)."
+              },
+              {
+                "name": "project",
+                "value": "example",
+                "type": "query",
+                "description": "Filter by project name."
+              }
+            ]
+          },
+          "docs": "Returns coding stats for the authenticated user over a date range. May return 202 while WakaTime is calculating the stats."
+        },
+        {
+          "info": {
+            "name": "Get Stats By Named Range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/stats/:range",
+            "params": [
+              {
+                "name": "range",
+                "value": "last_7_days",
+                "type": "path",
+                "description": "Preset range."
+              }
+            ]
+          },
+          "docs": "Returns coding stats for a preset named range (last_7_days, last_30_days, last_6_months, last_year, all_time)."
+        },
+        {
+          "info": {
+            "name": "Get Stats Aggregated",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/stats_aggregated",
+            "params": [
+              {
+                "name": "range",
+                "value": "last_7_days",
+                "type": "query",
+                "description": "Range filter (last_7_days, last_30_days, last_6_months, last_year, all_time)."
+              }
+            ]
+          },
+          "docs": "Returns aggregated coding stats across all WakaTime users."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Heartbeats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Heartbeats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/heartbeats",
+            "params": [
+              {
+                "name": "date",
+                "value": "2026-05-30",
+                "type": "query",
+                "description": "Day to query (YYYY-MM-DD)."
+              }
+            ]
+          },
+          "docs": "Returns the authenticated user's heartbeats for a given day."
+        },
+        {
+          "info": {
+            "name": "Create Heartbeat",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://wakatime.com/api/v1/users/current/heartbeats",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a single heartbeat from an editor plugin."
+        },
+        {
+          "info": {
+            "name": "Create Heartbeats Bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://wakatime.com/api/v1/users/current/heartbeats.bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates multiple heartbeats in a single request (up to 25)."
+        },
+        {
+          "info": {
+            "name": "Delete Heartbeats Bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://wakatime.com/api/v1/users/current/heartbeats.bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes multiple heartbeats by date and id in a single request."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Durations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Durations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/durations",
+            "params": [
+              {
+                "name": "date",
+                "value": "2026-05-30",
+                "type": "query",
+                "description": "Day to query (YYYY-MM-DD)."
+              },
+              {
+                "name": "project",
+                "value": "example",
+                "type": "query",
+                "description": "Filter by project name."
+              },
+              {
+                "name": "branches",
+                "value": "example",
+                "type": "query",
+                "description": "Comma-separated list of git branches to include."
+              },
+              {
+                "name": "timeout",
+                "value": "1",
+                "type": "query",
+                "description": "Keystroke timeout in minutes (defaults to user's account setting)."
+              },
+              {
+                "name": "writes_only",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to only include time editing (writing) files."
+              },
+              {
+                "name": "timezone",
+                "value": "America/Los_Angeles",
+                "type": "query",
+                "description": "Timezone to use (defaults to the user's profile timezone)."
+              },
+              {
+                "name": "slice_by",
+                "value": "entity",
+                "type": "query",
+                "description": "Slice durations by entity, language, dependencies, os, editor, category, or machine."
+              }
+            ]
+          },
+          "docs": "Returns activity durations for a given day, derived from heartbeats."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "External Durations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List External Durations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/external_durations",
+            "params": [
+              {
+                "name": "date",
+                "value": "2026-05-30",
+                "type": "query",
+                "description": "Day to query (YYYY-MM-DD)."
+              },
+              {
+                "name": "project",
+                "value": "example",
+                "type": "query",
+                "description": "Filter by project name."
+              },
+              {
+                "name": "timezone",
+                "value": "America/Los_Angeles",
+                "type": "query",
+                "description": "Timezone to use (defaults to the user's profile timezone)."
+              }
+            ]
+          },
+          "docs": "Returns external (non-editor) durations for a given day."
+        },
+        {
+          "info": {
+            "name": "Create External Duration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://wakatime.com/api/v1/users/current/external_durations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a single external duration (for non-editor activity such as meetings, design tools, etc.)."
+        },
+        {
+          "info": {
+            "name": "Create External Durations Bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://wakatime.com/api/v1/users/current/external_durations.bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates multiple external durations in a single request (up to 1,000)."
+        },
+        {
+          "info": {
+            "name": "Delete External Durations Bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://wakatime.com/api/v1/users/current/external_durations.bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes multiple external durations by id and date."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Summaries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Summaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/summaries",
+            "params": [
+              {
+                "name": "start",
+                "value": "2026-05-30",
+                "type": "query",
+                "description": "Start date (YYYY-MM-DD) inclusive."
+              },
+              {
+                "name": "end",
+                "value": "2026-05-30",
+                "type": "query",
+                "description": "End date (YYYY-MM-DD) inclusive."
+              },
+              {
+                "name": "project",
+                "value": "example",
+                "type": "query",
+                "description": "Filter by project name."
+              },
+              {
+                "name": "branches",
+                "value": "example",
+                "type": "query",
+                "description": "Comma-separated list of git branches to include."
+              },
+              {
+                "name": "timeout",
+                "value": "1",
+                "type": "query",
+                "description": "Keystroke timeout in minutes (defaults to user's account setting)."
+              },
+              {
+                "name": "writes_only",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to only include time editing (writing) files."
+              },
+              {
+                "name": "timezone",
+                "value": "America/Los_Angeles",
+                "type": "query",
+                "description": "Timezone to use (defaults to the user's profile timezone)."
+              },
+              {
+                "name": "range",
+                "value": "last_7_days",
+                "type": "query",
+                "description": "Range filter (last_7_days, last_30_days, last_6_months, last_year, all_time)."
+              }
+            ]
+          },
+          "docs": "Returns daily summaries of coding activity between a start and end date, broken down by project, language, editor, OS, machine, branch, category, and dependencies."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Insights",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Insight",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/insights/:insight_type/:range",
+            "params": [
+              {
+                "name": "insight_type",
+                "value": "stats",
+                "type": "path",
+                "description": "The insight type."
+              },
+              {
+                "name": "range",
+                "value": "example",
+                "type": "path",
+                "description": "The range for the insight (e.g. last_7_days, last_year)."
+              },
+              {
+                "name": "timezone",
+                "value": "America/Los_Angeles",
+                "type": "query",
+                "description": "Timezone to use (defaults to the user's profile timezone)."
+              },
+              {
+                "name": "writes_only",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to only include time editing (writing) files."
+              }
+            ]
+          },
+          "docs": "Returns an insight slice for a given type and range."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/projects",
+            "params": [
+              {
+                "name": "q",
+                "value": "example",
+                "type": "query",
+                "description": "Filter projects by name."
+              }
+            ]
+          },
+          "docs": "Returns projects the authenticated user has logged time against."
+        },
+        {
+          "info": {
+            "name": "Get Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/projects/:project",
+            "params": [
+              {
+                "name": "project",
+                "value": "example",
+                "type": "path",
+                "description": "Project name."
+              }
+            ]
+          },
+          "docs": "Returns details for the specified project."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Commits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Project Commits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/projects/:project/commits",
+            "params": [
+              {
+                "name": "project",
+                "value": "example",
+                "type": "path",
+                "description": "Project name."
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query"
+              },
+              {
+                "name": "author",
+                "value": "example",
+                "type": "query",
+                "description": "Filter by commit author."
+              }
+            ]
+          },
+          "docs": "Returns commits for the specified project, each enriched with coding-time totals."
+        },
+        {
+          "info": {
+            "name": "Get Project Commit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/projects/:project/commits/:hash",
+            "params": [
+              {
+                "name": "project",
+                "value": "example",
+                "type": "path",
+                "description": "Project name."
+              },
+              {
+                "name": "hash",
+                "value": "example",
+                "type": "path",
+                "description": "Commit hash."
+              }
+            ]
+          },
+          "docs": "Returns a single commit for the specified project."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Goals",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Goals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/goals"
+          },
+          "docs": "Returns the authenticated user's coding goals."
+        },
+        {
+          "info": {
+            "name": "Get Goal",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/goals/:goal",
+            "params": [
+              {
+                "name": "goal",
+                "value": "example",
+                "type": "path",
+                "description": "Goal id."
+              }
+            ]
+          },
+          "docs": "Returns a specific goal with its progress data."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Custom Rules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Custom Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/custom_rules"
+          },
+          "docs": "Returns the authenticated user's custom time-attribution rules."
+        },
+        {
+          "info": {
+            "name": "Put Custom Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://wakatime.com/api/v1/users/current/custom_rules",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates one or more custom rules."
+        },
+        {
+          "info": {
+            "name": "Delete Custom Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://wakatime.com/api/v1/users/current/custom_rules/:rule_id",
+            "params": [
+              {
+                "name": "rule_id",
+                "value": "example",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a single custom rule."
+        },
+        {
+          "info": {
+            "name": "Get Custom Rules Progress",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/custom_rules_progress"
+          },
+          "docs": "Returns the status of any background job reprocessing the user's heartbeats against current custom rules."
+        },
+        {
+          "info": {
+            "name": "Abort Custom Rules Progress",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://wakatime.com/api/v1/users/current/custom_rules_progress"
+          },
+          "docs": "Aborts the background job currently reapplying custom rules."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Data Dumps",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Data Dumps",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/data_dumps"
+          },
+          "docs": "Returns the authenticated user's data exports."
+        },
+        {
+          "info": {
+            "name": "Create Data Dump",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://wakatime.com/api/v1/users/current/data_dumps",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Triggers generation of a new data export."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Editors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Editors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/editors"
+          },
+          "docs": "Returns the available WakaTime editor plugins and their published versions."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Languages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Languages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/languages"
+          },
+          "docs": "Returns all programming languages recognized by WakaTime."
+        },
+        {
+          "info": {
+            "name": "List Program Languages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/program_languages"
+          },
+          "docs": "Returns programming-language metadata."
+        },
+        {
+          "info": {
+            "name": "List User Languages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/languages"
+          },
+          "docs": "Returns the programming languages the authenticated user has logged time in."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Machines",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Machine Names",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/machine_names"
+          },
+          "docs": "Returns devices that have sent heartbeats for the authenticated user."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "User Agents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List User Agents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/user_agents"
+          },
+          "docs": "Returns the editor + OS user-agents the authenticated user has used."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Leaderboards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Leaders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/leaders",
+            "params": [
+              {
+                "name": "language",
+                "value": "example",
+                "type": "query",
+                "description": "Filter by programming language."
+              },
+              {
+                "name": "country_code",
+                "value": "example",
+                "type": "query",
+                "description": "Filter by ISO country code."
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the public WakaTime leaderboard."
+        },
+        {
+          "info": {
+            "name": "List Private Leaderboards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/private_leaderboards"
+          },
+          "docs": "Returns the authenticated user's private leaderboards."
+        },
+        {
+          "info": {
+            "name": "List Private Leaderboard Leaders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/private_leaderboards/:id/leaders",
+            "params": [
+              {
+                "name": "id",
+                "value": "example",
+                "type": "path",
+                "description": "Private leaderboard id."
+              }
+            ]
+          },
+          "docs": "Returns rankings for a specific private leaderboard."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Status Bar",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Status Bar",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/status_bar"
+          },
+          "docs": "Returns a cached today-only stats payload for status-bar displays in editor plugins."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/orgs"
+          },
+          "docs": "Returns the organizations the authenticated user belongs to."
+        },
+        {
+          "info": {
+            "name": "List Org Custom Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/orgs/:org/custom_rules",
+            "params": [
+              {
+                "name": "org",
+                "value": "example",
+                "type": "path",
+                "description": "Organization id."
+              }
+            ]
+          },
+          "docs": "Returns custom rules defined at the organization level."
+        },
+        {
+          "info": {
+            "name": "Put Org Custom Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://wakatime.com/api/v1/users/current/orgs/:org/custom_rules",
+            "params": [
+              {
+                "name": "org",
+                "value": "example",
+                "type": "path",
+                "description": "Organization id."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the custom rules for the organization."
+        },
+        {
+          "info": {
+            "name": "List Org Dashboards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/orgs/:org/dashboards",
+            "params": [
+              {
+                "name": "org",
+                "value": "example",
+                "type": "path",
+                "description": "Organization id."
+              }
+            ]
+          },
+          "docs": "Returns dashboards available in the organization."
+        },
+        {
+          "info": {
+            "name": "List Dashboard Members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/orgs/:org/dashboards/:dashboard/members",
+            "params": [
+              {
+                "name": "org",
+                "value": "example",
+                "type": "path",
+                "description": "Organization id."
+              },
+              {
+                "name": "dashboard",
+                "value": "example",
+                "type": "path",
+                "description": "Dashboard id."
+              }
+            ]
+          },
+          "docs": "Returns the members included in the dashboard."
+        },
+        {
+          "info": {
+            "name": "List Dashboard Summaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/orgs/:org/dashboards/:dashboard/summaries",
+            "params": [
+              {
+                "name": "org",
+                "value": "example",
+                "type": "path",
+                "description": "Organization id."
+              },
+              {
+                "name": "dashboard",
+                "value": "example",
+                "type": "path",
+                "description": "Dashboard id."
+              },
+              {
+                "name": "start",
+                "value": "2026-05-30",
+                "type": "query"
+              },
+              {
+                "name": "end",
+                "value": "2026-05-30",
+                "type": "query"
+              },
+              {
+                "name": "project",
+                "value": "example",
+                "type": "query",
+                "description": "Filter by project name."
+              },
+              {
+                "name": "branches",
+                "value": "example",
+                "type": "query",
+                "description": "Comma-separated list of git branches to include."
+              }
+            ]
+          },
+          "docs": "Returns aggregated daily summaries for the dashboard."
+        },
+        {
+          "info": {
+            "name": "List Dashboard Member Summaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/orgs/:org/dashboards/:dashboard/member/:member/summaries",
+            "params": [
+              {
+                "name": "org",
+                "value": "example",
+                "type": "path",
+                "description": "Organization id."
+              },
+              {
+                "name": "dashboard",
+                "value": "example",
+                "type": "path",
+                "description": "Dashboard id."
+              },
+              {
+                "name": "member",
+                "value": "example",
+                "type": "path",
+                "description": "Org member id."
+              },
+              {
+                "name": "start",
+                "value": "2026-05-30",
+                "type": "query"
+              },
+              {
+                "name": "end",
+                "value": "2026-05-30",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns summaries for a specific member within the dashboard."
+        },
+        {
+          "info": {
+            "name": "List Dashboard Durations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/orgs/:org/dashboards/:dashboard/durations",
+            "params": [
+              {
+                "name": "org",
+                "value": "example",
+                "type": "path",
+                "description": "Organization id."
+              },
+              {
+                "name": "dashboard",
+                "value": "example",
+                "type": "path",
+                "description": "Dashboard id."
+              },
+              {
+                "name": "date",
+                "value": "2026-05-30",
+                "type": "query",
+                "description": "Day to query (YYYY-MM-DD)."
+              }
+            ]
+          },
+          "docs": "Returns durations for the dashboard for a given day."
+        },
+        {
+          "info": {
+            "name": "List Dashboard Member Durations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/orgs/:org/dashboards/:dashboard/member/:member/durations",
+            "params": [
+              {
+                "name": "org",
+                "value": "example",
+                "type": "path",
+                "description": "Organization id."
+              },
+              {
+                "name": "dashboard",
+                "value": "example",
+                "type": "path",
+                "description": "Dashboard id."
+              },
+              {
+                "name": "member",
+                "value": "example",
+                "type": "path",
+                "description": "Org member id."
+              },
+              {
+                "name": "date",
+                "value": "2026-05-30",
+                "type": "query",
+                "description": "Day to query (YYYY-MM-DD)."
+              }
+            ]
+          },
+          "docs": "Returns durations for a specific member within the dashboard for a given day."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Meta",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Meta",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/meta"
+          },
+          "docs": "Returns WakaTime infrastructure metadata (IP ranges, etc.)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
