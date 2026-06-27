@@ -59,7 +59,7 @@ apis:
         url: https://wakatime.com/developers
       - type: OpenAPI
         url: openapi/wakatime-api-v1-openapi.yml
-      - type: SignUp
+      - type: Signup
         url: https://wakatime.com/signup
       - type: Authentication
         url: https://wakatime.com/developers#authentication
@@ -69,7 +69,7 @@ apis:
         url: https://wakatime.com/api-key
       - type: RateLimits
         url: https://wakatime.com/developers#rate_limits
-      - type: Changelog
+      - type: ChangeLog
         url: https://wakatime.com/changelog
       - type: Status
         url: https://wakatime.com/status
@@ -99,7 +99,7 @@ apis:
         url: rate-limits/wakatime-rate-limits.yml
       - type: FinOps
         url: finops/wakatime-finops.yml
-      - type: SDK
+      - type: SDKs
         url: https://github.com/wakatime/wakatime-cli
         title: WakaTime CLI (Go)
       - type: CLI
@@ -112,39 +112,36 @@ apis:
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/wakatime/overview
-  - type: ArazzoWorkflows
-    url: arazzo/
-    workflows:
-      - url: arazzo/wakatime-daily-activity-audit-workflow.yml
-        name: WakaTime Daily Activity Audit
-        summary: Pull the status-bar today snapshot, then the day's raw heartbeats and computed durations.
-      - url: arazzo/wakatime-data-dump-export-workflow.yml
-        name: WakaTime Data Dump Export
-        summary: Check for existing data exports, create a new dump when none exist, then re-list to confirm.
-      - url: arazzo/wakatime-goals-review-workflow.yml
-        name: WakaTime Goals Review
-        summary: List the user's coding goals, then load the detailed progress for the first goal.
-      - url: arazzo/wakatime-leaderboard-to-user-workflow.yml
-        name: WakaTime Leaderboard To User
-        summary: Read the public leaderboard, resolve the top leader's public profile, and their all-time totals.
-      - url: arazzo/wakatime-private-leaderboard-rankings-workflow.yml
-        name: WakaTime Private Leaderboard Rankings
-        summary: List the user's private leaderboards, load one board's rankings, then resolve the top member.
-      - url: arazzo/wakatime-project-deep-dive-workflow.yml
-        name: WakaTime Project Deep Dive
-        summary: Resolve the current user, load a project's details, list its commits, then fetch one commit.
-      - url: arazzo/wakatime-send-heartbeat-and-verify-workflow.yml
-        name: WakaTime Send Heartbeat And Verify
-        summary: Send a single editor heartbeat, then list the day's heartbeats to confirm it landed.
-      - url: arazzo/wakatime-stats-range-comparison-workflow.yml
-        name: WakaTime Stats Range Comparison
-        summary: Compare a preset named-range stat set against a custom-range stat set and the global aggregate.
-      - url: arazzo/wakatime-summaries-to-durations-workflow.yml
-        name: WakaTime Summaries To Durations Drilldown
-        summary: Pull daily summaries over a date range, then drill into a single day's activity durations.
-      - url: arazzo/wakatime-user-profile-overview-workflow.yml
-        name: WakaTime User Profile Overview
-        summary: Assemble a snapshot of the authenticated user's profile, all-time totals, recent stats, and projects.
+  - type: Arazzo
+    url: arazzo/wakatime-daily-activity-audit-workflow.yml
+    name: WakaTime Daily Activity Audit
+  - type: Arazzo
+    url: arazzo/wakatime-data-dump-export-workflow.yml
+    name: WakaTime Data Dump Export
+  - type: Arazzo
+    url: arazzo/wakatime-goals-review-workflow.yml
+    name: WakaTime Goals Review
+  - type: Arazzo
+    url: arazzo/wakatime-leaderboard-to-user-workflow.yml
+    name: WakaTime Leaderboard To User
+  - type: Arazzo
+    url: arazzo/wakatime-private-leaderboard-rankings-workflow.yml
+    name: WakaTime Private Leaderboard Rankings
+  - type: Arazzo
+    url: arazzo/wakatime-project-deep-dive-workflow.yml
+    name: WakaTime Project Deep Dive
+  - type: Arazzo
+    url: arazzo/wakatime-send-heartbeat-and-verify-workflow.yml
+    name: WakaTime Send Heartbeat And Verify
+  - type: Arazzo
+    url: arazzo/wakatime-stats-range-comparison-workflow.yml
+    name: WakaTime Stats Range Comparison
+  - type: Arazzo
+    url: arazzo/wakatime-summaries-to-durations-workflow.yml
+    name: WakaTime Summaries To Durations Drilldown
+  - type: Arazzo
+    url: arazzo/wakatime-user-profile-overview-workflow.yml
+    name: WakaTime User Profile Overview
   - type: Plans
     url: plans/wakatime-plans-pricing.yml
   - type: RateLimits
@@ -165,7 +162,7 @@ common:
     url: https://wakatime.com/developers
   - type: APIReference
     url: https://wakatime.com/developers
-  - type: SignUp
+  - type: Signup
     url: https://wakatime.com/signup
   - type: Login
     url: https://wakatime.com/login
@@ -179,7 +176,7 @@ common:
     url: https://wakatime.com/status
   - type: StatusRepo
     url: https://github.com/wakatime/statuspage
-  - type: Changelog
+  - type: ChangeLog
     url: https://wakatime.com/changelog
   - type: Support
     url: https://wakatime.com/help
