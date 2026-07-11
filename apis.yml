@@ -110,6 +110,10 @@ apis:
       - type: Embeddables
         url: https://wakatime.com/share
 common:
+  - type: Authentication
+    url: authentication/wakatime-authentication.yml
+  - type: OAuthScopes
+    url: scopes/wakatime-scopes.yml
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/wakatime/overview
   - type: Arazzo

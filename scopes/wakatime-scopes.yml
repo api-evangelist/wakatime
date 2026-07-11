@@ -1,0 +1,70 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/wakatime-api-v1-openapi.yml
+schemes:
+- name: oauth2
+  source: openapi/wakatime-api-v1-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://wakatime.com/oauth/authorize
+    tokenUrl: https://wakatime.com/oauth/token
+  - flow: implicit
+    authorizationUrl: https://wakatime.com/oauth/authorize
+  description: OAuth 2.0 authorization code flow.
+scopes:
+- scope: email
+  description: Read user email.
+  flows:
+  - authorizationCode
+  - implicit
+  sources:
+  - openapi/wakatime-api-v1-openapi.yml
+- scope: read_goals
+  description: Read coding goals.
+  flows:
+  - authorizationCode
+  - implicit
+  sources:
+  - openapi/wakatime-api-v1-openapi.yml
+- scope: read_heartbeats
+  description: Read raw heartbeats.
+  flows:
+  - authorizationCode
+  - implicit
+  sources:
+  - openapi/wakatime-api-v1-openapi.yml
+- scope: read_orgs
+  description: Read organization data.
+  flows:
+  - authorizationCode
+  - implicit
+  sources:
+  - openapi/wakatime-api-v1-openapi.yml
+- scope: read_stats
+  description: Read aggregate stats.
+  flows:
+  - authorizationCode
+  - implicit
+  sources:
+  - openapi/wakatime-api-v1-openapi.yml
+- scope: read_summaries
+  description: Read coding-activity summaries.
+  flows:
+  - authorizationCode
+  - implicit
+  sources:
+  - openapi/wakatime-api-v1-openapi.yml
+- scope: write_heartbeats
+  description: Send heartbeats.
+  flows:
+  - authorizationCode
+  - implicit
+  sources:
+  - openapi/wakatime-api-v1-openapi.yml
+- scope: write_orgs
+  description: Modify organization data.
+  flows:
+  - authorizationCode
+  - implicit
+  sources:
+  - openapi/wakatime-api-v1-openapi.yml
