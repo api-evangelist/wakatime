@@ -110,6 +110,12 @@ apis:
       - type: Embeddables
         url: https://wakatime.com/share
 common:
+  - type: TrustCenter
+    url: security/wakatime-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/wakatime-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/wakatime-domain-security.yml
   - type: Authentication
     url: authentication/wakatime-authentication.yml
   - type: OAuthScopes

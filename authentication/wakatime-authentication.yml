@@ -1,0 +1,37 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/wakatime-api-v1-openapi.yml
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+  - implicit
+schemes:
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://wakatime.com/oauth/authorize
+    tokenUrl: https://wakatime.com/oauth/token
+    scopes: 8
+  - flow: implicit
+    authorizationUrl: https://wakatime.com/oauth/authorize
+    scopes: 8
+  description: OAuth 2.0 authorization code flow.
+  sources:
+  - openapi/wakatime-api-v1-openapi.yml
+- name: apiKey
+  type: http
+  scheme: basic
+  description: HTTP Basic with the WakaTime API key as the username. Alternatively, pass `?api_key=...`
+    as a query parameter.
+  sources:
+  - openapi/wakatime-api-v1-openapi.yml
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: OAuth access token in the Authorization header as `Bearer waka_tok_...`.
+  sources:
+  - openapi/wakatime-api-v1-openapi.yml
