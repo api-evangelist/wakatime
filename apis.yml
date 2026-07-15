@@ -110,6 +110,8 @@ apis:
       - type: Embeddables
         url: https://wakatime.com/share
 common:
+  - type: AgenticAccess
+    url: agentic-access/wakatime-agentic-access.yml
   - type: TrustCenter
     url: security/wakatime-trust-center.yml
   - type: VulnerabilityDisclosure
