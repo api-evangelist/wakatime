@@ -32,6 +32,6 @@ schemes:
 - name: bearerAuth
   type: http
   scheme: bearer
-  description: OAuth access token in the Authorization header as `Bearer waka_tok_...`.
+  description: OAuth access token in the Authorization header as `Bearer [example key]`.
   sources:
   - openapi/wakatime-api-v1-openapi.yml
