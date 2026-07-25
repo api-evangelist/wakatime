@@ -1,0 +1,381 @@
+openapi: 3.0.3
+info:
+  title: WakaTime Commits Goals API
+  version: v1
+  description: 'WakaTime API v1 provides automated time-tracking analytics for software developers. IDE
+
+    plugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, Zed, and
+
+    many more) send "heartbeats" describing the file, project, language, branch, and editor a
+
+    developer is working in. WakaTime aggregates that data into dashboards, summaries, stats,
+
+    goals, leaderboards, and team/org dashboards.
+
+
+    Authentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as
+
+    `read_summaries`, `read_stats`, `read_goals`, `read_heartbeats`, `write_heartbeats`,
+
+    `read_orgs`, `write_orgs`, and `email`, or via API Key (HTTP Basic auth or `?api_key=`)
+
+    for personal use. The default rate limit is fewer than 10 requests per second on average
+
+    over any 5-minute window.
+
+
+    All responses follow the pattern `{"data": ...}` for successful requests or
+
+    `{"error": "message"}` for errors.
+
+    '
+  contact:
+    name: WakaTime Support
+    url: https://wakatime.com/contact
+    email: support@wakatime.com
+  termsOfService: https://wakatime.com/terms
+  license:
+    name: WakaTime Terms of Service
+    url: https://wakatime.com/terms
+  x-generated-from: documentation
+  x-source-url: https://wakatime.com/developers
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://wakatime.com/api/v1
+  description: WakaTime production API
+- url: https://api.wakatime.com/api/v1
+  description: WakaTime alternate hostname
+security:
+- oauth2: []
+- apiKey: []
+- bearerAuth: []
+tags:
+- name: Goals
+  description: User coding goals and their progress.
+paths:
+  /users/current/goals:
+    get:
+      operationId: listGoals
+      summary: List Goals
+      description: Returns the authenticated user's coding goals.
+      tags:
+      - Goals
+      responses:
+        '200':
+          description: Goals list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Goal'
+              examples:
+                ListGoals200Example:
+                  summary: Default listGoals 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      title: Code 4 hrs a day
+                      type: coding_activity
+                      delta: day
+                      seconds: 60
+                      status: success
+                      cumulative_status: example
+                      languages:
+                      - example
+                      projects:
+                      - example
+                      editors:
+                      - example
+                      is_enabled: true
+                      is_inverse: true
+                      is_snoozed: true
+                      ignore_days:
+                      - example
+                      modified_at: '2026-05-30T12:34:56Z'
+                      created_at: '2026-05-30T12:34:56Z'
+                      snooze_until: '2026-05-30T12:34:56Z'
+                      chart_data: []
+                      average_status: example
+                      owner: {}
+                      shared_with: []
+                      subscribers: []
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/current/goals/{goal}:
+    get:
+      operationId: getGoal
+      summary: Get Goal
+      description: Returns a specific goal with its progress data.
+      tags:
+      - Goals
+      parameters:
+      - name: goal
+        in: path
+        required: true
+        description: Goal id.
+        schema:
+          type: string
+        example: example
+      responses:
+        '200':
+          description: Goal details.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Goal'
+              examples:
+                GetGoal200Example:
+                  summary: Default getGoal 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      title: Code 4 hrs a day
+                      type: coding_activity
+                      delta: day
+                      seconds: 60
+                      status: success
+                      cumulative_status: example
+                      languages:
+                      - example
+                      projects:
+                      - example
+                      editors:
+                      - example
+                      is_enabled: true
+                      is_inverse: true
+                      is_snoozed: true
+                      ignore_days:
+                      - example
+                      modified_at: '2026-05-30T12:34:56Z'
+                      created_at: '2026-05-30T12:34:56Z'
+                      snooze_until: '2026-05-30T12:34:56Z'
+                      chart_data: []
+                      average_status: example
+                      owner: {}
+                      shared_with: []
+                      subscribers: []
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Goal:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+        title:
+          type: string
+          example: Code 4 hrs a day
+        type:
+          type: string
+          enum:
+          - coding_activity
+          - project
+          - language
+          example: coding_activity
+        delta:
+          type: string
+          enum:
+          - day
+          - week
+          example: day
+        seconds:
+          type: integer
+          description: Goal threshold in seconds.
+          example: 60
+        status:
+          type: string
+          enum:
+          - success
+          - fail
+          - pending
+          - ignored
+          example: success
+        cumulative_status:
+          type: string
+          example: example
+        languages:
+          type: array
+          items:
+            type: string
+          example:
+          - example
+        projects:
+          type: array
+          items:
+            type: string
+          example:
+          - example
+        editors:
+          type: array
+          items:
+            type: string
+          example:
+          - example
+        is_enabled:
+          type: boolean
+          example: true
+        is_inverse:
+          type: boolean
+          example: true
+        is_snoozed:
+          type: boolean
+          example: true
+        ignore_days:
+          type: array
+          items:
+            type: string
+          example:
+          - example
+        modified_at:
+          type: string
+          format: date-time
+          example: '2026-05-30T12:34:56Z'
+        created_at:
+          type: string
+          format: date-time
+          example: '2026-05-30T12:34:56Z'
+        snooze_until:
+          type: string
+          format: date-time
+          nullable: true
+          example: '2026-05-30T12:34:56Z'
+        chart_data:
+          type: array
+          items:
+            type: object
+            properties:
+              actual_seconds:
+                type: number
+                format: float
+              actual_seconds_text:
+                type: string
+              goal_seconds:
+                type: integer
+              goal_seconds_text:
+                type: string
+              range:
+                type: object
+                properties:
+                  date:
+                    type: string
+                    format: date
+                  start:
+                    type: string
+                    format: date-time
+                  end:
+                    type: string
+                    format: date-time
+                  text:
+                    type: string
+                  timezone:
+                    type: string
+              range_status:
+                type: string
+              range_status_reason:
+                type: string
+                nullable: true
+              range_status_reason_short:
+                type: string
+                nullable: true
+          example: []
+        average_status:
+          type: string
+          example: example
+        owner:
+          type: object
+          properties:
+            id:
+              type: string
+            display_name:
+              type: string
+            email:
+              type: string
+              format: email
+              nullable: true
+            photo:
+              type: string
+              format: uri
+            username:
+              type: string
+              nullable: true
+            full_name:
+              type: string
+              nullable: true
+          example: {}
+        shared_with:
+          type: array
+          items:
+            type: object
+            properties:
+              user_id:
+                type: string
+              display_name:
+                type: string
+              status:
+                type: string
+              status_changed_at:
+                type: string
+                format: date-time
+          example: []
+        subscribers:
+          type: array
+          items:
+            type: object
+            properties:
+              user_id:
+                type: string
+              display_name:
+                type: string
+              email_frequency:
+                type: string
+          example: []
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authorization code flow.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://wakatime.com/oauth/authorize
+          tokenUrl: https://wakatime.com/oauth/token
+          refreshUrl: https://wakatime.com/oauth/token
+          scopes:
+            email: Read user email.
+            read_summaries: Read coding-activity summaries.
+            read_stats: Read aggregate stats.
+            read_goals: Read coding goals.
+            read_heartbeats: Read raw heartbeats.
+            write_heartbeats: Send heartbeats.
+            read_orgs: Read organization data.
+            write_orgs: Modify organization data.
+        implicit:
+          authorizationUrl: https://wakatime.com/oauth/authorize
+          scopes:
+            email: Read user email.
+            read_summaries: Read coding-activity summaries.
+            read_stats: Read aggregate stats.
+            read_goals: Read coding goals.
+            read_heartbeats: Read raw heartbeats.
+            write_heartbeats: Send heartbeats.
+            read_orgs: Read organization data.
+            write_orgs: Modify organization data.
+    apiKey:
+      type: http
+      scheme: basic
+      description: HTTP Basic with the WakaTime API key as the username. Alternatively, pass `?api_key=...` as a query parameter.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth access token in the Authorization header as `Bearer waka_tok_...`.

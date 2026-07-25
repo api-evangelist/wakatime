@@ -1,0 +1,243 @@
+openapi: 3.0.3
+info:
+  title: WakaTime Commits Projects API
+  version: v1
+  description: 'WakaTime API v1 provides automated time-tracking analytics for software developers. IDE
+
+    plugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, Zed, and
+
+    many more) send "heartbeats" describing the file, project, language, branch, and editor a
+
+    developer is working in. WakaTime aggregates that data into dashboards, summaries, stats,
+
+    goals, leaderboards, and team/org dashboards.
+
+
+    Authentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as
+
+    `read_summaries`, `read_stats`, `read_goals`, `read_heartbeats`, `write_heartbeats`,
+
+    `read_orgs`, `write_orgs`, and `email`, or via API Key (HTTP Basic auth or `?api_key=`)
+
+    for personal use. The default rate limit is fewer than 10 requests per second on average
+
+    over any 5-minute window.
+
+
+    All responses follow the pattern `{"data": ...}` for successful requests or
+
+    `{"error": "message"}` for errors.
+
+    '
+  contact:
+    name: WakaTime Support
+    url: https://wakatime.com/contact
+    email: support@wakatime.com
+  termsOfService: https://wakatime.com/terms
+  license:
+    name: WakaTime Terms of Service
+    url: https://wakatime.com/terms
+  x-generated-from: documentation
+  x-source-url: https://wakatime.com/developers
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://wakatime.com/api/v1
+  description: WakaTime production API
+- url: https://api.wakatime.com/api/v1
+  description: WakaTime alternate hostname
+security:
+- oauth2: []
+- apiKey: []
+- bearerAuth: []
+tags:
+- name: Projects
+  description: Projects the authenticated user has logged time against.
+paths:
+  /users/current/projects:
+    get:
+      operationId: listProjects
+      summary: List Projects
+      description: Returns projects the authenticated user has logged time against.
+      tags:
+      - Projects
+      parameters:
+      - name: q
+        in: query
+        description: Filter projects by name.
+        schema:
+          type: string
+        example: example
+      responses:
+        '200':
+          description: Project list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Project'
+              examples:
+                ListProjects200Example:
+                  summary: Default listProjects 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      name: WakaTime
+                      repository: https://github.com/wakatime/wakatime-cli
+                      badge: https://wakatime.com/badge/user/abc/project/wakatime-cli.svg
+                      color: '#3498db'
+                      clients:
+                      - example
+                      has_public_url: https://wakatime.com/example
+                      human_readable_last_heartbeat_at: '2026-05-30T12:34:56Z'
+                      last_heartbeat_at: '2026-05-30T12:34:56Z'
+                      url: https://wakatime.com/@kinlane/projects/wakatime-cli
+                      urlencoded_name: wakatime-cli
+                      created_at: '2026-05-30T12:34:56Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/current/projects/{project}:
+    get:
+      operationId: getProject
+      summary: Get Project
+      description: Returns details for the specified project.
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/ProjectPath'
+      responses:
+        '200':
+          description: The project details.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Project'
+              examples:
+                GetProject200Example:
+                  summary: Default getProject 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      name: WakaTime
+                      repository: https://github.com/wakatime/wakatime-cli
+                      badge: https://wakatime.com/badge/user/abc/project/wakatime-cli.svg
+                      color: '#3498db'
+                      clients:
+                      - example
+                      has_public_url: https://wakatime.com/example
+                      human_readable_last_heartbeat_at: '2026-05-30T12:34:56Z'
+                      last_heartbeat_at: '2026-05-30T12:34:56Z'
+                      url: https://wakatime.com/@kinlane/projects/wakatime-cli
+                      urlencoded_name: wakatime-cli
+                      created_at: '2026-05-30T12:34:56Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    ProjectPath:
+      name: project
+      in: path
+      required: true
+      description: Project name.
+      schema:
+        type: string
+      example: example
+  schemas:
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+        name:
+          type: string
+          example: WakaTime
+        repository:
+          type: string
+          nullable: true
+          example: https://github.com/wakatime/wakatime-cli
+        badge:
+          type: string
+          nullable: true
+          example: https://wakatime.com/badge/user/abc/project/wakatime-cli.svg
+        color:
+          type: string
+          nullable: true
+          example: '#3498db'
+        clients:
+          type: array
+          items:
+            type: string
+          example:
+          - example
+        has_public_url:
+          type: boolean
+          example: https://wakatime.com/example
+        human_readable_last_heartbeat_at:
+          type: string
+          nullable: true
+          example: '2026-05-30T12:34:56Z'
+        last_heartbeat_at:
+          type: string
+          format: date-time
+          nullable: true
+          example: '2026-05-30T12:34:56Z'
+        url:
+          type: string
+          format: uri
+          nullable: true
+          example: https://wakatime.com/@kinlane/projects/wakatime-cli
+        urlencoded_name:
+          type: string
+          example: wakatime-cli
+        created_at:
+          type: string
+          format: date-time
+          example: '2026-05-30T12:34:56Z'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authorization code flow.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://wakatime.com/oauth/authorize
+          tokenUrl: https://wakatime.com/oauth/token
+          refreshUrl: https://wakatime.com/oauth/token
+          scopes:
+            email: Read user email.
+            read_summaries: Read coding-activity summaries.
+            read_stats: Read aggregate stats.
+            read_goals: Read coding goals.
+            read_heartbeats: Read raw heartbeats.
+            write_heartbeats: Send heartbeats.
+            read_orgs: Read organization data.
+            write_orgs: Modify organization data.
+        implicit:
+          authorizationUrl: https://wakatime.com/oauth/authorize
+          scopes:
+            email: Read user email.
+            read_summaries: Read coding-activity summaries.
+            read_stats: Read aggregate stats.
+            read_goals: Read coding goals.
+            read_heartbeats: Read raw heartbeats.
+            write_heartbeats: Send heartbeats.
+            read_orgs: Read organization data.
+            write_orgs: Modify organization data.
+    apiKey:
+      type: http
+      scheme: basic
+      description: HTTP Basic with the WakaTime API key as the username. Alternatively, pass `?api_key=...` as a query parameter.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth access token in the Authorization header as `Bearer waka_tok_...`.

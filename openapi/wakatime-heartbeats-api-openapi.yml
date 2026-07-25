@@ -1,0 +1,443 @@
+openapi: 3.0.3
+info:
+  title: WakaTime Commits Heartbeats API
+  version: v1
+  description: 'WakaTime API v1 provides automated time-tracking analytics for software developers. IDE
+
+    plugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, Zed, and
+
+    many more) send "heartbeats" describing the file, project, language, branch, and editor a
+
+    developer is working in. WakaTime aggregates that data into dashboards, summaries, stats,
+
+    goals, leaderboards, and team/org dashboards.
+
+
+    Authentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as
+
+    `read_summaries`, `read_stats`, `read_goals`, `read_heartbeats`, `write_heartbeats`,
+
+    `read_orgs`, `write_orgs`, and `email`, or via API Key (HTTP Basic auth or `?api_key=`)
+
+    for personal use. The default rate limit is fewer than 10 requests per second on average
+
+    over any 5-minute window.
+
+
+    All responses follow the pattern `{"data": ...}` for successful requests or
+
+    `{"error": "message"}` for errors.
+
+    '
+  contact:
+    name: WakaTime Support
+    url: https://wakatime.com/contact
+    email: support@wakatime.com
+  termsOfService: https://wakatime.com/terms
+  license:
+    name: WakaTime Terms of Service
+    url: https://wakatime.com/terms
+  x-generated-from: documentation
+  x-source-url: https://wakatime.com/developers
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://wakatime.com/api/v1
+  description: WakaTime production API
+- url: https://api.wakatime.com/api/v1
+  description: WakaTime alternate hostname
+security:
+- oauth2: []
+- apiKey: []
+- bearerAuth: []
+tags:
+- name: Heartbeats
+  description: Coding-activity pings sent by editor plugins.
+paths:
+  /users/current/heartbeats:
+    get:
+      operationId: listHeartbeats
+      summary: List Heartbeats
+      description: Returns the authenticated user's heartbeats for a given day.
+      tags:
+      - Heartbeats
+      parameters:
+      - $ref: '#/components/parameters/DateQueryRequired'
+      responses:
+        '200':
+          description: A list of heartbeats for the day.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Heartbeat'
+              examples:
+                ListHeartbeats200Example:
+                  summary: Default listHeartbeats 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - entity: /Users/kin/code/wakatime-cli/main.go
+                      type: file
+                      category: coding
+                      time: 1.0
+                      project: wakatime-cli
+                      project_root_count: 4
+                      branch: main
+                      language: Python
+                      dependencies:
+                      - example
+                      lines: 1
+                      line_additions: 1
+                      line_deletions: 1
+                      lineno: 1
+                      cursorpos: 1
+                      is_write: true
+                      id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      user_id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      created_at: '2026-05-30T12:34:56Z'
+                      modified_at: '2026-05-30T12:34:56Z'
+                      machine_name_id: machine-001
+                      user_agent_id: ua-001
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createHeartbeat
+      summary: Create Heartbeat
+      description: Creates a single heartbeat from an editor plugin.
+      tags:
+      - Heartbeats
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HeartbeatInput'
+            examples:
+              CreateHeartbeatRequestExample:
+                summary: Default createHeartbeat request
+                x-microcks-default: true
+                value:
+                  entity: /Users/kin/code/wakatime-cli/main.go
+                  type: file
+                  category: coding
+                  time: 1.0
+                  project: wakatime-cli
+                  project_root_count: 4
+                  branch: main
+                  language: Python
+                  dependencies: &id001
+                  - example
+                  lines: 1
+                  line_additions: 1
+                  line_deletions: 1
+                  lineno: 1
+                  cursorpos: 1
+                  is_write: true
+      responses:
+        '201':
+          description: The created heartbeat.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Heartbeat'
+              examples:
+                CreateHeartbeat201Example:
+                  summary: Default createHeartbeat 201 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      entity: /Users/kin/code/wakatime-cli/main.go
+                      type: file
+                      category: coding
+                      time: 1.0
+                      project: wakatime-cli
+                      project_root_count: 4
+                      branch: main
+                      language: Python
+                      dependencies: *id001
+                      lines: 1
+                      line_additions: 1
+                      line_deletions: 1
+                      lineno: 1
+                      cursorpos: 1
+                      is_write: true
+                      id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      user_id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      created_at: '2026-05-30T12:34:56Z'
+                      modified_at: '2026-05-30T12:34:56Z'
+                      machine_name_id: machine-001
+                      user_agent_id: ua-001
+        '202':
+          description: Heartbeat accepted for asynchronous processing.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/current/heartbeats.bulk:
+    post:
+      operationId: createHeartbeatsBulk
+      summary: Create Heartbeats Bulk
+      description: Creates multiple heartbeats in a single request (up to 25).
+      tags:
+      - Heartbeats
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              maxItems: 25
+              items:
+                $ref: '#/components/schemas/HeartbeatInput'
+            examples:
+              CreateHeartbeatsBulkRequestExample:
+                summary: Default createHeartbeatsBulk request
+                x-microcks-default: true
+                value:
+                - entity: /Users/kin/code/wakatime-cli/main.go
+                  type: file
+                  category: coding
+                  time: 1.0
+                  project: wakatime-cli
+                  project_root_count: 4
+                  branch: main
+                  language: Python
+                  dependencies:
+                  - example
+                  lines: 1
+                  line_additions: 1
+                  line_deletions: 1
+                  lineno: 1
+                  cursorpos: 1
+                  is_write: true
+      responses:
+        '201':
+          description: The created heartbeats and per-item statuses.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  responses:
+                    type: array
+                    items:
+                      type: array
+                      description: Tuple of [body, status_code] per submitted heartbeat.
+              examples:
+                CreateHeartbeatsBulk201Example:
+                  summary: Default createHeartbeatsBulk 201 response
+                  x-microcks-default: true
+                  value:
+                    responses:
+                    - - example
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteHeartbeatsBulk
+      summary: Delete Heartbeats Bulk
+      description: Deletes multiple heartbeats by date and id in a single request.
+      tags:
+      - Heartbeats
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                required:
+                - id
+                - date
+                properties:
+                  id:
+                    type: string
+                  date:
+                    type: string
+                    format: date
+            examples:
+              DeleteHeartbeatsBulkRequestExample:
+                summary: Default deleteHeartbeatsBulk request
+                x-microcks-default: true
+                value:
+                - id: example
+                  date: '2026-05-30'
+      responses:
+        '200':
+          description: Bulk delete results.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Heartbeat:
+      allOf:
+      - $ref: '#/components/schemas/HeartbeatInput'
+      - type: object
+        properties:
+          id:
+            type: string
+            example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+          user_id:
+            type: string
+            example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+          created_at:
+            type: string
+            format: date-time
+            example: '2026-05-30T12:34:56Z'
+          modified_at:
+            type: string
+            format: date-time
+            example: '2026-05-30T12:34:56Z'
+          machine_name_id:
+            type: string
+            nullable: true
+            example: machine-001
+          user_agent_id:
+            type: string
+            nullable: true
+            example: ua-001
+    HeartbeatInput:
+      type: object
+      description: A single coding heartbeat as sent by an editor plugin.
+      required:
+      - entity
+      - type
+      - time
+      properties:
+        entity:
+          type: string
+          description: File path, domain, or app name.
+          example: /Users/kin/code/wakatime-cli/main.go
+        type:
+          type: string
+          enum:
+          - file
+          - domain
+          - app
+          example: file
+        category:
+          type: string
+          enum:
+          - coding
+          - building
+          - indexing
+          - debugging
+          - browsing
+          - running tests
+          - writing tests
+          - manual testing
+          - code reviewing
+          - designing
+          - communicating
+          - meeting
+          - learning
+          - researching
+          - writing docs
+          - ai coding
+          example: coding
+        time:
+          type: number
+          format: float
+          description: Unix epoch seconds with milliseconds.
+          example: 1.0
+        project:
+          type: string
+          nullable: true
+          example: wakatime-cli
+        project_root_count:
+          type: integer
+          nullable: true
+          example: 4
+        branch:
+          type: string
+          nullable: true
+          example: main
+        language:
+          type: string
+          nullable: true
+          example: Python
+        dependencies:
+          type: array
+          items:
+            type: string
+          example:
+          - example
+        lines:
+          type: integer
+          nullable: true
+          example: 1
+        line_additions:
+          type: integer
+          nullable: true
+          example: 1
+        line_deletions:
+          type: integer
+          nullable: true
+          example: 1
+        lineno:
+          type: integer
+          nullable: true
+          example: 1
+        cursorpos:
+          type: integer
+          nullable: true
+          example: 1
+        is_write:
+          type: boolean
+          example: true
+  parameters:
+    DateQueryRequired:
+      name: date
+      in: query
+      required: true
+      description: Day to query (YYYY-MM-DD).
+      schema:
+        type: string
+        format: date
+      example: '2026-05-30'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authorization code flow.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://wakatime.com/oauth/authorize
+          tokenUrl: https://wakatime.com/oauth/token
+          refreshUrl: https://wakatime.com/oauth/token
+          scopes:
+            email: Read user email.
+            read_summaries: Read coding-activity summaries.
+            read_stats: Read aggregate stats.
+            read_goals: Read coding goals.
+            read_heartbeats: Read raw heartbeats.
+            write_heartbeats: Send heartbeats.
+            read_orgs: Read organization data.
+            write_orgs: Modify organization data.
+        implicit:
+          authorizationUrl: https://wakatime.com/oauth/authorize
+          scopes:
+            email: Read user email.
+            read_summaries: Read coding-activity summaries.
+            read_stats: Read aggregate stats.
+            read_goals: Read coding goals.
+            read_heartbeats: Read raw heartbeats.
+            write_heartbeats: Send heartbeats.
+            read_orgs: Read organization data.
+            write_orgs: Modify organization data.
+    apiKey:
+      type: http
+      scheme: basic
+      description: HTTP Basic with the WakaTime API key as the username. Alternatively, pass `?api_key=...` as a query parameter.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth access token in the Authorization header as `Bearer waka_tok_...`.

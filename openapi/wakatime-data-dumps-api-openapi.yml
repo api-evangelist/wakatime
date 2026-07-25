@@ -1,0 +1,235 @@
+openapi: 3.0.3
+info:
+  title: WakaTime Commits Data Dumps API
+  version: v1
+  description: 'WakaTime API v1 provides automated time-tracking analytics for software developers. IDE
+
+    plugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, Zed, and
+
+    many more) send "heartbeats" describing the file, project, language, branch, and editor a
+
+    developer is working in. WakaTime aggregates that data into dashboards, summaries, stats,
+
+    goals, leaderboards, and team/org dashboards.
+
+
+    Authentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as
+
+    `read_summaries`, `read_stats`, `read_goals`, `read_heartbeats`, `write_heartbeats`,
+
+    `read_orgs`, `write_orgs`, and `email`, or via API Key (HTTP Basic auth or `?api_key=`)
+
+    for personal use. The default rate limit is fewer than 10 requests per second on average
+
+    over any 5-minute window.
+
+
+    All responses follow the pattern `{"data": ...}` for successful requests or
+
+    `{"error": "message"}` for errors.
+
+    '
+  contact:
+    name: WakaTime Support
+    url: https://wakatime.com/contact
+    email: support@wakatime.com
+  termsOfService: https://wakatime.com/terms
+  license:
+    name: WakaTime Terms of Service
+    url: https://wakatime.com/terms
+  x-generated-from: documentation
+  x-source-url: https://wakatime.com/developers
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://wakatime.com/api/v1
+  description: WakaTime production API
+- url: https://api.wakatime.com/api/v1
+  description: WakaTime alternate hostname
+security:
+- oauth2: []
+- apiKey: []
+- bearerAuth: []
+tags:
+- name: Data Dumps
+  description: Full data exports.
+paths:
+  /users/current/data_dumps:
+    get:
+      operationId: listDataDumps
+      summary: List Data Dumps
+      description: Returns the authenticated user's data exports.
+      tags:
+      - Data Dumps
+      responses:
+        '200':
+          description: Data dump list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DataDump'
+              examples:
+                ListDataDumps200Example:
+                  summary: Default listDataDumps 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      type: heartbeats
+                      status: Pending...
+                      percent_complete: 1
+                      created_at: '2026-05-30T12:34:56Z'
+                      download_url: https://wakatime.com/dumps/abc.json.gz
+                      expires: '2026-05-30T12:34:56Z'
+                      has_failed: true
+                      is_processing: true
+                      is_stuck: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createDataDump
+      summary: Create Data Dump
+      description: Triggers generation of a new data export.
+      tags:
+      - Data Dumps
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - heartbeats
+                  - daily
+                  description: Dump type.
+                email_when_finished:
+                  type: boolean
+            examples:
+              CreateDataDumpRequestExample:
+                summary: Default createDataDump request
+                x-microcks-default: true
+                value:
+                  type: heartbeats
+                  email_when_finished: true
+      responses:
+        '201':
+          description: Created dump job.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DataDump'
+              examples:
+                CreateDataDump201Example:
+                  summary: Default createDataDump 201 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      type: heartbeats
+                      status: Pending...
+                      percent_complete: 1
+                      created_at: '2026-05-30T12:34:56Z'
+                      download_url: https://wakatime.com/dumps/abc.json.gz
+                      expires: '2026-05-30T12:34:56Z'
+                      has_failed: true
+                      is_processing: true
+                      is_stuck: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    DataDump:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+        type:
+          type: string
+          enum:
+          - heartbeats
+          - daily
+          example: heartbeats
+        status:
+          type: string
+          enum:
+          - Pending...
+          - Processing...
+          - Completed
+          - Failed
+          example: Pending...
+        percent_complete:
+          type: integer
+          example: 1
+        created_at:
+          type: string
+          format: date-time
+          example: '2026-05-30T12:34:56Z'
+        download_url:
+          type: string
+          format: uri
+          nullable: true
+          example: https://wakatime.com/dumps/abc.json.gz
+        expires:
+          type: string
+          format: date-time
+          nullable: true
+          example: '2026-05-30T12:34:56Z'
+        has_failed:
+          type: boolean
+          example: true
+        is_processing:
+          type: boolean
+          example: true
+        is_stuck:
+          type: boolean
+          example: true
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authorization code flow.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://wakatime.com/oauth/authorize
+          tokenUrl: https://wakatime.com/oauth/token
+          refreshUrl: https://wakatime.com/oauth/token
+          scopes:
+            email: Read user email.
+            read_summaries: Read coding-activity summaries.
+            read_stats: Read aggregate stats.
+            read_goals: Read coding goals.
+            read_heartbeats: Read raw heartbeats.
+            write_heartbeats: Send heartbeats.
+            read_orgs: Read organization data.
+            write_orgs: Modify organization data.
+        implicit:
+          authorizationUrl: https://wakatime.com/oauth/authorize
+          scopes:
+            email: Read user email.
+            read_summaries: Read coding-activity summaries.
+            read_stats: Read aggregate stats.
+            read_goals: Read coding goals.
+            read_heartbeats: Read raw heartbeats.
+            write_heartbeats: Send heartbeats.
+            read_orgs: Read organization data.
+            write_orgs: Modify organization data.
+    apiKey:
+      type: http
+      scheme: basic
+      description: HTTP Basic with the WakaTime API key as the username. Alternatively, pass `?api_key=...` as a query parameter.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth access token in the Authorization header as `Bearer waka_tok_...`.

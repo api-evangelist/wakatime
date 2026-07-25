@@ -1,0 +1,371 @@
+openapi: 3.0.3
+info:
+  title: WakaTime Commits Summaries API
+  version: v1
+  description: 'WakaTime API v1 provides automated time-tracking analytics for software developers. IDE
+
+    plugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, Zed, and
+
+    many more) send "heartbeats" describing the file, project, language, branch, and editor a
+
+    developer is working in. WakaTime aggregates that data into dashboards, summaries, stats,
+
+    goals, leaderboards, and team/org dashboards.
+
+
+    Authentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as
+
+    `read_summaries`, `read_stats`, `read_goals`, `read_heartbeats`, `write_heartbeats`,
+
+    `read_orgs`, `write_orgs`, and `email`, or via API Key (HTTP Basic auth or `?api_key=`)
+
+    for personal use. The default rate limit is fewer than 10 requests per second on average
+
+    over any 5-minute window.
+
+
+    All responses follow the pattern `{"data": ...}` for successful requests or
+
+    `{"error": "message"}` for errors.
+
+    '
+  contact:
+    name: WakaTime Support
+    url: https://wakatime.com/contact
+    email: support@wakatime.com
+  termsOfService: https://wakatime.com/terms
+  license:
+    name: WakaTime Terms of Service
+    url: https://wakatime.com/terms
+  x-generated-from: documentation
+  x-source-url: https://wakatime.com/developers
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://wakatime.com/api/v1
+  description: WakaTime production API
+- url: https://api.wakatime.com/api/v1
+  description: WakaTime alternate hostname
+security:
+- oauth2: []
+- apiKey: []
+- bearerAuth: []
+tags:
+- name: Summaries
+  description: Daily aggregations of coding activity by project, language, editor, OS, machine, branch, and category.
+paths:
+  /users/current/summaries:
+    get:
+      operationId: listSummaries
+      summary: List Summaries
+      description: Returns daily summaries of coding activity between a start and end date, broken down by project, language, editor, OS, machine, branch, category, and dependencies.
+      tags:
+      - Summaries
+      parameters:
+      - name: start
+        in: query
+        required: true
+        description: Start date (YYYY-MM-DD) inclusive.
+        schema:
+          type: string
+          format: date
+        example: '2026-05-30'
+      - name: end
+        in: query
+        required: true
+        description: End date (YYYY-MM-DD) inclusive.
+        schema:
+          type: string
+          format: date
+        example: '2026-05-30'
+      - $ref: '#/components/parameters/ProjectQuery'
+      - $ref: '#/components/parameters/BranchesQuery'
+      - $ref: '#/components/parameters/TimeoutQuery'
+      - $ref: '#/components/parameters/WritesOnlyQuery'
+      - $ref: '#/components/parameters/TimezoneQuery'
+      - $ref: '#/components/parameters/RangeQuery'
+      responses:
+        '200':
+          description: Daily summaries.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SummariesResponse'
+              examples:
+                ListSummaries200Example:
+                  summary: Default listSummaries 200 response
+                  x-microcks-default: true
+                  value:
+                    data: []
+                    cumulative_total: {}
+                    daily_average: {}
+                    start: '2026-05-30'
+                    end: '2026-05-30'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    WritesOnlyQuery:
+      name: writes_only
+      in: query
+      description: Whether to only include time editing (writing) files.
+      schema:
+        type: boolean
+      example: true
+    TimezoneQuery:
+      name: timezone
+      in: query
+      description: Timezone to use (defaults to the user's profile timezone).
+      schema:
+        type: string
+        example: America/Los_Angeles
+      example: America/Los_Angeles
+    TimeoutQuery:
+      name: timeout
+      in: query
+      description: Keystroke timeout in minutes (defaults to user's account setting).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 60
+      example: 1
+    BranchesQuery:
+      name: branches
+      in: query
+      description: Comma-separated list of git branches to include.
+      schema:
+        type: string
+      example: example
+    RangeQuery:
+      name: range
+      in: query
+      description: Range filter (last_7_days, last_30_days, last_6_months, last_year, all_time).
+      schema:
+        type: string
+        enum:
+        - last_7_days
+        - last_30_days
+        - last_6_months
+        - last_year
+        - all_time
+      example: last_7_days
+    ProjectQuery:
+      name: project
+      in: query
+      description: Filter by project name.
+      schema:
+        type: string
+      example: example
+  schemas:
+    SummaryDay:
+      type: object
+      properties:
+        grand_total:
+          $ref: '#/components/schemas/SummaryTotal'
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        languages:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        editors:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        operating_systems:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        machines:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        branches:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        dependencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        entities:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        range:
+          type: object
+          properties:
+            date:
+              type: string
+              format: date
+            start:
+              type: string
+              format: date-time
+            end:
+              type: string
+              format: date-time
+            text:
+              type: string
+            timezone:
+              type: string
+          example: {}
+    SummaryBreakdown:
+      type: object
+      properties:
+        name:
+          type: string
+          example: WakaTime
+        total_seconds:
+          type: number
+          format: float
+          example: 4
+        percent:
+          type: number
+          format: float
+          example: 1.0
+        digital:
+          type: string
+          example: 252
+        decimal:
+          type: string
+          example: '4.20'
+        text:
+          type: string
+          example: 4 hrs 12 mins
+        hours:
+          type: integer
+          example: 4
+        minutes:
+          type: integer
+          example: 60
+        seconds:
+          type: integer
+          nullable: true
+          example: 60
+        machine_name_id:
+          type: string
+          nullable: true
+          example: machine-001
+    SummariesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryDay'
+          example: []
+        cumulative_total:
+          type: object
+          properties:
+            seconds:
+              type: number
+              format: float
+            text:
+              type: string
+            decimal:
+              type: string
+            digital:
+              type: string
+          example: {}
+        daily_average:
+          type: object
+          properties:
+            holidays:
+              type: integer
+            days_minus_holidays:
+              type: integer
+            days_including_holidays:
+              type: integer
+            seconds:
+              type: number
+              format: float
+            seconds_including_other_language:
+              type: number
+              format: float
+            text:
+              type: string
+            text_including_other_language:
+              type: string
+          example: {}
+        start:
+          type: string
+          format: date
+          example: '2026-05-30'
+        end:
+          type: string
+          format: date
+          example: '2026-05-30'
+    SummaryTotal:
+      type: object
+      properties:
+        hours:
+          type: integer
+          example: 4
+        minutes:
+          type: integer
+          example: 60
+        total_seconds:
+          type: number
+          format: float
+          example: 4
+        digital:
+          type: string
+          example: 252
+        decimal:
+          type: string
+          example: '4.20'
+        text:
+          type: string
+          example: 4 hrs 12 mins
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authorization code flow.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://wakatime.com/oauth/authorize
+          tokenUrl: https://wakatime.com/oauth/token
+          refreshUrl: https://wakatime.com/oauth/token
+          scopes:
+            email: Read user email.
+            read_summaries: Read coding-activity summaries.
+            read_stats: Read aggregate stats.
+            read_goals: Read coding goals.
+            read_heartbeats: Read raw heartbeats.
+            write_heartbeats: Send heartbeats.
+            read_orgs: Read organization data.
+            write_orgs: Modify organization data.
+        implicit:
+          authorizationUrl: https://wakatime.com/oauth/authorize
+          scopes:
+            email: Read user email.
+            read_summaries: Read coding-activity summaries.
+            read_stats: Read aggregate stats.
+            read_goals: Read coding goals.
+            read_heartbeats: Read raw heartbeats.
+            write_heartbeats: Send heartbeats.
+            read_orgs: Read organization data.
+            write_orgs: Modify organization data.
+    apiKey:
+      type: http
+      scheme: basic
+      description: HTTP Basic with the WakaTime API key as the username. Alternatively, pass `?api_key=...` as a query parameter.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth access token in the Authorization header as `Bearer waka_tok_...`.

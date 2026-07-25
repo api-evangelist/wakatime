@@ -1,0 +1,341 @@
+openapi: 3.0.3
+info:
+  title: WakaTime Commits External Durations API
+  version: v1
+  description: 'WakaTime API v1 provides automated time-tracking analytics for software developers. IDE
+
+    plugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, Zed, and
+
+    many more) send "heartbeats" describing the file, project, language, branch, and editor a
+
+    developer is working in. WakaTime aggregates that data into dashboards, summaries, stats,
+
+    goals, leaderboards, and team/org dashboards.
+
+
+    Authentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as
+
+    `read_summaries`, `read_stats`, `read_goals`, `read_heartbeats`, `write_heartbeats`,
+
+    `read_orgs`, `write_orgs`, and `email`, or via API Key (HTTP Basic auth or `?api_key=`)
+
+    for personal use. The default rate limit is fewer than 10 requests per second on average
+
+    over any 5-minute window.
+
+
+    All responses follow the pattern `{"data": ...}` for successful requests or
+
+    `{"error": "message"}` for errors.
+
+    '
+  contact:
+    name: WakaTime Support
+    url: https://wakatime.com/contact
+    email: support@wakatime.com
+  termsOfService: https://wakatime.com/terms
+  license:
+    name: WakaTime Terms of Service
+    url: https://wakatime.com/terms
+  x-generated-from: documentation
+  x-source-url: https://wakatime.com/developers
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://wakatime.com/api/v1
+  description: WakaTime production API
+- url: https://api.wakatime.com/api/v1
+  description: WakaTime alternate hostname
+security:
+- oauth2: []
+- apiKey: []
+- bearerAuth: []
+tags:
+- name: External Durations
+  description: Non-IDE activity durations created via the API.
+paths:
+  /users/current/external_durations:
+    get:
+      operationId: listExternalDurations
+      summary: List External Durations
+      description: Returns external (non-editor) durations for a given day.
+      tags:
+      - External Durations
+      parameters:
+      - $ref: '#/components/parameters/DateQueryRequired'
+      - $ref: '#/components/parameters/ProjectQuery'
+      - $ref: '#/components/parameters/TimezoneQuery'
+      responses:
+        '200':
+          description: External durations for the day.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ExternalDuration'
+              examples:
+                ListExternalDurations200Example:
+                  summary: Default listExternalDurations 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - external_id: ext-001
+                      entity: /Users/kin/code/wakatime-cli/main.go
+                      type: file
+                      category: coding
+                      start_time: 1.0
+                      end_time: 1.0
+                      project: wakatime-cli
+                      branch: main
+                      language: Python
+                      meta: {}
+                      id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      user_id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      created_at: '2026-05-30T12:34:56Z'
+                      modified_at: '2026-05-30T12:34:56Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createExternalDuration
+      summary: Create External Duration
+      description: Creates a single external duration (for non-editor activity such as meetings, design tools, etc.).
+      tags:
+      - External Durations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalDurationInput'
+            examples:
+              CreateExternalDurationRequestExample:
+                summary: Default createExternalDuration request
+                x-microcks-default: true
+                value:
+                  external_id: ext-001
+                  entity: /Users/kin/code/wakatime-cli/main.go
+                  type: file
+                  category: coding
+                  start_time: 1.0
+                  end_time: 1.0
+                  project: wakatime-cli
+                  branch: main
+                  language: Python
+                  meta: {}
+      responses:
+        '201':
+          description: The created external duration.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/current/external_durations.bulk:
+    post:
+      operationId: createExternalDurationsBulk
+      summary: Create External Durations Bulk
+      description: Creates multiple external durations in a single request (up to 1,000).
+      tags:
+      - External Durations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              maxItems: 1000
+              items:
+                $ref: '#/components/schemas/ExternalDurationInput'
+            examples:
+              CreateExternalDurationsBulkRequestExample:
+                summary: Default createExternalDurationsBulk request
+                x-microcks-default: true
+                value:
+                - external_id: ext-001
+                  entity: /Users/kin/code/wakatime-cli/main.go
+                  type: file
+                  category: coding
+                  start_time: 1.0
+                  end_time: 1.0
+                  project: wakatime-cli
+                  branch: main
+                  language: Python
+                  meta: {}
+      responses:
+        '201':
+          description: Bulk creation results.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteExternalDurationsBulk
+      summary: Delete External Durations Bulk
+      description: Deletes multiple external durations by id and date.
+      tags:
+      - External Durations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                required:
+                - id
+                properties:
+                  id:
+                    type: string
+                  date:
+                    type: string
+                    format: date
+            examples:
+              DeleteExternalDurationsBulkRequestExample:
+                summary: Default deleteExternalDurationsBulk request
+                x-microcks-default: true
+                value:
+                - id: example
+                  date: '2026-05-30'
+      responses:
+        '200':
+          description: Bulk delete results.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    TimezoneQuery:
+      name: timezone
+      in: query
+      description: Timezone to use (defaults to the user's profile timezone).
+      schema:
+        type: string
+        example: America/Los_Angeles
+      example: America/Los_Angeles
+    ProjectQuery:
+      name: project
+      in: query
+      description: Filter by project name.
+      schema:
+        type: string
+      example: example
+    DateQueryRequired:
+      name: date
+      in: query
+      required: true
+      description: Day to query (YYYY-MM-DD).
+      schema:
+        type: string
+        format: date
+      example: '2026-05-30'
+  schemas:
+    ExternalDurationInput:
+      type: object
+      required:
+      - external_id
+      - entity
+      - type
+      - start_time
+      - end_time
+      properties:
+        external_id:
+          type: string
+          description: Caller-supplied identifier; used as the dedupe key.
+          example: ext-001
+        entity:
+          type: string
+          example: /Users/kin/code/wakatime-cli/main.go
+        type:
+          type: string
+          enum:
+          - file
+          - domain
+          - app
+          example: file
+        category:
+          type: string
+          example: coding
+        start_time:
+          type: number
+          format: float
+          description: Unix epoch seconds.
+          example: 1.0
+        end_time:
+          type: number
+          format: float
+          description: Unix epoch seconds.
+          example: 1.0
+        project:
+          type: string
+          nullable: true
+          example: wakatime-cli
+        branch:
+          type: string
+          nullable: true
+          example: main
+        language:
+          type: string
+          nullable: true
+          example: Python
+        meta:
+          type: object
+          additionalProperties: true
+          example: {}
+    ExternalDuration:
+      allOf:
+      - $ref: '#/components/schemas/ExternalDurationInput'
+      - type: object
+        properties:
+          id:
+            type: string
+            example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+          user_id:
+            type: string
+            example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+          created_at:
+            type: string
+            format: date-time
+            example: '2026-05-30T12:34:56Z'
+          modified_at:
+            type: string
+            format: date-time
+            example: '2026-05-30T12:34:56Z'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authorization code flow.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://wakatime.com/oauth/authorize
+          tokenUrl: https://wakatime.com/oauth/token
+          refreshUrl: https://wakatime.com/oauth/token
+          scopes:
+            email: Read user email.
+            read_summaries: Read coding-activity summaries.
+            read_stats: Read aggregate stats.
+            read_goals: Read coding goals.
+            read_heartbeats: Read raw heartbeats.
+            write_heartbeats: Send heartbeats.
+            read_orgs: Read organization data.
+            write_orgs: Modify organization data.
+        implicit:
+          authorizationUrl: https://wakatime.com/oauth/authorize
+          scopes:
+            email: Read user email.
+            read_summaries: Read coding-activity summaries.
+            read_stats: Read aggregate stats.
+            read_goals: Read coding goals.
+            read_heartbeats: Read raw heartbeats.
+            write_heartbeats: Send heartbeats.
+            read_orgs: Read organization data.
+            write_orgs: Modify organization data.
+    apiKey:
+      type: http
+      scheme: basic
+      description: HTTP Basic with the WakaTime API key as the username. Alternatively, pass `?api_key=...` as a query parameter.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth access token in the Authorization header as `Bearer waka_tok_...`.

@@ -1,0 +1,584 @@
+openapi: 3.0.3
+info:
+  title: WakaTime Commits Stats API
+  version: v1
+  description: 'WakaTime API v1 provides automated time-tracking analytics for software developers. IDE
+
+    plugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, Zed, and
+
+    many more) send "heartbeats" describing the file, project, language, branch, and editor a
+
+    developer is working in. WakaTime aggregates that data into dashboards, summaries, stats,
+
+    goals, leaderboards, and team/org dashboards.
+
+
+    Authentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as
+
+    `read_summaries`, `read_stats`, `read_goals`, `read_heartbeats`, `write_heartbeats`,
+
+    `read_orgs`, `write_orgs`, and `email`, or via API Key (HTTP Basic auth or `?api_key=`)
+
+    for personal use. The default rate limit is fewer than 10 requests per second on average
+
+    over any 5-minute window.
+
+
+    All responses follow the pattern `{"data": ...}` for successful requests or
+
+    `{"error": "message"}` for errors.
+
+    '
+  contact:
+    name: WakaTime Support
+    url: https://wakatime.com/contact
+    email: support@wakatime.com
+  termsOfService: https://wakatime.com/terms
+  license:
+    name: WakaTime Terms of Service
+    url: https://wakatime.com/terms
+  x-generated-from: documentation
+  x-source-url: https://wakatime.com/developers
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://wakatime.com/api/v1
+  description: WakaTime production API
+- url: https://api.wakatime.com/api/v1
+  description: WakaTime alternate hostname
+security:
+- oauth2: []
+- apiKey: []
+- bearerAuth: []
+tags:
+- name: Stats
+  description: User-wide statistics over preset and custom ranges.
+paths:
+  /users/current/all_time_since_today:
+    get:
+      operationId: getAllTimeSinceTodayCurrent
+      summary: Get All Time Since Today
+      description: Returns the total coding activity the authenticated user has logged since the account was created, up to today.
+      tags:
+      - Stats
+      parameters:
+      - $ref: '#/components/parameters/ProjectQuery'
+      responses:
+        '200':
+          description: All-time-since-today totals.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AllTimeSinceToday'
+              examples:
+                GetAllTimeSinceTodayCurrent200Example:
+                  summary: Default getAllTimeSinceTodayCurrent 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      total_seconds: 4
+                      text: 1,234 hrs 5 mins
+                      decimal: '1234.08'
+                      digital: '1234:05'
+                      is_up_to_date: '2026-05-30T12:34:56Z'
+                      percent_calculated: 1
+                      range: {}
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{user}/all_time_since_today:
+    get:
+      operationId: getAllTimeSinceToday
+      summary: Get User All Time Since Today
+      description: Returns the all-time-since-today totals for a specific user (requires scope on that user's data).
+      tags:
+      - Stats
+      parameters:
+      - $ref: '#/components/parameters/UserPath'
+      - $ref: '#/components/parameters/ProjectQuery'
+      responses:
+        '200':
+          description: All-time-since-today totals for the user.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AllTimeSinceToday'
+              examples:
+                GetAllTimeSinceToday200Example:
+                  summary: Default getAllTimeSinceToday 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      total_seconds: 4
+                      text: 1,234 hrs 5 mins
+                      decimal: '1234.08'
+                      digital: '1234:05'
+                      is_up_to_date: '2026-05-30T12:34:56Z'
+                      percent_calculated: 1
+                      range: {}
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/current/stats:
+    get:
+      operationId: getStatsForRange
+      summary: Get Stats For Range
+      description: Returns coding stats for the authenticated user over a date range. May return 202 while WakaTime is calculating the stats.
+      tags:
+      - Stats
+      parameters:
+      - $ref: '#/components/parameters/RangeQuery'
+      - $ref: '#/components/parameters/TimeoutQuery'
+      - $ref: '#/components/parameters/WritesOnlyQuery'
+      - $ref: '#/components/parameters/TimezoneQuery'
+      - $ref: '#/components/parameters/ProjectQuery'
+      responses:
+        '200':
+          description: Stats payload.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Stats'
+              examples:
+                GetStatsForRange200Example:
+                  summary: Default getStatsForRange 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      user_id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      username: kinlane
+                      range: example
+                      start: '2026-05-30T12:34:56Z'
+                      end: '2026-05-30T12:34:56Z'
+                      days_including_holidays: 1
+                      days_minus_holidays: 1
+                      holidays: 1
+                      status: ok
+                      is_up_to_date: '2026-05-30T12:34:56Z'
+                      percent_calculated: 1
+                      timeout: 1
+                      writes_only: true
+                      timezone: America/Los_Angeles
+                      total_seconds: 4
+                      total_seconds_including_other_language: 1.0
+                      daily_average: 1.0
+                      daily_average_including_other_language: 1.0
+                      human_readable_total: 4 hrs 12 mins
+                      human_readable_daily_average: 3 hrs 30 mins
+                      best_day: {}
+                      languages: []
+                      projects: []
+                      editors: []
+                      operating_systems: []
+                      machines: []
+                      categories: []
+                      dependencies: []
+                      created_at: '2026-05-30T12:34:56Z'
+                      modified_at: '2026-05-30T12:34:56Z'
+        '202':
+          description: Stats are still being calculated.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/current/stats/{range}:
+    get:
+      operationId: getStatsByRange
+      summary: Get Stats By Named Range
+      description: Returns coding stats for a preset named range (last_7_days, last_30_days, last_6_months, last_year, all_time).
+      tags:
+      - Stats
+      parameters:
+      - name: range
+        in: path
+        required: true
+        description: Preset range.
+        schema:
+          type: string
+          enum:
+          - last_7_days
+          - last_30_days
+          - last_6_months
+          - last_year
+          - all_time
+        example: last_7_days
+      responses:
+        '200':
+          description: Stats payload.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Stats'
+              examples:
+                GetStatsByRange200Example:
+                  summary: Default getStatsByRange 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      user_id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      username: kinlane
+                      range: example
+                      start: '2026-05-30T12:34:56Z'
+                      end: '2026-05-30T12:34:56Z'
+                      days_including_holidays: 1
+                      days_minus_holidays: 1
+                      holidays: 1
+                      status: ok
+                      is_up_to_date: '2026-05-30T12:34:56Z'
+                      percent_calculated: 1
+                      timeout: 1
+                      writes_only: true
+                      timezone: America/Los_Angeles
+                      total_seconds: 4
+                      total_seconds_including_other_language: 1.0
+                      daily_average: 1.0
+                      daily_average_including_other_language: 1.0
+                      human_readable_total: 4 hrs 12 mins
+                      human_readable_daily_average: 3 hrs 30 mins
+                      best_day: {}
+                      languages: []
+                      projects: []
+                      editors: []
+                      operating_systems: []
+                      machines: []
+                      categories: []
+                      dependencies: []
+                      created_at: '2026-05-30T12:34:56Z'
+                      modified_at: '2026-05-30T12:34:56Z'
+        '202':
+          description: Stats are still being calculated.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/current/stats_aggregated:
+    get:
+      operationId: getStatsAggregated
+      summary: Get Stats Aggregated
+      description: Returns aggregated coding stats across all WakaTime users.
+      tags:
+      - Stats
+      parameters:
+      - $ref: '#/components/parameters/RangeQuery'
+      responses:
+        '200':
+          description: Aggregated stats.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Stats:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+        user_id:
+          type: string
+          example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+        username:
+          type: string
+          nullable: true
+          example: kinlane
+        range:
+          type: string
+          example: example
+        start:
+          type: string
+          format: date-time
+          example: '2026-05-30T12:34:56Z'
+        end:
+          type: string
+          format: date-time
+          example: '2026-05-30T12:34:56Z'
+        days_including_holidays:
+          type: integer
+          example: 1
+        days_minus_holidays:
+          type: integer
+          example: 1
+        holidays:
+          type: integer
+          example: 1
+        status:
+          type: string
+          enum:
+          - ok
+          - updating
+          - pending
+          example: ok
+        is_up_to_date:
+          type: boolean
+          example: '2026-05-30T12:34:56Z'
+        percent_calculated:
+          type: integer
+          example: 1
+        timeout:
+          type: integer
+          example: 1
+        writes_only:
+          type: boolean
+          example: true
+        timezone:
+          type: string
+          example: America/Los_Angeles
+        total_seconds:
+          type: number
+          format: float
+          example: 4
+        total_seconds_including_other_language:
+          type: number
+          format: float
+          example: 1.0
+        daily_average:
+          type: number
+          format: float
+          example: 1.0
+        daily_average_including_other_language:
+          type: number
+          format: float
+          example: 1.0
+        human_readable_total:
+          type: string
+          example: 4 hrs 12 mins
+        human_readable_daily_average:
+          type: string
+          example: 3 hrs 30 mins
+        best_day:
+          type: object
+          properties:
+            date:
+              type: string
+              format: date
+            total_seconds:
+              type: number
+              format: float
+            text:
+              type: string
+          example: {}
+        languages:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        editors:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        operating_systems:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        machines:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        dependencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryBreakdown'
+          example: []
+        created_at:
+          type: string
+          format: date-time
+          example: '2026-05-30T12:34:56Z'
+        modified_at:
+          type: string
+          format: date-time
+          example: '2026-05-30T12:34:56Z'
+    AllTimeSinceToday:
+      type: object
+      properties:
+        total_seconds:
+          type: number
+          format: float
+          example: 4
+        text:
+          type: string
+          example: 1,234 hrs 5 mins
+        decimal:
+          type: string
+          example: '1234.08'
+        digital:
+          type: string
+          example: '1234:05'
+        is_up_to_date:
+          type: boolean
+          example: '2026-05-30T12:34:56Z'
+        percent_calculated:
+          type: integer
+          example: 1
+        range:
+          type: object
+          properties:
+            start:
+              type: string
+              format: date
+            end:
+              type: string
+              format: date
+            start_date:
+              type: string
+              format: date
+            end_date:
+              type: string
+              format: date
+            start_text:
+              type: string
+            end_text:
+              type: string
+            timezone:
+              type: string
+          example: {}
+    SummaryBreakdown:
+      type: object
+      properties:
+        name:
+          type: string
+          example: WakaTime
+        total_seconds:
+          type: number
+          format: float
+          example: 4
+        percent:
+          type: number
+          format: float
+          example: 1.0
+        digital:
+          type: string
+          example: 252
+        decimal:
+          type: string
+          example: '4.20'
+        text:
+          type: string
+          example: 4 hrs 12 mins
+        hours:
+          type: integer
+          example: 4
+        minutes:
+          type: integer
+          example: 60
+        seconds:
+          type: integer
+          nullable: true
+          example: 60
+        machine_name_id:
+          type: string
+          nullable: true
+          example: machine-001
+  parameters:
+    WritesOnlyQuery:
+      name: writes_only
+      in: query
+      description: Whether to only include time editing (writing) files.
+      schema:
+        type: boolean
+      example: true
+    TimezoneQuery:
+      name: timezone
+      in: query
+      description: Timezone to use (defaults to the user's profile timezone).
+      schema:
+        type: string
+        example: America/Los_Angeles
+      example: America/Los_Angeles
+    TimeoutQuery:
+      name: timeout
+      in: query
+      description: Keystroke timeout in minutes (defaults to user's account setting).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 60
+      example: 1
+    UserPath:
+      name: user
+      in: path
+      required: true
+      description: User id, username, or "current".
+      schema:
+        type: string
+      example: example
+    RangeQuery:
+      name: range
+      in: query
+      description: Range filter (last_7_days, last_30_days, last_6_months, last_year, all_time).
+      schema:
+        type: string
+        enum:
+        - last_7_days
+        - last_30_days
+        - last_6_months
+        - last_year
+        - all_time
+      example: last_7_days
+    ProjectQuery:
+      name: project
+      in: query
+      description: Filter by project name.
+      schema:
+        type: string
+      example: example
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authorization code flow.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://wakatime.com/oauth/authorize
+          tokenUrl: https://wakatime.com/oauth/token
+          refreshUrl: https://wakatime.com/oauth/token
+          scopes:
+            email: Read user email.
+            read_summaries: Read coding-activity summaries.
+            read_stats: Read aggregate stats.
+            read_goals: Read coding goals.
+            read_heartbeats: Read raw heartbeats.
+            write_heartbeats: Send heartbeats.
+            read_orgs: Read organization data.
+            write_orgs: Modify organization data.
+        implicit:
+          authorizationUrl: https://wakatime.com/oauth/authorize
+          scopes:
+            email: Read user email.
+            read_summaries: Read coding-activity summaries.
+            read_stats: Read aggregate stats.
+            read_goals: Read coding goals.
+            read_heartbeats: Read raw heartbeats.
+            write_heartbeats: Send heartbeats.
+            read_orgs: Read organization data.
+            write_orgs: Modify organization data.
+    apiKey:
+      type: http
+      scheme: basic
+      description: HTTP Basic with the WakaTime API key as the username. Alternatively, pass `?api_key=...` as a query parameter.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth access token in the Authorization header as `Bearer waka_tok_...`.

@@ -1,0 +1,348 @@
+openapi: 3.0.3
+info:
+  title: WakaTime Commits Organizations API
+  version: v1
+  description: 'WakaTime API v1 provides automated time-tracking analytics for software developers. IDE
+
+    plugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, Zed, and
+
+    many more) send "heartbeats" describing the file, project, language, branch, and editor a
+
+    developer is working in. WakaTime aggregates that data into dashboards, summaries, stats,
+
+    goals, leaderboards, and team/org dashboards.
+
+
+    Authentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as
+
+    `read_summaries`, `read_stats`, `read_goals`, `read_heartbeats`, `write_heartbeats`,
+
+    `read_orgs`, `write_orgs`, and `email`, or via API Key (HTTP Basic auth or `?api_key=`)
+
+    for personal use. The default rate limit is fewer than 10 requests per second on average
+
+    over any 5-minute window.
+
+
+    All responses follow the pattern `{"data": ...}` for successful requests or
+
+    `{"error": "message"}` for errors.
+
+    '
+  contact:
+    name: WakaTime Support
+    url: https://wakatime.com/contact
+    email: support@wakatime.com
+  termsOfService: https://wakatime.com/terms
+  license:
+    name: WakaTime Terms of Service
+    url: https://wakatime.com/terms
+  x-generated-from: documentation
+  x-source-url: https://wakatime.com/developers
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://wakatime.com/api/v1
+  description: WakaTime production API
+- url: https://api.wakatime.com/api/v1
+  description: WakaTime alternate hostname
+security:
+- oauth2: []
+- apiKey: []
+- bearerAuth: []
+tags:
+- name: Organizations
+  description: Team/organization dashboards and member analytics.
+paths:
+  /users/current/orgs:
+    get:
+      operationId: listOrgs
+      summary: List Organizations
+      description: Returns the organizations the authenticated user belongs to.
+      tags:
+      - Organizations
+      responses:
+        '200':
+          description: Organization list.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/current/orgs/{org}/custom_rules:
+    get:
+      operationId: listOrgCustomRules
+      summary: List Org Custom Rules
+      description: Returns custom rules defined at the organization level.
+      tags:
+      - Organizations
+      parameters:
+      - $ref: '#/components/parameters/OrgPath'
+      responses:
+        '200':
+          description: Org custom rules.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: putOrgCustomRules
+      summary: Put Org Custom Rules
+      description: Replaces the custom rules for the organization.
+      tags:
+      - Organizations
+      parameters:
+      - $ref: '#/components/parameters/OrgPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CustomRuleInput'
+            examples:
+              PutOrgCustomRulesRequestExample:
+                summary: Default putOrgCustomRules request
+                x-microcks-default: true
+                value:
+                - id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                  name: WakaTime
+                  if_match: {}
+                  then_set: {}
+      responses:
+        '200':
+          description: Updated org custom rules.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/current/orgs/{org}/dashboards:
+    get:
+      operationId: listOrgDashboards
+      summary: List Org Dashboards
+      description: Returns dashboards available in the organization.
+      tags:
+      - Organizations
+      parameters:
+      - $ref: '#/components/parameters/OrgPath'
+      responses:
+        '200':
+          description: Org dashboard list.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/current/orgs/{org}/dashboards/{dashboard}/members:
+    get:
+      operationId: listDashboardMembers
+      summary: List Dashboard Members
+      description: Returns the members included in the dashboard.
+      tags:
+      - Organizations
+      parameters:
+      - $ref: '#/components/parameters/OrgPath'
+      - $ref: '#/components/parameters/DashboardPath'
+      responses:
+        '200':
+          description: Dashboard member list.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/current/orgs/{org}/dashboards/{dashboard}/summaries:
+    get:
+      operationId: listDashboardSummaries
+      summary: List Dashboard Summaries
+      description: Returns aggregated daily summaries for the dashboard.
+      tags:
+      - Organizations
+      parameters:
+      - $ref: '#/components/parameters/OrgPath'
+      - $ref: '#/components/parameters/DashboardPath'
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+        example: '2026-05-30'
+      - name: end
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+        example: '2026-05-30'
+      - $ref: '#/components/parameters/ProjectQuery'
+      - $ref: '#/components/parameters/BranchesQuery'
+      responses:
+        '200':
+          description: Dashboard summaries.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/current/orgs/{org}/dashboards/{dashboard}/member/{member}/summaries:
+    get:
+      operationId: listDashboardMemberSummaries
+      summary: List Dashboard Member Summaries
+      description: Returns summaries for a specific member within the dashboard.
+      tags:
+      - Organizations
+      parameters:
+      - $ref: '#/components/parameters/OrgPath'
+      - $ref: '#/components/parameters/DashboardPath'
+      - $ref: '#/components/parameters/MemberPath'
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+        example: '2026-05-30'
+      - name: end
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+        example: '2026-05-30'
+      responses:
+        '200':
+          description: Member summaries.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/current/orgs/{org}/dashboards/{dashboard}/durations:
+    get:
+      operationId: listDashboardDurations
+      summary: List Dashboard Durations
+      description: Returns durations for the dashboard for a given day.
+      tags:
+      - Organizations
+      parameters:
+      - $ref: '#/components/parameters/OrgPath'
+      - $ref: '#/components/parameters/DashboardPath'
+      - $ref: '#/components/parameters/DateQueryRequired'
+      responses:
+        '200':
+          description: Dashboard durations.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/current/orgs/{org}/dashboards/{dashboard}/member/{member}/durations:
+    get:
+      operationId: listDashboardMemberDurations
+      summary: List Dashboard Member Durations
+      description: Returns durations for a specific member within the dashboard for a given day.
+      tags:
+      - Organizations
+      parameters:
+      - $ref: '#/components/parameters/OrgPath'
+      - $ref: '#/components/parameters/DashboardPath'
+      - $ref: '#/components/parameters/MemberPath'
+      - $ref: '#/components/parameters/DateQueryRequired'
+      responses:
+        '200':
+          description: Member durations.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    DashboardPath:
+      name: dashboard
+      in: path
+      required: true
+      description: Dashboard id.
+      schema:
+        type: string
+      example: example
+    DateQueryRequired:
+      name: date
+      in: query
+      required: true
+      description: Day to query (YYYY-MM-DD).
+      schema:
+        type: string
+        format: date
+      example: '2026-05-30'
+    BranchesQuery:
+      name: branches
+      in: query
+      description: Comma-separated list of git branches to include.
+      schema:
+        type: string
+      example: example
+    OrgPath:
+      name: org
+      in: path
+      required: true
+      description: Organization id.
+      schema:
+        type: string
+      example: example
+    MemberPath:
+      name: member
+      in: path
+      required: true
+      description: Org member id.
+      schema:
+        type: string
+      example: example
+    ProjectQuery:
+      name: project
+      in: query
+      description: Filter by project name.
+      schema:
+        type: string
+      example: example
+  schemas:
+    CustomRuleInput:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+          example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+        name:
+          type: string
+          example: WakaTime
+        if_match:
+          type: object
+          additionalProperties: true
+          example: {}
+        then_set:
+          type: object
+          additionalProperties: true
+          example: {}
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authorization code flow.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://wakatime.com/oauth/authorize
+          tokenUrl: https://wakatime.com/oauth/token
+          refreshUrl: https://wakatime.com/oauth/token
+          scopes:
+            email: Read user email.
+            read_summaries: Read coding-activity summaries.
+            read_stats: Read aggregate stats.
+            read_goals: Read coding goals.
+            read_heartbeats: Read raw heartbeats.
+            write_heartbeats: Send heartbeats.
+            read_orgs: Read organization data.
+            write_orgs: Modify organization data.
+        implicit:
+          authorizationUrl: https://wakatime.com/oauth/authorize
+          scopes:
+            email: Read user email.
+            read_summaries: Read coding-activity summaries.
+            read_stats: Read aggregate stats.
+            read_goals: Read coding goals.
+            read_heartbeats: Read raw heartbeats.
+            write_heartbeats: Send heartbeats.
+            read_orgs: Read organization data.
+            write_orgs: Modify organization data.
+    apiKey:
+      type: http
+      scheme: basic
+      description: HTTP Basic with the WakaTime API key as the username. Alternatively, pass `?api_key=...` as a query parameter.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth access token in the Authorization header as `Bearer waka_tok_...`.

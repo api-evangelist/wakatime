@@ -1,0 +1,233 @@
+openapi: 3.0.3
+info:
+  title: WakaTime Commits Custom Rules API
+  version: v1
+  description: 'WakaTime API v1 provides automated time-tracking analytics for software developers. IDE
+
+    plugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, Zed, and
+
+    many more) send "heartbeats" describing the file, project, language, branch, and editor a
+
+    developer is working in. WakaTime aggregates that data into dashboards, summaries, stats,
+
+    goals, leaderboards, and team/org dashboards.
+
+
+    Authentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as
+
+    `read_summaries`, `read_stats`, `read_goals`, `read_heartbeats`, `write_heartbeats`,
+
+    `read_orgs`, `write_orgs`, and `email`, or via API Key (HTTP Basic auth or `?api_key=`)
+
+    for personal use. The default rate limit is fewer than 10 requests per second on average
+
+    over any 5-minute window.
+
+
+    All responses follow the pattern `{"data": ...}` for successful requests or
+
+    `{"error": "message"}` for errors.
+
+    '
+  contact:
+    name: WakaTime Support
+    url: https://wakatime.com/contact
+    email: support@wakatime.com
+  termsOfService: https://wakatime.com/terms
+  license:
+    name: WakaTime Terms of Service
+    url: https://wakatime.com/terms
+  x-generated-from: documentation
+  x-source-url: https://wakatime.com/developers
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://wakatime.com/api/v1
+  description: WakaTime production API
+- url: https://api.wakatime.com/api/v1
+  description: WakaTime alternate hostname
+security:
+- oauth2: []
+- apiKey: []
+- bearerAuth: []
+tags:
+- name: Custom Rules
+  description: User and organization custom-rule definitions for time attribution.
+paths:
+  /users/current/custom_rules:
+    get:
+      operationId: listCustomRules
+      summary: List Custom Rules
+      description: Returns the authenticated user's custom time-attribution rules.
+      tags:
+      - Custom Rules
+      responses:
+        '200':
+          description: Custom rules.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CustomRule'
+              examples:
+                ListCustomRules200Example:
+                  summary: Default listCustomRules 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                      name: WakaTime
+                      if_match: {}
+                      then_set: {}
+                      created_at: '2026-05-30T12:34:56Z'
+                      modified_at: '2026-05-30T12:34:56Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: putCustomRules
+      summary: Put Custom Rules
+      description: Creates or updates one or more custom rules.
+      tags:
+      - Custom Rules
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CustomRuleInput'
+            examples:
+              PutCustomRulesRequestExample:
+                summary: Default putCustomRules request
+                x-microcks-default: true
+                value:
+                - id: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+                  name: WakaTime
+                  if_match: {}
+                  then_set: {}
+      responses:
+        '200':
+          description: Updated custom rules.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/current/custom_rules/{rule_id}:
+    delete:
+      operationId: deleteCustomRule
+      summary: Delete Custom Rule
+      description: Deletes a single custom rule.
+      tags:
+      - Custom Rules
+      parameters:
+      - name: rule_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example
+      responses:
+        '204':
+          description: Deleted.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/current/custom_rules_progress:
+    get:
+      operationId: getCustomRulesProgress
+      summary: Get Custom Rules Progress
+      description: Returns the status of any background job reprocessing the user's heartbeats against current custom rules.
+      tags:
+      - Custom Rules
+      responses:
+        '200':
+          description: Job progress.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: abortCustomRulesProgress
+      summary: Abort Custom Rules Progress
+      description: Aborts the background job currently reapplying custom rules.
+      tags:
+      - Custom Rules
+      responses:
+        '204':
+          description: Aborted.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    CustomRuleInput:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+          example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+        name:
+          type: string
+          example: WakaTime
+        if_match:
+          type: object
+          additionalProperties: true
+          example: {}
+        then_set:
+          type: object
+          additionalProperties: true
+          example: {}
+    CustomRule:
+      allOf:
+      - $ref: '#/components/schemas/CustomRuleInput'
+      - type: object
+        properties:
+          created_at:
+            type: string
+            format: date-time
+            example: '2026-05-30T12:34:56Z'
+          modified_at:
+            type: string
+            format: date-time
+            example: '2026-05-30T12:34:56Z'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authorization code flow.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://wakatime.com/oauth/authorize
+          tokenUrl: https://wakatime.com/oauth/token
+          refreshUrl: https://wakatime.com/oauth/token
+          scopes:
+            email: Read user email.
+            read_summaries: Read coding-activity summaries.
+            read_stats: Read aggregate stats.
+            read_goals: Read coding goals.
+            read_heartbeats: Read raw heartbeats.
+            write_heartbeats: Send heartbeats.
+            read_orgs: Read organization data.
+            write_orgs: Modify organization data.
+        implicit:
+          authorizationUrl: https://wakatime.com/oauth/authorize
+          scopes:
+            email: Read user email.
+            read_summaries: Read coding-activity summaries.
+            read_stats: Read aggregate stats.
+            read_goals: Read coding goals.
+            read_heartbeats: Read raw heartbeats.
+            write_heartbeats: Send heartbeats.
+            read_orgs: Read organization data.
+            write_orgs: Modify organization data.
+    apiKey:
+      type: http
+      scheme: basic
+      description: HTTP Basic with the WakaTime API key as the username. Alternatively, pass `?api_key=...` as a query parameter.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth access token in the Authorization header as `Bearer waka_tok_...`.
