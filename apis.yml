@@ -9,6 +9,19 @@ description: >-
 url: https://raw.githubusercontent.com/api-evangelist/wakatime/refs/heads/main/apis.yml
 humanURL: https://wakatime.com/developers
 baseURL: https://wakatime.com/api/v1/
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 image: https://wakatime.com/static/img/wakatime.svg
 specificationVersion: '0.20'
 created: '2026-05-28'
@@ -28,87 +41,1209 @@ tags:
   - Open Source
   - Public APIs
 apis:
-  - aid: wakatime:wakatime-api-v1
-    name: WakaTime API v1
-    description: >-
-      The WakaTime API v1 is a REST API for sending coding heartbeats and reading coding-activity analytics derived from
-      those heartbeats. The API exposes user profiles, heartbeats (single, bulk, and bulk-delete), durations, summaries,
-      stats (last_7_days, last_30_days, last_6_months, last_year, all_time), insights (by language, project, editor, OS,
-      weekday, day, AI day), projects, per-project commits, goals, custom rules (personal and org-level), editor and
-      machine inventories, programming languages, leaders (public and private), status bar summaries, data dumps,
-      external durations (for non-IDE activity), org dashboards and member-level dashboards, and infrastructure meta
-      information. Authentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as read_summaries,
-      read_stats, read_goals, read_heartbeats, write_heartbeats, read_orgs, write_orgs, and email, or via API Key (HTTP
-      Basic auth or ?api_key=) for personal use. The default rate limit is fewer than 10 requests per second on average
-      over any 5-minute window.
-    humanURL: https://wakatime.com/developers
-    baseURL: https://wakatime.com/api/v1/
-    version: v1
-    tags:
-      - Time Tracking
-      - Coding Analytics
-      - Heartbeats
-      - Summaries
-      - Stats
-      - Goals
-      - Leaderboards
-      - Org Dashboards
-      - OAuth 2.0
-    properties:
-      - type: Documentation
-        url: https://wakatime.com/developers
-      - type: OpenAPI
-        url: openapi/wakatime-api-v1-openapi.yml
-      - type: Signup
-        url: https://wakatime.com/signup
-      - type: Authentication
-        url: https://wakatime.com/developers#authentication
-      - type: OAuth
-        url: https://wakatime.com/developers#authentication
-      - type: APIKeys
-        url: https://wakatime.com/api-key
-      - type: RateLimits
-        url: https://wakatime.com/developers#rate_limits
-      - type: ChangeLog
-        url: https://wakatime.com/changelog
-      - type: Status
-        url: https://wakatime.com/status
-      - type: Embeddable
-        url: https://wakatime.com/share
-      - type: DataExport
-        url: https://wakatime.com/settings/account
-      - type: Webhooks
-        url: https://wakatime.com/settings/webhooks
-      - type: JSONSchema
-        url: json-schema/wakatime-heartbeat-schema.json
-      - type: JSONSchema
-        url: json-schema/wakatime-summary-schema.json
-      - type: JSONSchema
-        url: json-schema/wakatime-user-schema.json
-      - type: JSONStructure
-        url: json-structure/wakatime-heartbeat-structure.json
-      - type: JSONLD
-        url: json-ld/wakatime-context.jsonld
-      - type: SpectralRules
-        url: rules/wakatime-rules.yml
-      - type: Vocabulary
-        url: vocabulary/wakatime-vocabulary.yml
-      - type: Plans
-        url: plans/wakatime-plans-pricing.yml
-      - type: RateLimitsPolicy
-        url: rate-limits/wakatime-rate-limits.yml
-      - type: FinOps
-        url: finops/wakatime-finops.yml
-      - type: SDKs
-        url: https://github.com/wakatime/wakatime-cli
-        title: WakaTime CLI (Go)
-      - type: CLI
-        url: https://github.com/wakatime/wakatime-cli
-        title: wakatime-cli
-      - type: Integrations
-        url: https://wakatime.com/integrations
-      - type: Embeddables
-        url: https://wakatime.com/share
+- aid: wakatime:wakatime-commits-api
+  name: WakaTime Commits API
+  description: Per-project commits enriched with coding time.
+  humanURL: https://wakatime.com/developers
+  baseURL: https://wakatime.com/api/v1/
+  tags:
+  - Commits
+  properties:
+  - type: OpenAPI
+    url: openapi/wakatime-commits-api-openapi.yml
+  - type: Documentation
+    url: https://wakatime.com/developers
+  - type: Signup
+    url: https://wakatime.com/signup
+  - type: Authentication
+    url: https://wakatime.com/developers#authentication
+  - type: OAuth
+    url: https://wakatime.com/developers#authentication
+  - type: APIKeys
+    url: https://wakatime.com/api-key
+  - type: RateLimits
+    url: https://wakatime.com/developers#rate_limits
+  - type: ChangeLog
+    url: https://wakatime.com/changelog
+  - type: Status
+    url: https://wakatime.com/status
+  - type: Embeddable
+    url: https://wakatime.com/share
+  - type: DataExport
+    url: https://wakatime.com/settings/account
+  - type: Webhooks
+    url: https://wakatime.com/settings/webhooks
+  - type: JSONSchema
+    url: json-schema/wakatime-heartbeat-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-user-schema.json
+  - type: JSONStructure
+    url: json-structure/wakatime-heartbeat-structure.json
+  - type: JSONLD
+    url: json-ld/wakatime-context.jsonld
+  - type: SpectralRules
+    url: rules/wakatime-rules.yml
+  - type: Vocabulary
+    url: vocabulary/wakatime-vocabulary.yml
+  - type: Plans
+    url: plans/wakatime-plans-pricing.yml
+  - type: RateLimitsPolicy
+    url: rate-limits/wakatime-rate-limits.yml
+  - type: FinOps
+    url: finops/wakatime-finops.yml
+  - type: SDKs
+    url: https://github.com/wakatime/wakatime-cli
+  - type: CLI
+    url: https://github.com/wakatime/wakatime-cli
+  - type: Integrations
+    url: https://wakatime.com/integrations
+  - type: Embeddables
+    url: https://wakatime.com/share
+- aid: wakatime:wakatime-custom-rules-api
+  name: WakaTime Custom Rules API
+  description: User and organization custom-rule definitions for time attribution.
+  humanURL: https://wakatime.com/developers
+  baseURL: https://wakatime.com/api/v1/
+  tags:
+  - Custom Rules
+  properties:
+  - type: OpenAPI
+    url: openapi/wakatime-custom-rules-api-openapi.yml
+  - type: Documentation
+    url: https://wakatime.com/developers
+  - type: Signup
+    url: https://wakatime.com/signup
+  - type: Authentication
+    url: https://wakatime.com/developers#authentication
+  - type: OAuth
+    url: https://wakatime.com/developers#authentication
+  - type: APIKeys
+    url: https://wakatime.com/api-key
+  - type: RateLimits
+    url: https://wakatime.com/developers#rate_limits
+  - type: ChangeLog
+    url: https://wakatime.com/changelog
+  - type: Status
+    url: https://wakatime.com/status
+  - type: Embeddable
+    url: https://wakatime.com/share
+  - type: DataExport
+    url: https://wakatime.com/settings/account
+  - type: Webhooks
+    url: https://wakatime.com/settings/webhooks
+  - type: JSONSchema
+    url: json-schema/wakatime-heartbeat-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-user-schema.json
+  - type: JSONStructure
+    url: json-structure/wakatime-heartbeat-structure.json
+  - type: JSONLD
+    url: json-ld/wakatime-context.jsonld
+  - type: SpectralRules
+    url: rules/wakatime-rules.yml
+  - type: Vocabulary
+    url: vocabulary/wakatime-vocabulary.yml
+  - type: Plans
+    url: plans/wakatime-plans-pricing.yml
+  - type: RateLimitsPolicy
+    url: rate-limits/wakatime-rate-limits.yml
+  - type: FinOps
+    url: finops/wakatime-finops.yml
+  - type: SDKs
+    url: https://github.com/wakatime/wakatime-cli
+  - type: CLI
+    url: https://github.com/wakatime/wakatime-cli
+  - type: Integrations
+    url: https://wakatime.com/integrations
+  - type: Embeddables
+    url: https://wakatime.com/share
+- aid: wakatime:wakatime-data-dumps-api
+  name: WakaTime Data Dumps API
+  description: Full data exports.
+  humanURL: https://wakatime.com/developers
+  baseURL: https://wakatime.com/api/v1/
+  tags:
+  - Data Dumps
+  properties:
+  - type: OpenAPI
+    url: openapi/wakatime-data-dumps-api-openapi.yml
+  - type: Documentation
+    url: https://wakatime.com/developers
+  - type: Signup
+    url: https://wakatime.com/signup
+  - type: Authentication
+    url: https://wakatime.com/developers#authentication
+  - type: OAuth
+    url: https://wakatime.com/developers#authentication
+  - type: APIKeys
+    url: https://wakatime.com/api-key
+  - type: RateLimits
+    url: https://wakatime.com/developers#rate_limits
+  - type: ChangeLog
+    url: https://wakatime.com/changelog
+  - type: Status
+    url: https://wakatime.com/status
+  - type: Embeddable
+    url: https://wakatime.com/share
+  - type: DataExport
+    url: https://wakatime.com/settings/account
+  - type: Webhooks
+    url: https://wakatime.com/settings/webhooks
+  - type: JSONSchema
+    url: json-schema/wakatime-heartbeat-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-user-schema.json
+  - type: JSONStructure
+    url: json-structure/wakatime-heartbeat-structure.json
+  - type: JSONLD
+    url: json-ld/wakatime-context.jsonld
+  - type: SpectralRules
+    url: rules/wakatime-rules.yml
+  - type: Vocabulary
+    url: vocabulary/wakatime-vocabulary.yml
+  - type: Plans
+    url: plans/wakatime-plans-pricing.yml
+  - type: RateLimitsPolicy
+    url: rate-limits/wakatime-rate-limits.yml
+  - type: FinOps
+    url: finops/wakatime-finops.yml
+  - type: SDKs
+    url: https://github.com/wakatime/wakatime-cli
+  - type: CLI
+    url: https://github.com/wakatime/wakatime-cli
+  - type: Integrations
+    url: https://wakatime.com/integrations
+  - type: Embeddables
+    url: https://wakatime.com/share
+- aid: wakatime:wakatime-durations-api
+  name: WakaTime Durations API
+  description: Continuous time-on-task spans derived from heartbeats.
+  humanURL: https://wakatime.com/developers
+  baseURL: https://wakatime.com/api/v1/
+  tags:
+  - Durations
+  properties:
+  - type: OpenAPI
+    url: openapi/wakatime-durations-api-openapi.yml
+  - type: Documentation
+    url: https://wakatime.com/developers
+  - type: Signup
+    url: https://wakatime.com/signup
+  - type: Authentication
+    url: https://wakatime.com/developers#authentication
+  - type: OAuth
+    url: https://wakatime.com/developers#authentication
+  - type: APIKeys
+    url: https://wakatime.com/api-key
+  - type: RateLimits
+    url: https://wakatime.com/developers#rate_limits
+  - type: ChangeLog
+    url: https://wakatime.com/changelog
+  - type: Status
+    url: https://wakatime.com/status
+  - type: Embeddable
+    url: https://wakatime.com/share
+  - type: DataExport
+    url: https://wakatime.com/settings/account
+  - type: Webhooks
+    url: https://wakatime.com/settings/webhooks
+  - type: JSONSchema
+    url: json-schema/wakatime-heartbeat-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-user-schema.json
+  - type: JSONStructure
+    url: json-structure/wakatime-heartbeat-structure.json
+  - type: JSONLD
+    url: json-ld/wakatime-context.jsonld
+  - type: SpectralRules
+    url: rules/wakatime-rules.yml
+  - type: Vocabulary
+    url: vocabulary/wakatime-vocabulary.yml
+  - type: Plans
+    url: plans/wakatime-plans-pricing.yml
+  - type: RateLimitsPolicy
+    url: rate-limits/wakatime-rate-limits.yml
+  - type: FinOps
+    url: finops/wakatime-finops.yml
+  - type: SDKs
+    url: https://github.com/wakatime/wakatime-cli
+  - type: CLI
+    url: https://github.com/wakatime/wakatime-cli
+  - type: Integrations
+    url: https://wakatime.com/integrations
+  - type: Embeddables
+    url: https://wakatime.com/share
+- aid: wakatime:wakatime-editors-api
+  name: WakaTime Editors API
+  description: Available editor plugins and versions.
+  humanURL: https://wakatime.com/developers
+  baseURL: https://wakatime.com/api/v1/
+  tags:
+  - Editors
+  properties:
+  - type: OpenAPI
+    url: openapi/wakatime-editors-api-openapi.yml
+  - type: Documentation
+    url: https://wakatime.com/developers
+  - type: Signup
+    url: https://wakatime.com/signup
+  - type: Authentication
+    url: https://wakatime.com/developers#authentication
+  - type: OAuth
+    url: https://wakatime.com/developers#authentication
+  - type: APIKeys
+    url: https://wakatime.com/api-key
+  - type: RateLimits
+    url: https://wakatime.com/developers#rate_limits
+  - type: ChangeLog
+    url: https://wakatime.com/changelog
+  - type: Status
+    url: https://wakatime.com/status
+  - type: Embeddable
+    url: https://wakatime.com/share
+  - type: DataExport
+    url: https://wakatime.com/settings/account
+  - type: Webhooks
+    url: https://wakatime.com/settings/webhooks
+  - type: JSONSchema
+    url: json-schema/wakatime-heartbeat-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-user-schema.json
+  - type: JSONStructure
+    url: json-structure/wakatime-heartbeat-structure.json
+  - type: JSONLD
+    url: json-ld/wakatime-context.jsonld
+  - type: SpectralRules
+    url: rules/wakatime-rules.yml
+  - type: Vocabulary
+    url: vocabulary/wakatime-vocabulary.yml
+  - type: Plans
+    url: plans/wakatime-plans-pricing.yml
+  - type: RateLimitsPolicy
+    url: rate-limits/wakatime-rate-limits.yml
+  - type: FinOps
+    url: finops/wakatime-finops.yml
+  - type: SDKs
+    url: https://github.com/wakatime/wakatime-cli
+  - type: CLI
+    url: https://github.com/wakatime/wakatime-cli
+  - type: Integrations
+    url: https://wakatime.com/integrations
+  - type: Embeddables
+    url: https://wakatime.com/share
+- aid: wakatime:wakatime-external-durations-api
+  name: WakaTime External Durations API
+  description: Non-IDE activity durations created via the API.
+  humanURL: https://wakatime.com/developers
+  baseURL: https://wakatime.com/api/v1/
+  tags:
+  - External Durations
+  properties:
+  - type: OpenAPI
+    url: openapi/wakatime-external-durations-api-openapi.yml
+  - type: Documentation
+    url: https://wakatime.com/developers
+  - type: Signup
+    url: https://wakatime.com/signup
+  - type: Authentication
+    url: https://wakatime.com/developers#authentication
+  - type: OAuth
+    url: https://wakatime.com/developers#authentication
+  - type: APIKeys
+    url: https://wakatime.com/api-key
+  - type: RateLimits
+    url: https://wakatime.com/developers#rate_limits
+  - type: ChangeLog
+    url: https://wakatime.com/changelog
+  - type: Status
+    url: https://wakatime.com/status
+  - type: Embeddable
+    url: https://wakatime.com/share
+  - type: DataExport
+    url: https://wakatime.com/settings/account
+  - type: Webhooks
+    url: https://wakatime.com/settings/webhooks
+  - type: JSONSchema
+    url: json-schema/wakatime-heartbeat-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-user-schema.json
+  - type: JSONStructure
+    url: json-structure/wakatime-heartbeat-structure.json
+  - type: JSONLD
+    url: json-ld/wakatime-context.jsonld
+  - type: SpectralRules
+    url: rules/wakatime-rules.yml
+  - type: Vocabulary
+    url: vocabulary/wakatime-vocabulary.yml
+  - type: Plans
+    url: plans/wakatime-plans-pricing.yml
+  - type: RateLimitsPolicy
+    url: rate-limits/wakatime-rate-limits.yml
+  - type: FinOps
+    url: finops/wakatime-finops.yml
+  - type: SDKs
+    url: https://github.com/wakatime/wakatime-cli
+  - type: CLI
+    url: https://github.com/wakatime/wakatime-cli
+  - type: Integrations
+    url: https://wakatime.com/integrations
+  - type: Embeddables
+    url: https://wakatime.com/share
+- aid: wakatime:wakatime-goals-api
+  name: WakaTime Goals API
+  description: User coding goals and their progress.
+  humanURL: https://wakatime.com/developers
+  baseURL: https://wakatime.com/api/v1/
+  tags:
+  - Goals
+  properties:
+  - type: OpenAPI
+    url: openapi/wakatime-goals-api-openapi.yml
+  - type: Documentation
+    url: https://wakatime.com/developers
+  - type: Signup
+    url: https://wakatime.com/signup
+  - type: Authentication
+    url: https://wakatime.com/developers#authentication
+  - type: OAuth
+    url: https://wakatime.com/developers#authentication
+  - type: APIKeys
+    url: https://wakatime.com/api-key
+  - type: RateLimits
+    url: https://wakatime.com/developers#rate_limits
+  - type: ChangeLog
+    url: https://wakatime.com/changelog
+  - type: Status
+    url: https://wakatime.com/status
+  - type: Embeddable
+    url: https://wakatime.com/share
+  - type: DataExport
+    url: https://wakatime.com/settings/account
+  - type: Webhooks
+    url: https://wakatime.com/settings/webhooks
+  - type: JSONSchema
+    url: json-schema/wakatime-heartbeat-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-user-schema.json
+  - type: JSONStructure
+    url: json-structure/wakatime-heartbeat-structure.json
+  - type: JSONLD
+    url: json-ld/wakatime-context.jsonld
+  - type: SpectralRules
+    url: rules/wakatime-rules.yml
+  - type: Vocabulary
+    url: vocabulary/wakatime-vocabulary.yml
+  - type: Plans
+    url: plans/wakatime-plans-pricing.yml
+  - type: RateLimitsPolicy
+    url: rate-limits/wakatime-rate-limits.yml
+  - type: FinOps
+    url: finops/wakatime-finops.yml
+  - type: SDKs
+    url: https://github.com/wakatime/wakatime-cli
+  - type: CLI
+    url: https://github.com/wakatime/wakatime-cli
+  - type: Integrations
+    url: https://wakatime.com/integrations
+  - type: Embeddables
+    url: https://wakatime.com/share
+- aid: wakatime:wakatime-heartbeats-api
+  name: WakaTime Heartbeats API
+  description: Coding-activity pings sent by editor plugins.
+  humanURL: https://wakatime.com/developers
+  baseURL: https://wakatime.com/api/v1/
+  tags:
+  - Heartbeats
+  properties:
+  - type: OpenAPI
+    url: openapi/wakatime-heartbeats-api-openapi.yml
+  - type: Documentation
+    url: https://wakatime.com/developers
+  - type: Signup
+    url: https://wakatime.com/signup
+  - type: Authentication
+    url: https://wakatime.com/developers#authentication
+  - type: OAuth
+    url: https://wakatime.com/developers#authentication
+  - type: APIKeys
+    url: https://wakatime.com/api-key
+  - type: RateLimits
+    url: https://wakatime.com/developers#rate_limits
+  - type: ChangeLog
+    url: https://wakatime.com/changelog
+  - type: Status
+    url: https://wakatime.com/status
+  - type: Embeddable
+    url: https://wakatime.com/share
+  - type: DataExport
+    url: https://wakatime.com/settings/account
+  - type: Webhooks
+    url: https://wakatime.com/settings/webhooks
+  - type: JSONSchema
+    url: json-schema/wakatime-heartbeat-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-user-schema.json
+  - type: JSONStructure
+    url: json-structure/wakatime-heartbeat-structure.json
+  - type: JSONLD
+    url: json-ld/wakatime-context.jsonld
+  - type: SpectralRules
+    url: rules/wakatime-rules.yml
+  - type: Vocabulary
+    url: vocabulary/wakatime-vocabulary.yml
+  - type: Plans
+    url: plans/wakatime-plans-pricing.yml
+  - type: RateLimitsPolicy
+    url: rate-limits/wakatime-rate-limits.yml
+  - type: FinOps
+    url: finops/wakatime-finops.yml
+  - type: SDKs
+    url: https://github.com/wakatime/wakatime-cli
+  - type: CLI
+    url: https://github.com/wakatime/wakatime-cli
+  - type: Integrations
+    url: https://wakatime.com/integrations
+  - type: Embeddables
+    url: https://wakatime.com/share
+- aid: wakatime:wakatime-insights-api
+  name: WakaTime Insights API
+  description: >-
+    Curated analytics views (weekdays, days, projects, languages, editors, machines, operating systems,
+    AI days, best day, daily average).
+  humanURL: https://wakatime.com/developers
+  baseURL: https://wakatime.com/api/v1/
+  tags:
+  - Insights
+  properties:
+  - type: OpenAPI
+    url: openapi/wakatime-insights-api-openapi.yml
+  - type: Documentation
+    url: https://wakatime.com/developers
+  - type: Signup
+    url: https://wakatime.com/signup
+  - type: Authentication
+    url: https://wakatime.com/developers#authentication
+  - type: OAuth
+    url: https://wakatime.com/developers#authentication
+  - type: APIKeys
+    url: https://wakatime.com/api-key
+  - type: RateLimits
+    url: https://wakatime.com/developers#rate_limits
+  - type: ChangeLog
+    url: https://wakatime.com/changelog
+  - type: Status
+    url: https://wakatime.com/status
+  - type: Embeddable
+    url: https://wakatime.com/share
+  - type: DataExport
+    url: https://wakatime.com/settings/account
+  - type: Webhooks
+    url: https://wakatime.com/settings/webhooks
+  - type: JSONSchema
+    url: json-schema/wakatime-heartbeat-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-user-schema.json
+  - type: JSONStructure
+    url: json-structure/wakatime-heartbeat-structure.json
+  - type: JSONLD
+    url: json-ld/wakatime-context.jsonld
+  - type: SpectralRules
+    url: rules/wakatime-rules.yml
+  - type: Vocabulary
+    url: vocabulary/wakatime-vocabulary.yml
+  - type: Plans
+    url: plans/wakatime-plans-pricing.yml
+  - type: RateLimitsPolicy
+    url: rate-limits/wakatime-rate-limits.yml
+  - type: FinOps
+    url: finops/wakatime-finops.yml
+  - type: SDKs
+    url: https://github.com/wakatime/wakatime-cli
+  - type: CLI
+    url: https://github.com/wakatime/wakatime-cli
+  - type: Integrations
+    url: https://wakatime.com/integrations
+  - type: Embeddables
+    url: https://wakatime.com/share
+- aid: wakatime:wakatime-languages-api
+  name: WakaTime Languages API
+  description: Programming languages.
+  humanURL: https://wakatime.com/developers
+  baseURL: https://wakatime.com/api/v1/
+  tags:
+  - Languages
+  properties:
+  - type: OpenAPI
+    url: openapi/wakatime-languages-api-openapi.yml
+  - type: Documentation
+    url: https://wakatime.com/developers
+  - type: Signup
+    url: https://wakatime.com/signup
+  - type: Authentication
+    url: https://wakatime.com/developers#authentication
+  - type: OAuth
+    url: https://wakatime.com/developers#authentication
+  - type: APIKeys
+    url: https://wakatime.com/api-key
+  - type: RateLimits
+    url: https://wakatime.com/developers#rate_limits
+  - type: ChangeLog
+    url: https://wakatime.com/changelog
+  - type: Status
+    url: https://wakatime.com/status
+  - type: Embeddable
+    url: https://wakatime.com/share
+  - type: DataExport
+    url: https://wakatime.com/settings/account
+  - type: Webhooks
+    url: https://wakatime.com/settings/webhooks
+  - type: JSONSchema
+    url: json-schema/wakatime-heartbeat-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-user-schema.json
+  - type: JSONStructure
+    url: json-structure/wakatime-heartbeat-structure.json
+  - type: JSONLD
+    url: json-ld/wakatime-context.jsonld
+  - type: SpectralRules
+    url: rules/wakatime-rules.yml
+  - type: Vocabulary
+    url: vocabulary/wakatime-vocabulary.yml
+  - type: Plans
+    url: plans/wakatime-plans-pricing.yml
+  - type: RateLimitsPolicy
+    url: rate-limits/wakatime-rate-limits.yml
+  - type: FinOps
+    url: finops/wakatime-finops.yml
+  - type: SDKs
+    url: https://github.com/wakatime/wakatime-cli
+  - type: CLI
+    url: https://github.com/wakatime/wakatime-cli
+  - type: Integrations
+    url: https://wakatime.com/integrations
+  - type: Embeddables
+    url: https://wakatime.com/share
+- aid: wakatime:wakatime-leaderboards-api
+  name: WakaTime Leaderboards API
+  description: Public and private leaderboard rankings.
+  humanURL: https://wakatime.com/developers
+  baseURL: https://wakatime.com/api/v1/
+  tags:
+  - Leaderboards
+  properties:
+  - type: OpenAPI
+    url: openapi/wakatime-leaderboards-api-openapi.yml
+  - type: Documentation
+    url: https://wakatime.com/developers
+  - type: Signup
+    url: https://wakatime.com/signup
+  - type: Authentication
+    url: https://wakatime.com/developers#authentication
+  - type: OAuth
+    url: https://wakatime.com/developers#authentication
+  - type: APIKeys
+    url: https://wakatime.com/api-key
+  - type: RateLimits
+    url: https://wakatime.com/developers#rate_limits
+  - type: ChangeLog
+    url: https://wakatime.com/changelog
+  - type: Status
+    url: https://wakatime.com/status
+  - type: Embeddable
+    url: https://wakatime.com/share
+  - type: DataExport
+    url: https://wakatime.com/settings/account
+  - type: Webhooks
+    url: https://wakatime.com/settings/webhooks
+  - type: JSONSchema
+    url: json-schema/wakatime-heartbeat-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-user-schema.json
+  - type: JSONStructure
+    url: json-structure/wakatime-heartbeat-structure.json
+  - type: JSONLD
+    url: json-ld/wakatime-context.jsonld
+  - type: SpectralRules
+    url: rules/wakatime-rules.yml
+  - type: Vocabulary
+    url: vocabulary/wakatime-vocabulary.yml
+  - type: Plans
+    url: plans/wakatime-plans-pricing.yml
+  - type: RateLimitsPolicy
+    url: rate-limits/wakatime-rate-limits.yml
+  - type: FinOps
+    url: finops/wakatime-finops.yml
+  - type: SDKs
+    url: https://github.com/wakatime/wakatime-cli
+  - type: CLI
+    url: https://github.com/wakatime/wakatime-cli
+  - type: Integrations
+    url: https://wakatime.com/integrations
+  - type: Embeddables
+    url: https://wakatime.com/share
+- aid: wakatime:wakatime-machines-api
+  name: WakaTime Machines API
+  description: Devices that have sent heartbeats.
+  humanURL: https://wakatime.com/developers
+  baseURL: https://wakatime.com/api/v1/
+  tags:
+  - Machines
+  properties:
+  - type: OpenAPI
+    url: openapi/wakatime-machines-api-openapi.yml
+  - type: Documentation
+    url: https://wakatime.com/developers
+  - type: Signup
+    url: https://wakatime.com/signup
+  - type: Authentication
+    url: https://wakatime.com/developers#authentication
+  - type: OAuth
+    url: https://wakatime.com/developers#authentication
+  - type: APIKeys
+    url: https://wakatime.com/api-key
+  - type: RateLimits
+    url: https://wakatime.com/developers#rate_limits
+  - type: ChangeLog
+    url: https://wakatime.com/changelog
+  - type: Status
+    url: https://wakatime.com/status
+  - type: Embeddable
+    url: https://wakatime.com/share
+  - type: DataExport
+    url: https://wakatime.com/settings/account
+  - type: Webhooks
+    url: https://wakatime.com/settings/webhooks
+  - type: JSONSchema
+    url: json-schema/wakatime-heartbeat-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-user-schema.json
+  - type: JSONStructure
+    url: json-structure/wakatime-heartbeat-structure.json
+  - type: JSONLD
+    url: json-ld/wakatime-context.jsonld
+  - type: SpectralRules
+    url: rules/wakatime-rules.yml
+  - type: Vocabulary
+    url: vocabulary/wakatime-vocabulary.yml
+  - type: Plans
+    url: plans/wakatime-plans-pricing.yml
+  - type: RateLimitsPolicy
+    url: rate-limits/wakatime-rate-limits.yml
+  - type: FinOps
+    url: finops/wakatime-finops.yml
+  - type: SDKs
+    url: https://github.com/wakatime/wakatime-cli
+  - type: CLI
+    url: https://github.com/wakatime/wakatime-cli
+  - type: Integrations
+    url: https://wakatime.com/integrations
+  - type: Embeddables
+    url: https://wakatime.com/share
+- aid: wakatime:wakatime-meta-api
+  name: WakaTime Meta API
+  description: WakaTime infrastructure metadata.
+  humanURL: https://wakatime.com/developers
+  baseURL: https://wakatime.com/api/v1/
+  tags:
+  - Meta
+  properties:
+  - type: OpenAPI
+    url: openapi/wakatime-meta-api-openapi.yml
+  - type: Documentation
+    url: https://wakatime.com/developers
+  - type: Signup
+    url: https://wakatime.com/signup
+  - type: Authentication
+    url: https://wakatime.com/developers#authentication
+  - type: OAuth
+    url: https://wakatime.com/developers#authentication
+  - type: APIKeys
+    url: https://wakatime.com/api-key
+  - type: RateLimits
+    url: https://wakatime.com/developers#rate_limits
+  - type: ChangeLog
+    url: https://wakatime.com/changelog
+  - type: Status
+    url: https://wakatime.com/status
+  - type: Embeddable
+    url: https://wakatime.com/share
+  - type: DataExport
+    url: https://wakatime.com/settings/account
+  - type: Webhooks
+    url: https://wakatime.com/settings/webhooks
+  - type: JSONSchema
+    url: json-schema/wakatime-heartbeat-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-user-schema.json
+  - type: JSONStructure
+    url: json-structure/wakatime-heartbeat-structure.json
+  - type: JSONLD
+    url: json-ld/wakatime-context.jsonld
+  - type: SpectralRules
+    url: rules/wakatime-rules.yml
+  - type: Vocabulary
+    url: vocabulary/wakatime-vocabulary.yml
+  - type: Plans
+    url: plans/wakatime-plans-pricing.yml
+  - type: RateLimitsPolicy
+    url: rate-limits/wakatime-rate-limits.yml
+  - type: FinOps
+    url: finops/wakatime-finops.yml
+  - type: SDKs
+    url: https://github.com/wakatime/wakatime-cli
+  - type: CLI
+    url: https://github.com/wakatime/wakatime-cli
+  - type: Integrations
+    url: https://wakatime.com/integrations
+  - type: Embeddables
+    url: https://wakatime.com/share
+- aid: wakatime:wakatime-organizations-api
+  name: WakaTime Organizations API
+  description: Team/organization dashboards and member analytics.
+  humanURL: https://wakatime.com/developers
+  baseURL: https://wakatime.com/api/v1/
+  tags:
+  - Organizations
+  properties:
+  - type: OpenAPI
+    url: openapi/wakatime-organizations-api-openapi.yml
+  - type: Documentation
+    url: https://wakatime.com/developers
+  - type: Signup
+    url: https://wakatime.com/signup
+  - type: Authentication
+    url: https://wakatime.com/developers#authentication
+  - type: OAuth
+    url: https://wakatime.com/developers#authentication
+  - type: APIKeys
+    url: https://wakatime.com/api-key
+  - type: RateLimits
+    url: https://wakatime.com/developers#rate_limits
+  - type: ChangeLog
+    url: https://wakatime.com/changelog
+  - type: Status
+    url: https://wakatime.com/status
+  - type: Embeddable
+    url: https://wakatime.com/share
+  - type: DataExport
+    url: https://wakatime.com/settings/account
+  - type: Webhooks
+    url: https://wakatime.com/settings/webhooks
+  - type: JSONSchema
+    url: json-schema/wakatime-heartbeat-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-user-schema.json
+  - type: JSONStructure
+    url: json-structure/wakatime-heartbeat-structure.json
+  - type: JSONLD
+    url: json-ld/wakatime-context.jsonld
+  - type: SpectralRules
+    url: rules/wakatime-rules.yml
+  - type: Vocabulary
+    url: vocabulary/wakatime-vocabulary.yml
+  - type: Plans
+    url: plans/wakatime-plans-pricing.yml
+  - type: RateLimitsPolicy
+    url: rate-limits/wakatime-rate-limits.yml
+  - type: FinOps
+    url: finops/wakatime-finops.yml
+  - type: SDKs
+    url: https://github.com/wakatime/wakatime-cli
+  - type: CLI
+    url: https://github.com/wakatime/wakatime-cli
+  - type: Integrations
+    url: https://wakatime.com/integrations
+  - type: Embeddables
+    url: https://wakatime.com/share
+- aid: wakatime:wakatime-projects-api
+  name: WakaTime Projects API
+  description: Projects the authenticated user has logged time against.
+  humanURL: https://wakatime.com/developers
+  baseURL: https://wakatime.com/api/v1/
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/wakatime-projects-api-openapi.yml
+  - type: Documentation
+    url: https://wakatime.com/developers
+  - type: Signup
+    url: https://wakatime.com/signup
+  - type: Authentication
+    url: https://wakatime.com/developers#authentication
+  - type: OAuth
+    url: https://wakatime.com/developers#authentication
+  - type: APIKeys
+    url: https://wakatime.com/api-key
+  - type: RateLimits
+    url: https://wakatime.com/developers#rate_limits
+  - type: ChangeLog
+    url: https://wakatime.com/changelog
+  - type: Status
+    url: https://wakatime.com/status
+  - type: Embeddable
+    url: https://wakatime.com/share
+  - type: DataExport
+    url: https://wakatime.com/settings/account
+  - type: Webhooks
+    url: https://wakatime.com/settings/webhooks
+  - type: JSONSchema
+    url: json-schema/wakatime-heartbeat-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-user-schema.json
+  - type: JSONStructure
+    url: json-structure/wakatime-heartbeat-structure.json
+  - type: JSONLD
+    url: json-ld/wakatime-context.jsonld
+  - type: SpectralRules
+    url: rules/wakatime-rules.yml
+  - type: Vocabulary
+    url: vocabulary/wakatime-vocabulary.yml
+  - type: Plans
+    url: plans/wakatime-plans-pricing.yml
+  - type: RateLimitsPolicy
+    url: rate-limits/wakatime-rate-limits.yml
+  - type: FinOps
+    url: finops/wakatime-finops.yml
+  - type: SDKs
+    url: https://github.com/wakatime/wakatime-cli
+  - type: CLI
+    url: https://github.com/wakatime/wakatime-cli
+  - type: Integrations
+    url: https://wakatime.com/integrations
+  - type: Embeddables
+    url: https://wakatime.com/share
+- aid: wakatime:wakatime-stats-api
+  name: WakaTime Stats API
+  description: User-wide statistics over preset and custom ranges.
+  humanURL: https://wakatime.com/developers
+  baseURL: https://wakatime.com/api/v1/
+  tags:
+  - Stats
+  properties:
+  - type: OpenAPI
+    url: openapi/wakatime-stats-api-openapi.yml
+  - type: Documentation
+    url: https://wakatime.com/developers
+  - type: Signup
+    url: https://wakatime.com/signup
+  - type: Authentication
+    url: https://wakatime.com/developers#authentication
+  - type: OAuth
+    url: https://wakatime.com/developers#authentication
+  - type: APIKeys
+    url: https://wakatime.com/api-key
+  - type: RateLimits
+    url: https://wakatime.com/developers#rate_limits
+  - type: ChangeLog
+    url: https://wakatime.com/changelog
+  - type: Status
+    url: https://wakatime.com/status
+  - type: Embeddable
+    url: https://wakatime.com/share
+  - type: DataExport
+    url: https://wakatime.com/settings/account
+  - type: Webhooks
+    url: https://wakatime.com/settings/webhooks
+  - type: JSONSchema
+    url: json-schema/wakatime-heartbeat-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-user-schema.json
+  - type: JSONStructure
+    url: json-structure/wakatime-heartbeat-structure.json
+  - type: JSONLD
+    url: json-ld/wakatime-context.jsonld
+  - type: SpectralRules
+    url: rules/wakatime-rules.yml
+  - type: Vocabulary
+    url: vocabulary/wakatime-vocabulary.yml
+  - type: Plans
+    url: plans/wakatime-plans-pricing.yml
+  - type: RateLimitsPolicy
+    url: rate-limits/wakatime-rate-limits.yml
+  - type: FinOps
+    url: finops/wakatime-finops.yml
+  - type: SDKs
+    url: https://github.com/wakatime/wakatime-cli
+  - type: CLI
+    url: https://github.com/wakatime/wakatime-cli
+  - type: Integrations
+    url: https://wakatime.com/integrations
+  - type: Embeddables
+    url: https://wakatime.com/share
+- aid: wakatime:wakatime-status-bar-api
+  name: WakaTime Status Bar API
+  description: Cached today-only stats for status-bar displays.
+  humanURL: https://wakatime.com/developers
+  baseURL: https://wakatime.com/api/v1/
+  tags:
+  - Status Bar
+  properties:
+  - type: OpenAPI
+    url: openapi/wakatime-status-bar-api-openapi.yml
+  - type: Documentation
+    url: https://wakatime.com/developers
+  - type: Signup
+    url: https://wakatime.com/signup
+  - type: Authentication
+    url: https://wakatime.com/developers#authentication
+  - type: OAuth
+    url: https://wakatime.com/developers#authentication
+  - type: APIKeys
+    url: https://wakatime.com/api-key
+  - type: RateLimits
+    url: https://wakatime.com/developers#rate_limits
+  - type: ChangeLog
+    url: https://wakatime.com/changelog
+  - type: Status
+    url: https://wakatime.com/status
+  - type: Embeddable
+    url: https://wakatime.com/share
+  - type: DataExport
+    url: https://wakatime.com/settings/account
+  - type: Webhooks
+    url: https://wakatime.com/settings/webhooks
+  - type: JSONSchema
+    url: json-schema/wakatime-heartbeat-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-user-schema.json
+  - type: JSONStructure
+    url: json-structure/wakatime-heartbeat-structure.json
+  - type: JSONLD
+    url: json-ld/wakatime-context.jsonld
+  - type: SpectralRules
+    url: rules/wakatime-rules.yml
+  - type: Vocabulary
+    url: vocabulary/wakatime-vocabulary.yml
+  - type: Plans
+    url: plans/wakatime-plans-pricing.yml
+  - type: RateLimitsPolicy
+    url: rate-limits/wakatime-rate-limits.yml
+  - type: FinOps
+    url: finops/wakatime-finops.yml
+  - type: SDKs
+    url: https://github.com/wakatime/wakatime-cli
+  - type: CLI
+    url: https://github.com/wakatime/wakatime-cli
+  - type: Integrations
+    url: https://wakatime.com/integrations
+  - type: Embeddables
+    url: https://wakatime.com/share
+- aid: wakatime:wakatime-summaries-api
+  name: WakaTime Summaries API
+  description: >-
+    Daily aggregations of coding activity by project, language, editor, OS, machine, branch, and category.
+  humanURL: https://wakatime.com/developers
+  baseURL: https://wakatime.com/api/v1/
+  tags:
+  - Summaries
+  properties:
+  - type: OpenAPI
+    url: openapi/wakatime-summaries-api-openapi.yml
+  - type: Documentation
+    url: https://wakatime.com/developers
+  - type: Signup
+    url: https://wakatime.com/signup
+  - type: Authentication
+    url: https://wakatime.com/developers#authentication
+  - type: OAuth
+    url: https://wakatime.com/developers#authentication
+  - type: APIKeys
+    url: https://wakatime.com/api-key
+  - type: RateLimits
+    url: https://wakatime.com/developers#rate_limits
+  - type: ChangeLog
+    url: https://wakatime.com/changelog
+  - type: Status
+    url: https://wakatime.com/status
+  - type: Embeddable
+    url: https://wakatime.com/share
+  - type: DataExport
+    url: https://wakatime.com/settings/account
+  - type: Webhooks
+    url: https://wakatime.com/settings/webhooks
+  - type: JSONSchema
+    url: json-schema/wakatime-heartbeat-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-user-schema.json
+  - type: JSONStructure
+    url: json-structure/wakatime-heartbeat-structure.json
+  - type: JSONLD
+    url: json-ld/wakatime-context.jsonld
+  - type: SpectralRules
+    url: rules/wakatime-rules.yml
+  - type: Vocabulary
+    url: vocabulary/wakatime-vocabulary.yml
+  - type: Plans
+    url: plans/wakatime-plans-pricing.yml
+  - type: RateLimitsPolicy
+    url: rate-limits/wakatime-rate-limits.yml
+  - type: FinOps
+    url: finops/wakatime-finops.yml
+  - type: SDKs
+    url: https://github.com/wakatime/wakatime-cli
+  - type: CLI
+    url: https://github.com/wakatime/wakatime-cli
+  - type: Integrations
+    url: https://wakatime.com/integrations
+  - type: Embeddables
+    url: https://wakatime.com/share
+- aid: wakatime:wakatime-user-agents-api
+  name: WakaTime User Agents API
+  description: Editor + OS user-agent inventory.
+  humanURL: https://wakatime.com/developers
+  baseURL: https://wakatime.com/api/v1/
+  tags:
+  - User Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/wakatime-user-agents-api-openapi.yml
+  - type: Documentation
+    url: https://wakatime.com/developers
+  - type: Signup
+    url: https://wakatime.com/signup
+  - type: Authentication
+    url: https://wakatime.com/developers#authentication
+  - type: OAuth
+    url: https://wakatime.com/developers#authentication
+  - type: APIKeys
+    url: https://wakatime.com/api-key
+  - type: RateLimits
+    url: https://wakatime.com/developers#rate_limits
+  - type: ChangeLog
+    url: https://wakatime.com/changelog
+  - type: Status
+    url: https://wakatime.com/status
+  - type: Embeddable
+    url: https://wakatime.com/share
+  - type: DataExport
+    url: https://wakatime.com/settings/account
+  - type: Webhooks
+    url: https://wakatime.com/settings/webhooks
+  - type: JSONSchema
+    url: json-schema/wakatime-heartbeat-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-user-schema.json
+  - type: JSONStructure
+    url: json-structure/wakatime-heartbeat-structure.json
+  - type: JSONLD
+    url: json-ld/wakatime-context.jsonld
+  - type: SpectralRules
+    url: rules/wakatime-rules.yml
+  - type: Vocabulary
+    url: vocabulary/wakatime-vocabulary.yml
+  - type: Plans
+    url: plans/wakatime-plans-pricing.yml
+  - type: RateLimitsPolicy
+    url: rate-limits/wakatime-rate-limits.yml
+  - type: FinOps
+    url: finops/wakatime-finops.yml
+  - type: SDKs
+    url: https://github.com/wakatime/wakatime-cli
+  - type: CLI
+    url: https://github.com/wakatime/wakatime-cli
+  - type: Integrations
+    url: https://wakatime.com/integrations
+  - type: Embeddables
+    url: https://wakatime.com/share
+- aid: wakatime:wakatime-users-api
+  name: WakaTime Users API
+  description: Authenticated user profile and public user lookups.
+  humanURL: https://wakatime.com/developers
+  baseURL: https://wakatime.com/api/v1/
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/wakatime-users-api-openapi.yml
+  - type: Documentation
+    url: https://wakatime.com/developers
+  - type: Signup
+    url: https://wakatime.com/signup
+  - type: Authentication
+    url: https://wakatime.com/developers#authentication
+  - type: OAuth
+    url: https://wakatime.com/developers#authentication
+  - type: APIKeys
+    url: https://wakatime.com/api-key
+  - type: RateLimits
+    url: https://wakatime.com/developers#rate_limits
+  - type: ChangeLog
+    url: https://wakatime.com/changelog
+  - type: Status
+    url: https://wakatime.com/status
+  - type: Embeddable
+    url: https://wakatime.com/share
+  - type: DataExport
+    url: https://wakatime.com/settings/account
+  - type: Webhooks
+    url: https://wakatime.com/settings/webhooks
+  - type: JSONSchema
+    url: json-schema/wakatime-heartbeat-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/wakatime-user-schema.json
+  - type: JSONStructure
+    url: json-structure/wakatime-heartbeat-structure.json
+  - type: JSONLD
+    url: json-ld/wakatime-context.jsonld
+  - type: SpectralRules
+    url: rules/wakatime-rules.yml
+  - type: Vocabulary
+    url: vocabulary/wakatime-vocabulary.yml
+  - type: Plans
+    url: plans/wakatime-plans-pricing.yml
+  - type: RateLimitsPolicy
+    url: rate-limits/wakatime-rate-limits.yml
+  - type: FinOps
+    url: finops/wakatime-finops.yml
+  - type: SDKs
+    url: https://github.com/wakatime/wakatime-cli
+  - type: CLI
+    url: https://github.com/wakatime/wakatime-cli
+  - type: Integrations
+    url: https://wakatime.com/integrations
+  - type: Embeddables
+    url: https://wakatime.com/share
 common:
   - type: AgenticAccess
     url: agentic-access/wakatime-agentic-access.yml
