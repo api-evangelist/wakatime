@@ -1,0 +1,330 @@
+{
+  "item": [
+    {
+      "id": "856bcce0-7904-4d1c-9438-0de2ef8eb294",
+      "name": "Leaderboards",
+      "description": {
+        "content": "Public and private leaderboard rankings.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2446ab7f-5827-418d-b9d0-6a3c37df5c03",
+          "name": "List Leaders",
+          "request": {
+            "name": "List Leaders",
+            "description": {
+              "content": "Returns the public WakaTime leaderboard.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "leaders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "language",
+                  "value": "<string>",
+                  "description": "Filter by programming language."
+                },
+                {
+                  "disabled": false,
+                  "key": "country_code",
+                  "value": "<string>",
+                  "description": "Filter by ISO country code."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bd1d6241-e674-4638-a178-5f8fda1cce0d",
+              "name": "Leaderboard payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "leaders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "language",
+                      "value": "example"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "example"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"rank\": 1,\n      \"running_total\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5d98475c-0010-4007-a57c-9a02430e80ff",
+          "name": "List Private Leaderboards",
+          "request": {
+            "name": "List Private Leaderboards",
+            "description": {
+              "content": "Returns the authenticated user's private leaderboards.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "private_leaderboards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "df5dc6a2-6d68-498c-8498-41f9e0fbee4e",
+              "name": "Private leaderboards.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "private_leaderboards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "98fb7494-806a-462f-8f30-cc84bbf45466",
+          "name": "List Private Leaderboard Leaders",
+          "request": {
+            "name": "List Private Leaderboard Leaders",
+            "description": {
+              "content": "Returns rankings for a specific private leaderboard.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "private_leaderboards",
+                ":id",
+                "leaders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Private leaderboard id."
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "25fb1a22-663a-48d7-b49b-616677ba23e7",
+              "name": "Private leaderboard rankings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "private_leaderboards",
+                    ":id",
+                    "leaders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Private leaderboard id."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://wakatime.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "email read_summaries read_stats read_goals read_heartbeats write_heartbeats read_orgs write_orgs"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://wakatime.com/oauth/token"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://wakatime.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://wakatime.com/oauth/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1db12663-14f7-4718-bcf4-6a847247b034",
+    "name": "WakaTime Commits Leaderboards API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "WakaTime API v1 provides automated time-tracking analytics for software developers. IDE\nplugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, Zed, and\nmany more) send \"heartbeats\" describing the file, project, language, branch, and editor a\ndeveloper is working in. WakaTime aggregates that data into dashboards, summaries, stats,\ngoals, leaderboards, and team/org dashboards.\n\nAuthentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as\n`read_summaries`, `read_stats`, `read_goals`, `read_heartbeats`, `write_heartbeats`,\n`read_orgs`, `write_orgs`, and `email`, or via API Key (HTTP Basic auth or `?api_key=`)\nfor personal use. The default rate limit is fewer than 10 requests per second on average\nover any 5-minute window.\n\nAll responses follow the pattern `{\"data\": ...}` for successful requests or\n`{\"error\": \"message\"}` for errors.\n\n\nContact Support:\n Name: WakaTime Support\n Email: support@wakatime.com",
+      "type": "text/plain"
+    }
+  }
+}

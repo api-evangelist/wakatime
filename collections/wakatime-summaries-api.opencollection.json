@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WakaTime Commits Summaries API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://wakatime.com/oauth/authorize",
+      "accessTokenUrl": "https://wakatime.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Summaries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Summaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/summaries",
+            "params": [
+              {
+                "name": "start",
+                "value": "2026-05-30",
+                "type": "query",
+                "description": "Start date (YYYY-MM-DD) inclusive."
+              },
+              {
+                "name": "end",
+                "value": "2026-05-30",
+                "type": "query",
+                "description": "End date (YYYY-MM-DD) inclusive."
+              },
+              {
+                "name": "project",
+                "value": "example",
+                "type": "query",
+                "description": "Filter by project name."
+              },
+              {
+                "name": "branches",
+                "value": "example",
+                "type": "query",
+                "description": "Comma-separated list of git branches to include."
+              },
+              {
+                "name": "timeout",
+                "value": "1",
+                "type": "query",
+                "description": "Keystroke timeout in minutes (defaults to user's account setting)."
+              },
+              {
+                "name": "writes_only",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to only include time editing (writing) files."
+              },
+              {
+                "name": "timezone",
+                "value": "America/Los_Angeles",
+                "type": "query",
+                "description": "Timezone to use (defaults to the user's profile timezone)."
+              },
+              {
+                "name": "range",
+                "value": "last_7_days",
+                "type": "query",
+                "description": "Range filter (last_7_days, last_30_days, last_6_months, last_year, all_time)."
+              }
+            ]
+          },
+          "docs": "Returns daily summaries of coding activity between a start and end date, broken down by project, language, editor, OS, machine, branch, category, and dependencies."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

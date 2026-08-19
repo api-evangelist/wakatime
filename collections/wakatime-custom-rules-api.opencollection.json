@@ -1,0 +1,96 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WakaTime Commits Custom Rules API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://wakatime.com/oauth/authorize",
+      "accessTokenUrl": "https://wakatime.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Custom Rules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Custom Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/custom_rules"
+          },
+          "docs": "Returns the authenticated user's custom time-attribution rules."
+        },
+        {
+          "info": {
+            "name": "Put Custom Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://wakatime.com/api/v1/users/current/custom_rules",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates one or more custom rules."
+        },
+        {
+          "info": {
+            "name": "Delete Custom Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://wakatime.com/api/v1/users/current/custom_rules/:rule_id",
+            "params": [
+              {
+                "name": "rule_id",
+                "value": "example",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a single custom rule."
+        },
+        {
+          "info": {
+            "name": "Get Custom Rules Progress",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/custom_rules_progress"
+          },
+          "docs": "Returns the status of any background job reprocessing the user's heartbeats against current custom rules."
+        },
+        {
+          "info": {
+            "name": "Abort Custom Rules Progress",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://wakatime.com/api/v1/users/current/custom_rules_progress"
+          },
+          "docs": "Aborts the background job currently reapplying custom rules."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

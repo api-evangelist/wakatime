@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WakaTime Commits Data Dumps API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://wakatime.com/oauth/authorize",
+      "accessTokenUrl": "https://wakatime.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Data Dumps",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Data Dumps",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/data_dumps"
+          },
+          "docs": "Returns the authenticated user's data exports."
+        },
+        {
+          "info": {
+            "name": "Create Data Dump",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://wakatime.com/api/v1/users/current/data_dumps",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Triggers generation of a new data export."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

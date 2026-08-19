@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WakaTime Commits Projects API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://wakatime.com/oauth/authorize",
+      "accessTokenUrl": "https://wakatime.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/projects",
+            "params": [
+              {
+                "name": "q",
+                "value": "example",
+                "type": "query",
+                "description": "Filter projects by name."
+              }
+            ]
+          },
+          "docs": "Returns projects the authenticated user has logged time against."
+        },
+        {
+          "info": {
+            "name": "Get Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/projects/:project",
+            "params": [
+              {
+                "name": "project",
+                "value": "example",
+                "type": "path",
+                "description": "Project name."
+              }
+            ]
+          },
+          "docs": "Returns details for the specified project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

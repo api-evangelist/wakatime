@@ -1,0 +1,691 @@
+{
+  "item": [
+    {
+      "id": "48646859-3c84-4681-9603-67720128b2cd",
+      "name": "Stats",
+      "description": {
+        "content": "User-wide statistics over preset and custom ranges.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "799f4c12-5de4-4870-be3a-87fb49208853",
+          "name": "Get All Time Since Today",
+          "request": {
+            "name": "Get All Time Since Today",
+            "description": {
+              "content": "Returns the total coding activity the authenticated user has logged since the account was created, up to today.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "all_time_since_today"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "project",
+                  "value": "<string>",
+                  "description": "Filter by project name."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "85ac3804-2a0b-456c-9e5b-21668fb0240b",
+              "name": "All-time-since-today totals.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "all_time_since_today"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "project",
+                      "value": "example"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"total_seconds\": 4,\n    \"text\": \"1,234 hrs 5 mins\",\n    \"decimal\": \"1234.08\",\n    \"digital\": \"1234:05\",\n    \"is_up_to_date\": \"2026-05-30T12:34:56Z\",\n    \"percent_calculated\": 1,\n    \"range\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "486a362d-ce22-4e2f-8b26-2fffdeeb2077",
+          "name": "Get User All Time Since Today",
+          "request": {
+            "name": "Get User All Time Since Today",
+            "description": {
+              "content": "Returns the all-time-since-today totals for a specific user (requires scope on that user's data).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":user",
+                "all_time_since_today"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "project",
+                  "value": "<string>",
+                  "description": "Filter by project name."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "user",
+                  "description": "(Required) User id, username, or \"current\"."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a94f7146-1564-44cd-956b-8cf6c106f2fc",
+              "name": "All-time-since-today totals for the user.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":user",
+                    "all_time_since_today"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "project",
+                      "value": "example"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user",
+                      "description": "(Required) User id, username, or \"current\"."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"total_seconds\": 4,\n    \"text\": \"1,234 hrs 5 mins\",\n    \"decimal\": \"1234.08\",\n    \"digital\": \"1234:05\",\n    \"is_up_to_date\": \"2026-05-30T12:34:56Z\",\n    \"percent_calculated\": 1,\n    \"range\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1881d955-3e89-40aa-9a02-28ebcd785d97",
+          "name": "Get Stats For Range",
+          "request": {
+            "name": "Get Stats For Range",
+            "description": {
+              "content": "Returns coding stats for the authenticated user over a date range. May return 202 while WakaTime is calculating the stats.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "range",
+                  "value": "<string>",
+                  "description": "Range filter (last_7_days, last_30_days, last_6_months, last_year, all_time)."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeout",
+                  "value": "<integer>",
+                  "description": "Keystroke timeout in minutes (defaults to user's account setting)."
+                },
+                {
+                  "disabled": false,
+                  "key": "writes_only",
+                  "value": "<boolean>",
+                  "description": "Whether to only include time editing (writing) files."
+                },
+                {
+                  "disabled": false,
+                  "key": "timezone",
+                  "value": "<string>",
+                  "description": "Timezone to use (defaults to the user's profile timezone)."
+                },
+                {
+                  "disabled": false,
+                  "key": "project",
+                  "value": "<string>",
+                  "description": "Filter by project name."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4641ca2d-bcd7-4b9b-90bd-93d3678b4ac2",
+              "name": "Stats payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "range",
+                      "value": "last_7_days"
+                    },
+                    {
+                      "key": "timeout",
+                      "value": "1"
+                    },
+                    {
+                      "key": "writes_only",
+                      "value": "true"
+                    },
+                    {
+                      "key": "timezone",
+                      "value": "America/Los_Angeles"
+                    },
+                    {
+                      "key": "project",
+                      "value": "example"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"user_id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"username\": \"kinlane\",\n    \"range\": \"example\",\n    \"start\": \"2026-05-30T12:34:56Z\",\n    \"end\": \"2026-05-30T12:34:56Z\",\n    \"days_including_holidays\": 1,\n    \"days_minus_holidays\": 1,\n    \"holidays\": 1,\n    \"status\": \"ok\",\n    \"is_up_to_date\": \"2026-05-30T12:34:56Z\",\n    \"percent_calculated\": 1,\n    \"timeout\": 1,\n    \"writes_only\": true,\n    \"timezone\": \"America/Los_Angeles\",\n    \"total_seconds\": 4,\n    \"total_seconds_including_other_language\": 1,\n    \"daily_average\": 1,\n    \"daily_average_including_other_language\": 1,\n    \"human_readable_total\": \"4 hrs 12 mins\",\n    \"human_readable_daily_average\": \"3 hrs 30 mins\",\n    \"best_day\": {},\n    \"languages\": [],\n    \"projects\": [],\n    \"editors\": [],\n    \"operating_systems\": [],\n    \"machines\": [],\n    \"categories\": [],\n    \"dependencies\": [],\n    \"created_at\": \"2026-05-30T12:34:56Z\",\n    \"modified_at\": \"2026-05-30T12:34:56Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39eaa41e-ce14-413b-b5fe-e7204746c110",
+              "name": "Stats are still being calculated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "range",
+                      "value": "last_7_days"
+                    },
+                    {
+                      "key": "timeout",
+                      "value": "1"
+                    },
+                    {
+                      "key": "writes_only",
+                      "value": "true"
+                    },
+                    {
+                      "key": "timezone",
+                      "value": "America/Los_Angeles"
+                    },
+                    {
+                      "key": "project",
+                      "value": "example"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b566a0d7-c18c-4029-bf03-62b1be670bdd",
+          "name": "Get Stats By Named Range",
+          "request": {
+            "name": "Get Stats By Named Range",
+            "description": {
+              "content": "Returns coding stats for a preset named range (last_7_days, last_30_days, last_6_months, last_year, all_time).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "stats",
+                ":range"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "range",
+                  "description": "(Required) Preset range."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bf42dc08-0cde-43f2-b421-a59ff300ebc9",
+              "name": "Stats payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "stats",
+                    ":range"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "range",
+                      "description": "(Required) Preset range."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"user_id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"username\": \"kinlane\",\n    \"range\": \"example\",\n    \"start\": \"2026-05-30T12:34:56Z\",\n    \"end\": \"2026-05-30T12:34:56Z\",\n    \"days_including_holidays\": 1,\n    \"days_minus_holidays\": 1,\n    \"holidays\": 1,\n    \"status\": \"ok\",\n    \"is_up_to_date\": \"2026-05-30T12:34:56Z\",\n    \"percent_calculated\": 1,\n    \"timeout\": 1,\n    \"writes_only\": true,\n    \"timezone\": \"America/Los_Angeles\",\n    \"total_seconds\": 4,\n    \"total_seconds_including_other_language\": 1,\n    \"daily_average\": 1,\n    \"daily_average_including_other_language\": 1,\n    \"human_readable_total\": \"4 hrs 12 mins\",\n    \"human_readable_daily_average\": \"3 hrs 30 mins\",\n    \"best_day\": {},\n    \"languages\": [],\n    \"projects\": [],\n    \"editors\": [],\n    \"operating_systems\": [],\n    \"machines\": [],\n    \"categories\": [],\n    \"dependencies\": [],\n    \"created_at\": \"2026-05-30T12:34:56Z\",\n    \"modified_at\": \"2026-05-30T12:34:56Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18b9420d-2bd9-4c7f-af9c-a48f8ebef69c",
+              "name": "Stats are still being calculated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "stats",
+                    ":range"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "range",
+                      "description": "(Required) Preset range."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "580c10c0-8a6c-49f8-83f9-06e9fb7a99f8",
+          "name": "Get Stats Aggregated",
+          "request": {
+            "name": "Get Stats Aggregated",
+            "description": {
+              "content": "Returns aggregated coding stats across all WakaTime users.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "stats_aggregated"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "range",
+                  "value": "<string>",
+                  "description": "Range filter (last_7_days, last_30_days, last_6_months, last_year, all_time)."
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1909ffd2-ca39-4ab0-8384-b04c2c8cef52",
+              "name": "Aggregated stats.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "stats_aggregated"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "range",
+                      "value": "last_7_days"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://wakatime.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "email read_summaries read_stats read_goals read_heartbeats write_heartbeats read_orgs write_orgs"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://wakatime.com/oauth/token"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://wakatime.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://wakatime.com/oauth/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "99886ac0-4b8c-4b3a-a760-6a9b585b3a9e",
+    "name": "WakaTime Commits Stats API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "WakaTime API v1 provides automated time-tracking analytics for software developers. IDE\nplugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, Zed, and\nmany more) send \"heartbeats\" describing the file, project, language, branch, and editor a\ndeveloper is working in. WakaTime aggregates that data into dashboards, summaries, stats,\ngoals, leaderboards, and team/org dashboards.\n\nAuthentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as\n`read_summaries`, `read_stats`, `read_goals`, `read_heartbeats`, `write_heartbeats`,\n`read_orgs`, `write_orgs`, and `email`, or via API Key (HTTP Basic auth or `?api_key=`)\nfor personal use. The default rate limit is fewer than 10 requests per second on average\nover any 5-minute window.\n\nAll responses follow the pattern `{\"data\": ...}` for successful requests or\n`{\"error\": \"message\"}` for errors.\n\n\nContact Support:\n Name: WakaTime Support\n Email: support@wakatime.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WakaTime Commits External Durations API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://wakatime.com/oauth/authorize",
+      "accessTokenUrl": "https://wakatime.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "External Durations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List External Durations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/external_durations",
+            "params": [
+              {
+                "name": "date",
+                "value": "2026-05-30",
+                "type": "query",
+                "description": "Day to query (YYYY-MM-DD)."
+              },
+              {
+                "name": "project",
+                "value": "example",
+                "type": "query",
+                "description": "Filter by project name."
+              },
+              {
+                "name": "timezone",
+                "value": "America/Los_Angeles",
+                "type": "query",
+                "description": "Timezone to use (defaults to the user's profile timezone)."
+              }
+            ]
+          },
+          "docs": "Returns external (non-editor) durations for a given day."
+        },
+        {
+          "info": {
+            "name": "Create External Duration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://wakatime.com/api/v1/users/current/external_durations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a single external duration (for non-editor activity such as meetings, design tools, etc.)."
+        },
+        {
+          "info": {
+            "name": "Create External Durations Bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://wakatime.com/api/v1/users/current/external_durations.bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates multiple external durations in a single request (up to 1,000)."
+        },
+        {
+          "info": {
+            "name": "Delete External Durations Bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://wakatime.com/api/v1/users/current/external_durations.bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes multiple external durations by id and date."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

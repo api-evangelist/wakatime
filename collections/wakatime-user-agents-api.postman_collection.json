@@ -1,0 +1,129 @@
+{
+  "item": [
+    {
+      "id": "41e8730e-05f3-4079-b179-45b05e9f75ef",
+      "name": "User Agents",
+      "description": {
+        "content": "Editor + OS user-agent inventory.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6bf0491f-bf89-40e0-809e-131e1ea5e890",
+          "name": "List User Agents",
+          "request": {
+            "name": "List User Agents",
+            "description": {
+              "content": "Returns the editor + OS user-agents the authenticated user has used.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "user_agents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c340dc9b-8eef-410d-bb25-474275b84b14",
+              "name": "User-agent list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "user_agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://wakatime.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "email read_summaries read_stats read_goals read_heartbeats write_heartbeats read_orgs write_orgs"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://wakatime.com/oauth/token"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://wakatime.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://wakatime.com/oauth/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5a29cf86-ba79-41d5-a44f-cbdaf3655b83",
+    "name": "WakaTime Commits User Agents API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "WakaTime API v1 provides automated time-tracking analytics for software developers. IDE\nplugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, Zed, and\nmany more) send \"heartbeats\" describing the file, project, language, branch, and editor a\ndeveloper is working in. WakaTime aggregates that data into dashboards, summaries, stats,\ngoals, leaderboards, and team/org dashboards.\n\nAuthentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as\n`read_summaries`, `read_stats`, `read_goals`, `read_heartbeats`, `write_heartbeats`,\n`read_orgs`, `write_orgs`, and `email`, or via API Key (HTTP Basic auth or `?api_key=`)\nfor personal use. The default rate limit is fewer than 10 requests per second on average\nover any 5-minute window.\n\nAll responses follow the pattern `{\"data\": ...}` for successful requests or\n`{\"error\": \"message\"}` for errors.\n\n\nContact Support:\n Name: WakaTime Support\n Email: support@wakatime.com",
+      "type": "text/plain"
+    }
+  }
+}

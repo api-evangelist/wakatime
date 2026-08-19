@@ -1,0 +1,125 @@
+{
+  "item": [
+    {
+      "id": "923eb8fc-b8a1-4209-b6a4-2b9b74f9ca92",
+      "name": "Meta",
+      "description": {
+        "content": "WakaTime infrastructure metadata.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9144b378-38f2-44b2-a181-36003586f508",
+          "name": "Get Meta",
+          "request": {
+            "name": "Get Meta",
+            "description": {
+              "content": "Returns WakaTime infrastructure metadata (IP ranges, etc.).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "meta"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "adb6de89-096a-4674-b2ef-b54b32066da0",
+              "name": "Meta payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meta"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://wakatime.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "email read_summaries read_stats read_goals read_heartbeats write_heartbeats read_orgs write_orgs"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://wakatime.com/oauth/token"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://wakatime.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://wakatime.com/oauth/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c388a2c9-e43d-4f55-86ad-dd78579d3789",
+    "name": "WakaTime Commits Meta API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "WakaTime API v1 provides automated time-tracking analytics for software developers. IDE\nplugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, Zed, and\nmany more) send \"heartbeats\" describing the file, project, language, branch, and editor a\ndeveloper is working in. WakaTime aggregates that data into dashboards, summaries, stats,\ngoals, leaderboards, and team/org dashboards.\n\nAuthentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as\n`read_summaries`, `read_stats`, `read_goals`, `read_heartbeats`, `write_heartbeats`,\n`read_orgs`, `write_orgs`, and `email`, or via API Key (HTTP Basic auth or `?api_key=`)\nfor personal use. The default rate limit is fewer than 10 requests per second on average\nover any 5-minute window.\n\nAll responses follow the pattern `{\"data\": ...}` for successful requests or\n`{\"error\": \"message\"}` for errors.\n\n\nContact Support:\n Name: WakaTime Support\n Email: support@wakatime.com",
+      "type": "text/plain"
+    }
+  }
+}

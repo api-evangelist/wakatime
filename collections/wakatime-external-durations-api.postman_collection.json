@@ -1,0 +1,456 @@
+{
+  "item": [
+    {
+      "id": "76150d92-e798-4263-8623-b2922ce6e874",
+      "name": "External Durations",
+      "description": {
+        "content": "Non-IDE activity durations created via the API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5979127a-f91c-4a1f-9227-a7b3ddd6ce19",
+          "name": "List External Durations",
+          "request": {
+            "name": "List External Durations",
+            "description": {
+              "content": "Returns external (non-editor) durations for a given day.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "external_durations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "(Required) Day to query (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "project",
+                  "value": "<string>",
+                  "description": "Filter by project name."
+                },
+                {
+                  "disabled": false,
+                  "key": "timezone",
+                  "value": "<string>",
+                  "description": "Timezone to use (defaults to the user's profile timezone)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "909e1411-693d-43d3-8102-11416e991350",
+              "name": "External durations for the day.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "external_durations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "2026-05-30"
+                    },
+                    {
+                      "key": "project",
+                      "value": "example"
+                    },
+                    {
+                      "key": "timezone",
+                      "value": "America/Los_Angeles"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"external_id\": \"ext-001\",\n      \"entity\": \"/Users/kin/code/wakatime-cli/main.go\",\n      \"type\": \"file\",\n      \"category\": \"coding\",\n      \"start_time\": 1,\n      \"end_time\": 1,\n      \"project\": \"wakatime-cli\",\n      \"branch\": \"main\",\n      \"language\": \"Python\",\n      \"meta\": {},\n      \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n      \"user_id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n      \"created_at\": \"2026-05-30T12:34:56Z\",\n      \"modified_at\": \"2026-05-30T12:34:56Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "41c07a6f-b0d9-48ed-ad33-5de508b8c846",
+          "name": "Create External Duration",
+          "request": {
+            "name": "Create External Duration",
+            "description": {
+              "content": "Creates a single external duration (for non-editor activity such as meetings, design tools, etc.).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "external_durations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"external_id\": \"<string>\",\n  \"entity\": \"<string>\",\n  \"type\": \"<string>\",\n  \"start_time\": \"<float>\",\n  \"end_time\": \"<float>\",\n  \"category\": \"<string>\",\n  \"project\": \"<string>\",\n  \"branch\": \"<string>\",\n  \"language\": \"<string>\",\n  \"meta\": {\n    \"key_0\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "50b92901-2093-4317-aa64-e63e686e64f4",
+              "name": "The created external duration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "external_durations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"external_id\": \"ext-001\",\n  \"entity\": \"/Users/kin/code/wakatime-cli/main.go\",\n  \"type\": \"file\",\n  \"category\": \"coding\",\n  \"start_time\": 1,\n  \"end_time\": 1,\n  \"project\": \"wakatime-cli\",\n  \"branch\": \"main\",\n  \"language\": \"Python\",\n  \"meta\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1734f06f-b17e-4d41-a26d-6d8a637744bc",
+          "name": "Create External Durations Bulk",
+          "request": {
+            "name": "Create External Durations Bulk",
+            "description": {
+              "content": "Creates multiple external durations in a single request (up to 1,000).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "external_durations.bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"external_id\": \"<string>\",\n    \"entity\": \"<string>\",\n    \"type\": \"<string>\",\n    \"start_time\": \"<float>\",\n    \"end_time\": \"<float>\",\n    \"category\": \"<string>\",\n    \"project\": \"<string>\",\n    \"branch\": \"<string>\",\n    \"language\": \"<string>\",\n    \"meta\": {\n      \"key_0\": \"string\"\n    }\n  },\n  {\n    \"external_id\": \"<string>\",\n    \"entity\": \"<string>\",\n    \"type\": \"<string>\",\n    \"start_time\": \"<float>\",\n    \"end_time\": \"<float>\",\n    \"category\": \"<string>\",\n    \"project\": \"<string>\",\n    \"branch\": \"<string>\",\n    \"language\": \"<string>\",\n    \"meta\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    }\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c49ec386-3497-4784-9a43-6d76f9c144f0",
+              "name": "Bulk creation results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "external_durations.bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"external_id\": \"ext-001\",\n    \"entity\": \"/Users/kin/code/wakatime-cli/main.go\",\n    \"type\": \"file\",\n    \"category\": \"coding\",\n    \"start_time\": 1,\n    \"end_time\": 1,\n    \"project\": \"wakatime-cli\",\n    \"branch\": \"main\",\n    \"language\": \"Python\",\n    \"meta\": {}\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eebe576a-ea4d-4020-b347-ffa8b2789ad6",
+          "name": "Delete External Durations Bulk",
+          "request": {
+            "name": "Delete External Durations Bulk",
+            "description": {
+              "content": "Deletes multiple external durations by id and date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "external_durations.bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"id\": \"<string>\",\n    \"date\": \"<date>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"date\": \"<date>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c6382b7d-5e1c-4c47-91ce-913a610849f0",
+              "name": "Bulk delete results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "external_durations.bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"id\": \"example\",\n    \"date\": \"2026-05-30\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://wakatime.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "email read_summaries read_stats read_goals read_heartbeats write_heartbeats read_orgs write_orgs"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://wakatime.com/oauth/token"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://wakatime.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://wakatime.com/oauth/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f0a9f276-2e3a-4a48-86ce-38d72bd1c242",
+    "name": "WakaTime Commits External Durations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "WakaTime API v1 provides automated time-tracking analytics for software developers. IDE\nplugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, Zed, and\nmany more) send \"heartbeats\" describing the file, project, language, branch, and editor a\ndeveloper is working in. WakaTime aggregates that data into dashboards, summaries, stats,\ngoals, leaderboards, and team/org dashboards.\n\nAuthentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as\n`read_summaries`, `read_stats`, `read_goals`, `read_heartbeats`, `write_heartbeats`,\n`read_orgs`, `write_orgs`, and `email`, or via API Key (HTTP Basic auth or `?api_key=`)\nfor personal use. The default rate limit is fewer than 10 requests per second on average\nover any 5-minute window.\n\nAll responses follow the pattern `{\"data\": ...}` for successful requests or\n`{\"error\": \"message\"}` for errors.\n\n\nContact Support:\n Name: WakaTime Support\n Email: support@wakatime.com",
+      "type": "text/plain"
+    }
+  }
+}

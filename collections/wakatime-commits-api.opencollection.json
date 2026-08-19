@@ -1,0 +1,85 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WakaTime Commits API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://wakatime.com/oauth/authorize",
+      "accessTokenUrl": "https://wakatime.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Commits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Project Commits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/projects/:project/commits",
+            "params": [
+              {
+                "name": "project",
+                "value": "example",
+                "type": "path",
+                "description": "Project name."
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query"
+              },
+              {
+                "name": "author",
+                "value": "example",
+                "type": "query",
+                "description": "Filter by commit author."
+              }
+            ]
+          },
+          "docs": "Returns commits for the specified project, each enriched with coding-time totals."
+        },
+        {
+          "info": {
+            "name": "Get Project Commit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/projects/:project/commits/:hash",
+            "params": [
+              {
+                "name": "project",
+                "value": "example",
+                "type": "path",
+                "description": "Project name."
+              },
+              {
+                "name": "hash",
+                "value": "example",
+                "type": "path",
+                "description": "Commit hash."
+              }
+            ]
+          },
+          "docs": "Returns a single commit for the specified project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

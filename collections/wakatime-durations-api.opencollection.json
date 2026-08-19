@@ -1,0 +1,85 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WakaTime Commits Durations API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://wakatime.com/oauth/authorize",
+      "accessTokenUrl": "https://wakatime.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Durations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Durations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/durations",
+            "params": [
+              {
+                "name": "date",
+                "value": "2026-05-30",
+                "type": "query",
+                "description": "Day to query (YYYY-MM-DD)."
+              },
+              {
+                "name": "project",
+                "value": "example",
+                "type": "query",
+                "description": "Filter by project name."
+              },
+              {
+                "name": "branches",
+                "value": "example",
+                "type": "query",
+                "description": "Comma-separated list of git branches to include."
+              },
+              {
+                "name": "timeout",
+                "value": "1",
+                "type": "query",
+                "description": "Keystroke timeout in minutes (defaults to user's account setting)."
+              },
+              {
+                "name": "writes_only",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to only include time editing (writing) files."
+              },
+              {
+                "name": "timezone",
+                "value": "America/Los_Angeles",
+                "type": "query",
+                "description": "Timezone to use (defaults to the user's profile timezone)."
+              },
+              {
+                "name": "slice_by",
+                "value": "entity",
+                "type": "query",
+                "description": "Slice durations by entity, language, dependencies, os, editor, category, or machine."
+              }
+            ]
+          },
+          "docs": "Returns activity durations for a given day, derived from heartbeats."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

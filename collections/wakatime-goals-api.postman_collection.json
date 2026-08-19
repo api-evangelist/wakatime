@@ -1,0 +1,239 @@
+{
+  "item": [
+    {
+      "id": "3861df9c-6908-407e-8dca-8bcfe2b99928",
+      "name": "Goals",
+      "description": {
+        "content": "User coding goals and their progress.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "94af8157-f4db-417e-a233-e12179dfac3f",
+          "name": "List Goals",
+          "request": {
+            "name": "List Goals",
+            "description": {
+              "content": "Returns the authenticated user's coding goals.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "goals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8e14ad20-244b-4302-8add-1298f5634673",
+              "name": "Goals list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "goals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n      \"title\": \"Code 4 hrs a day\",\n      \"type\": \"coding_activity\",\n      \"delta\": \"day\",\n      \"seconds\": 60,\n      \"status\": \"success\",\n      \"cumulative_status\": \"example\",\n      \"languages\": [\n        \"example\"\n      ],\n      \"projects\": [\n        \"example\"\n      ],\n      \"editors\": [\n        \"example\"\n      ],\n      \"is_enabled\": true,\n      \"is_inverse\": true,\n      \"is_snoozed\": true,\n      \"ignore_days\": [\n        \"example\"\n      ],\n      \"modified_at\": \"2026-05-30T12:34:56Z\",\n      \"created_at\": \"2026-05-30T12:34:56Z\",\n      \"snooze_until\": \"2026-05-30T12:34:56Z\",\n      \"chart_data\": [],\n      \"average_status\": \"example\",\n      \"owner\": {},\n      \"shared_with\": [],\n      \"subscribers\": []\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "04c5c960-b5ee-4511-a15a-95cbcb851073",
+          "name": "Get Goal",
+          "request": {
+            "name": "Get Goal",
+            "description": {
+              "content": "Returns a specific goal with its progress data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "goals",
+                ":goal"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "goal",
+                  "description": "(Required) Goal id."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "87462feb-4077-45cf-9859-ee21017bccbd",
+              "name": "Goal details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "goals",
+                    ":goal"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "goal",
+                      "description": "(Required) Goal id."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"title\": \"Code 4 hrs a day\",\n    \"type\": \"coding_activity\",\n    \"delta\": \"day\",\n    \"seconds\": 60,\n    \"status\": \"success\",\n    \"cumulative_status\": \"example\",\n    \"languages\": [\n      \"example\"\n    ],\n    \"projects\": [\n      \"example\"\n    ],\n    \"editors\": [\n      \"example\"\n    ],\n    \"is_enabled\": true,\n    \"is_inverse\": true,\n    \"is_snoozed\": true,\n    \"ignore_days\": [\n      \"example\"\n    ],\n    \"modified_at\": \"2026-05-30T12:34:56Z\",\n    \"created_at\": \"2026-05-30T12:34:56Z\",\n    \"snooze_until\": \"2026-05-30T12:34:56Z\",\n    \"chart_data\": [],\n    \"average_status\": \"example\",\n    \"owner\": {},\n    \"shared_with\": [],\n    \"subscribers\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://wakatime.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "email read_summaries read_stats read_goals read_heartbeats write_heartbeats read_orgs write_orgs"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://wakatime.com/oauth/token"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://wakatime.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://wakatime.com/oauth/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7ea1af24-d588-4916-a9b4-d0ade8d15d99",
+    "name": "WakaTime Commits Goals API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "WakaTime API v1 provides automated time-tracking analytics for software developers. IDE\nplugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, Zed, and\nmany more) send \"heartbeats\" describing the file, project, language, branch, and editor a\ndeveloper is working in. WakaTime aggregates that data into dashboards, summaries, stats,\ngoals, leaderboards, and team/org dashboards.\n\nAuthentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as\n`read_summaries`, `read_stats`, `read_goals`, `read_heartbeats`, `write_heartbeats`,\n`read_orgs`, `write_orgs`, and `email`, or via API Key (HTTP Basic auth or `?api_key=`)\nfor personal use. The default rate limit is fewer than 10 requests per second on average\nover any 5-minute window.\n\nAll responses follow the pattern `{\"data\": ...}` for successful requests or\n`{\"error\": \"message\"}` for errors.\n\n\nContact Support:\n Name: WakaTime Support\n Email: support@wakatime.com",
+      "type": "text/plain"
+    }
+  }
+}

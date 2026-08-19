@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WakaTime Commits Leaderboards API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://wakatime.com/oauth/authorize",
+      "accessTokenUrl": "https://wakatime.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Leaderboards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Leaders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/leaders",
+            "params": [
+              {
+                "name": "language",
+                "value": "example",
+                "type": "query",
+                "description": "Filter by programming language."
+              },
+              {
+                "name": "country_code",
+                "value": "example",
+                "type": "query",
+                "description": "Filter by ISO country code."
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the public WakaTime leaderboard."
+        },
+        {
+          "info": {
+            "name": "List Private Leaderboards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/private_leaderboards"
+          },
+          "docs": "Returns the authenticated user's private leaderboards."
+        },
+        {
+          "info": {
+            "name": "List Private Leaderboard Leaders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/private_leaderboards/:id/leaders",
+            "params": [
+              {
+                "name": "id",
+                "value": "example",
+                "type": "path",
+                "description": "Private leaderboard id."
+              }
+            ]
+          },
+          "docs": "Returns rankings for a specific private leaderboard."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

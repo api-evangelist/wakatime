@@ -1,0 +1,501 @@
+{
+  "item": [
+    {
+      "id": "a77f84d7-040b-41dd-ba77-2b1c9f9234d6",
+      "name": "Heartbeats",
+      "description": {
+        "content": "Coding-activity pings sent by editor plugins.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "09dc01f7-607e-4fb0-af14-c8ec7a7fa8a0",
+          "name": "List Heartbeats",
+          "request": {
+            "name": "List Heartbeats",
+            "description": {
+              "content": "Returns the authenticated user's heartbeats for a given day.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "heartbeats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "(Required) Day to query (YYYY-MM-DD)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c9e1b456-8950-47e9-8a19-3de5131df304",
+              "name": "A list of heartbeats for the day.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "heartbeats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "2026-05-30"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"entity\": \"/Users/kin/code/wakatime-cli/main.go\",\n      \"type\": \"file\",\n      \"category\": \"coding\",\n      \"time\": 1,\n      \"project\": \"wakatime-cli\",\n      \"project_root_count\": 4,\n      \"branch\": \"main\",\n      \"language\": \"Python\",\n      \"dependencies\": [\n        \"example\"\n      ],\n      \"lines\": 1,\n      \"line_additions\": 1,\n      \"line_deletions\": 1,\n      \"lineno\": 1,\n      \"cursorpos\": 1,\n      \"is_write\": true,\n      \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n      \"user_id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n      \"created_at\": \"2026-05-30T12:34:56Z\",\n      \"modified_at\": \"2026-05-30T12:34:56Z\",\n      \"machine_name_id\": \"machine-001\",\n      \"user_agent_id\": \"ua-001\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5826c1f9-dab9-44da-9965-3a37ba4ab6ee",
+          "name": "Create Heartbeat",
+          "request": {
+            "name": "Create Heartbeat",
+            "description": {
+              "content": "Creates a single heartbeat from an editor plugin.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "heartbeats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entity\": \"<string>\",\n  \"type\": \"<string>\",\n  \"time\": \"<float>\",\n  \"category\": \"<string>\",\n  \"project\": \"<string>\",\n  \"project_root_count\": \"<integer>\",\n  \"branch\": \"<string>\",\n  \"language\": \"<string>\",\n  \"dependencies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"lines\": \"<integer>\",\n  \"line_additions\": \"<integer>\",\n  \"line_deletions\": \"<integer>\",\n  \"lineno\": \"<integer>\",\n  \"cursorpos\": \"<integer>\",\n  \"is_write\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ac7eeef2-0d3c-4cdb-86be-9d95c2ad600b",
+              "name": "The created heartbeat.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "heartbeats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity\": \"/Users/kin/code/wakatime-cli/main.go\",\n  \"type\": \"file\",\n  \"category\": \"coding\",\n  \"time\": 1,\n  \"project\": \"wakatime-cli\",\n  \"project_root_count\": 4,\n  \"branch\": \"main\",\n  \"language\": \"Python\",\n  \"dependencies\": [\n    \"example\"\n  ],\n  \"lines\": 1,\n  \"line_additions\": 1,\n  \"line_deletions\": 1,\n  \"lineno\": 1,\n  \"cursorpos\": 1,\n  \"is_write\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"entity\": \"/Users/kin/code/wakatime-cli/main.go\",\n    \"type\": \"file\",\n    \"category\": \"coding\",\n    \"time\": 1,\n    \"project\": \"wakatime-cli\",\n    \"project_root_count\": 4,\n    \"branch\": \"main\",\n    \"language\": \"Python\",\n    \"dependencies\": [\n      \"example\"\n    ],\n    \"lines\": 1,\n    \"line_additions\": 1,\n    \"line_deletions\": 1,\n    \"lineno\": 1,\n    \"cursorpos\": 1,\n    \"is_write\": true,\n    \"id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"user_id\": \"5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c\",\n    \"created_at\": \"2026-05-30T12:34:56Z\",\n    \"modified_at\": \"2026-05-30T12:34:56Z\",\n    \"machine_name_id\": \"machine-001\",\n    \"user_agent_id\": \"ua-001\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1077b2ba-e20b-4fd7-8f44-b10768543585",
+              "name": "Heartbeat accepted for asynchronous processing.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "heartbeats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity\": \"/Users/kin/code/wakatime-cli/main.go\",\n  \"type\": \"file\",\n  \"category\": \"coding\",\n  \"time\": 1,\n  \"project\": \"wakatime-cli\",\n  \"project_root_count\": 4,\n  \"branch\": \"main\",\n  \"language\": \"Python\",\n  \"dependencies\": [\n    \"example\"\n  ],\n  \"lines\": 1,\n  \"line_additions\": 1,\n  \"line_deletions\": 1,\n  \"lineno\": 1,\n  \"cursorpos\": 1,\n  \"is_write\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3ad53874-8102-4522-a5a9-9b0f5b1ab644",
+          "name": "Create Heartbeats Bulk",
+          "request": {
+            "name": "Create Heartbeats Bulk",
+            "description": {
+              "content": "Creates multiple heartbeats in a single request (up to 25).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "heartbeats.bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"entity\": \"<string>\",\n    \"type\": \"<string>\",\n    \"time\": \"<float>\",\n    \"category\": \"<string>\",\n    \"project\": \"<string>\",\n    \"project_root_count\": \"<integer>\",\n    \"branch\": \"<string>\",\n    \"language\": \"<string>\",\n    \"dependencies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"lines\": \"<integer>\",\n    \"line_additions\": \"<integer>\",\n    \"line_deletions\": \"<integer>\",\n    \"lineno\": \"<integer>\",\n    \"cursorpos\": \"<integer>\",\n    \"is_write\": \"<boolean>\"\n  },\n  {\n    \"entity\": \"<string>\",\n    \"type\": \"<string>\",\n    \"time\": \"<float>\",\n    \"category\": \"<string>\",\n    \"project\": \"<string>\",\n    \"project_root_count\": \"<integer>\",\n    \"branch\": \"<string>\",\n    \"language\": \"<string>\",\n    \"dependencies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"lines\": \"<integer>\",\n    \"line_additions\": \"<integer>\",\n    \"line_deletions\": \"<integer>\",\n    \"lineno\": \"<integer>\",\n    \"cursorpos\": \"<integer>\",\n    \"is_write\": \"<boolean>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2c825be0-1596-4036-8d03-8ef4ed119109",
+              "name": "The created heartbeats and per-item statuses.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "heartbeats.bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"entity\": \"/Users/kin/code/wakatime-cli/main.go\",\n    \"type\": \"file\",\n    \"category\": \"coding\",\n    \"time\": 1,\n    \"project\": \"wakatime-cli\",\n    \"project_root_count\": 4,\n    \"branch\": \"main\",\n    \"language\": \"Python\",\n    \"dependencies\": [\n      \"example\"\n    ],\n    \"lines\": 1,\n    \"line_additions\": 1,\n    \"line_deletions\": 1,\n    \"lineno\": 1,\n    \"cursorpos\": 1,\n    \"is_write\": true\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"responses\": [\n    [\n      \"example\"\n    ]\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b2ab6ba2-e3f7-46a6-b678-adf9b8af1982",
+          "name": "Delete Heartbeats Bulk",
+          "request": {
+            "name": "Delete Heartbeats Bulk",
+            "description": {
+              "content": "Deletes multiple heartbeats by date and id in a single request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "heartbeats.bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"id\": \"<string>\",\n    \"date\": \"<date>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"date\": \"<date>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c5b2bd44-8cbe-4484-b02c-a12fc8fe4037",
+              "name": "Bulk delete results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "heartbeats.bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"id\": \"example\",\n    \"date\": \"2026-05-30\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://wakatime.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "email read_summaries read_stats read_goals read_heartbeats write_heartbeats read_orgs write_orgs"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://wakatime.com/oauth/token"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://wakatime.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://wakatime.com/oauth/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8c70520f-f51c-49c7-8e9a-f5435a707b96",
+    "name": "WakaTime Commits Heartbeats API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "WakaTime API v1 provides automated time-tracking analytics for software developers. IDE\nplugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, Zed, and\nmany more) send \"heartbeats\" describing the file, project, language, branch, and editor a\ndeveloper is working in. WakaTime aggregates that data into dashboards, summaries, stats,\ngoals, leaderboards, and team/org dashboards.\n\nAuthentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as\n`read_summaries`, `read_stats`, `read_goals`, `read_heartbeats`, `write_heartbeats`,\n`read_orgs`, `write_orgs`, and `email`, or via API Key (HTTP Basic auth or `?api_key=`)\nfor personal use. The default rate limit is fewer than 10 requests per second on average\nover any 5-minute window.\n\nAll responses follow the pattern `{\"data\": ...}` for successful requests or\n`{\"error\": \"message\"}` for errors.\n\n\nContact Support:\n Name: WakaTime Support\n Email: support@wakatime.com",
+      "type": "text/plain"
+    }
+  }
+}

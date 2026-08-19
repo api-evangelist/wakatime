@@ -1,0 +1,211 @@
+{
+  "item": [
+    {
+      "id": "ce2b7bd8-41dd-4e0e-a014-295a52c35975",
+      "name": "Durations",
+      "description": {
+        "content": "Continuous time-on-task spans derived from heartbeats.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e4feceba-9975-4d9f-bb9b-8507aa932366",
+          "name": "List Durations",
+          "request": {
+            "name": "List Durations",
+            "description": {
+              "content": "Returns activity durations for a given day, derived from heartbeats.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "current",
+                "durations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "(Required) Day to query (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "project",
+                  "value": "<string>",
+                  "description": "Filter by project name."
+                },
+                {
+                  "disabled": false,
+                  "key": "branches",
+                  "value": "<string>",
+                  "description": "Comma-separated list of git branches to include."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeout",
+                  "value": "<integer>",
+                  "description": "Keystroke timeout in minutes (defaults to user's account setting)."
+                },
+                {
+                  "disabled": false,
+                  "key": "writes_only",
+                  "value": "<boolean>",
+                  "description": "Whether to only include time editing (writing) files."
+                },
+                {
+                  "disabled": false,
+                  "key": "timezone",
+                  "value": "<string>",
+                  "description": "Timezone to use (defaults to the user's profile timezone)."
+                },
+                {
+                  "disabled": false,
+                  "key": "slice_by",
+                  "value": "<string>",
+                  "description": "Slice durations by entity, language, dependencies, os, editor, category, or machine."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "796b46d0-ec23-49bd-81a7-4ca4f49bf6c5",
+              "name": "Durations for the day.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "current",
+                    "durations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "2026-05-30"
+                    },
+                    {
+                      "key": "project",
+                      "value": "example"
+                    },
+                    {
+                      "key": "branches",
+                      "value": "example"
+                    },
+                    {
+                      "key": "timeout",
+                      "value": "1"
+                    },
+                    {
+                      "key": "writes_only",
+                      "value": "true"
+                    },
+                    {
+                      "key": "timezone",
+                      "value": "America/Los_Angeles"
+                    },
+                    {
+                      "key": "slice_by",
+                      "value": "entity"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"time\": 1,\n      \"duration\": 1,\n      \"project\": \"wakatime-cli\",\n      \"branch\": \"main\",\n      \"language\": \"Python\",\n      \"category\": \"coding\",\n      \"editor\": \"example\",\n      \"operating_system\": \"example\",\n      \"machine\": \"example\",\n      \"color\": \"#3498db\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://wakatime.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "email read_summaries read_stats read_goals read_heartbeats write_heartbeats read_orgs write_orgs"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://wakatime.com/oauth/token"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://wakatime.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://wakatime.com/oauth/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2ecc2714-a245-4e35-a284-78de08f76d3c",
+    "name": "WakaTime Commits Durations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "WakaTime API v1 provides automated time-tracking analytics for software developers. IDE\nplugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, Zed, and\nmany more) send \"heartbeats\" describing the file, project, language, branch, and editor a\ndeveloper is working in. WakaTime aggregates that data into dashboards, summaries, stats,\ngoals, leaderboards, and team/org dashboards.\n\nAuthentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as\n`read_summaries`, `read_stats`, `read_goals`, `read_heartbeats`, `write_heartbeats`,\n`read_orgs`, `write_orgs`, and `email`, or via API Key (HTTP Basic auth or `?api_key=`)\nfor personal use. The default rate limit is fewer than 10 requests per second on average\nover any 5-minute window.\n\nAll responses follow the pattern `{\"data\": ...}` for successful requests or\n`{\"error\": \"message\"}` for errors.\n\n\nContact Support:\n Name: WakaTime Support\n Email: support@wakatime.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WakaTime Commits Heartbeats API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://wakatime.com/oauth/authorize",
+      "accessTokenUrl": "https://wakatime.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Heartbeats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Heartbeats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/heartbeats",
+            "params": [
+              {
+                "name": "date",
+                "value": "2026-05-30",
+                "type": "query",
+                "description": "Day to query (YYYY-MM-DD)."
+              }
+            ]
+          },
+          "docs": "Returns the authenticated user's heartbeats for a given day."
+        },
+        {
+          "info": {
+            "name": "Create Heartbeat",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://wakatime.com/api/v1/users/current/heartbeats",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a single heartbeat from an editor plugin."
+        },
+        {
+          "info": {
+            "name": "Create Heartbeats Bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://wakatime.com/api/v1/users/current/heartbeats.bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates multiple heartbeats in a single request (up to 25)."
+        },
+        {
+          "info": {
+            "name": "Delete Heartbeats Bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://wakatime.com/api/v1/users/current/heartbeats.bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes multiple heartbeats by date and id in a single request."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

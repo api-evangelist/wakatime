@@ -1,0 +1,155 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WakaTime Commits Stats API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://wakatime.com/oauth/authorize",
+      "accessTokenUrl": "https://wakatime.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Stats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Time Since Today",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/all_time_since_today",
+            "params": [
+              {
+                "name": "project",
+                "value": "example",
+                "type": "query",
+                "description": "Filter by project name."
+              }
+            ]
+          },
+          "docs": "Returns the total coding activity the authenticated user has logged since the account was created, up to today."
+        },
+        {
+          "info": {
+            "name": "Get User All Time Since Today",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/:user/all_time_since_today",
+            "params": [
+              {
+                "name": "user",
+                "value": "example",
+                "type": "path",
+                "description": "User id, username, or \"current\"."
+              },
+              {
+                "name": "project",
+                "value": "example",
+                "type": "query",
+                "description": "Filter by project name."
+              }
+            ]
+          },
+          "docs": "Returns the all-time-since-today totals for a specific user (requires scope on that user's data)."
+        },
+        {
+          "info": {
+            "name": "Get Stats For Range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/stats",
+            "params": [
+              {
+                "name": "range",
+                "value": "last_7_days",
+                "type": "query",
+                "description": "Range filter (last_7_days, last_30_days, last_6_months, last_year, all_time)."
+              },
+              {
+                "name": "timeout",
+                "value": "1",
+                "type": "query",
+                "description": "Keystroke timeout in minutes (defaults to user's account setting)."
+              },
+              {
+                "name": "writes_only",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to only include time editing (writing) files."
+              },
+              {
+                "name": "timezone",
+                "value": "America/Los_Angeles",
+                "type": "query",
+                "description": "Timezone to use (defaults to the user's profile timezone)."
+              },
+              {
+                "name": "project",
+                "value": "example",
+                "type": "query",
+                "description": "Filter by project name."
+              }
+            ]
+          },
+          "docs": "Returns coding stats for the authenticated user over a date range. May return 202 while WakaTime is calculating the stats."
+        },
+        {
+          "info": {
+            "name": "Get Stats By Named Range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/stats/:range",
+            "params": [
+              {
+                "name": "range",
+                "value": "last_7_days",
+                "type": "path",
+                "description": "Preset range."
+              }
+            ]
+          },
+          "docs": "Returns coding stats for a preset named range (last_7_days, last_30_days, last_6_months, last_year, all_time)."
+        },
+        {
+          "info": {
+            "name": "Get Stats Aggregated",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/stats_aggregated",
+            "params": [
+              {
+                "name": "range",
+                "value": "last_7_days",
+                "type": "query",
+                "description": "Range filter (last_7_days, last_30_days, last_6_months, last_year, all_time)."
+              }
+            ]
+          },
+          "docs": "Returns aggregated coding stats across all WakaTime users."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

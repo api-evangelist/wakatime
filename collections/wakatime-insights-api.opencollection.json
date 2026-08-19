@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WakaTime Commits Insights API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://wakatime.com/oauth/authorize",
+      "accessTokenUrl": "https://wakatime.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Insights",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Insight",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/insights/:insight_type/:range",
+            "params": [
+              {
+                "name": "insight_type",
+                "value": "stats",
+                "type": "path",
+                "description": "The insight type."
+              },
+              {
+                "name": "range",
+                "value": "example",
+                "type": "path",
+                "description": "The range for the insight (e.g. last_7_days, last_year)."
+              },
+              {
+                "name": "timezone",
+                "value": "America/Los_Angeles",
+                "type": "query",
+                "description": "Timezone to use (defaults to the user's profile timezone)."
+              },
+              {
+                "name": "writes_only",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to only include time editing (writing) files."
+              }
+            ]
+          },
+          "docs": "Returns an insight slice for a given type and range."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

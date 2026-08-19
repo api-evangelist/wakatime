@@ -1,0 +1,283 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WakaTime Commits Organizations API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://wakatime.com/oauth/authorize",
+      "accessTokenUrl": "https://wakatime.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/orgs"
+          },
+          "docs": "Returns the organizations the authenticated user belongs to."
+        },
+        {
+          "info": {
+            "name": "List Org Custom Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/orgs/:org/custom_rules",
+            "params": [
+              {
+                "name": "org",
+                "value": "example",
+                "type": "path",
+                "description": "Organization id."
+              }
+            ]
+          },
+          "docs": "Returns custom rules defined at the organization level."
+        },
+        {
+          "info": {
+            "name": "Put Org Custom Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://wakatime.com/api/v1/users/current/orgs/:org/custom_rules",
+            "params": [
+              {
+                "name": "org",
+                "value": "example",
+                "type": "path",
+                "description": "Organization id."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the custom rules for the organization."
+        },
+        {
+          "info": {
+            "name": "List Org Dashboards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/orgs/:org/dashboards",
+            "params": [
+              {
+                "name": "org",
+                "value": "example",
+                "type": "path",
+                "description": "Organization id."
+              }
+            ]
+          },
+          "docs": "Returns dashboards available in the organization."
+        },
+        {
+          "info": {
+            "name": "List Dashboard Members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/orgs/:org/dashboards/:dashboard/members",
+            "params": [
+              {
+                "name": "org",
+                "value": "example",
+                "type": "path",
+                "description": "Organization id."
+              },
+              {
+                "name": "dashboard",
+                "value": "example",
+                "type": "path",
+                "description": "Dashboard id."
+              }
+            ]
+          },
+          "docs": "Returns the members included in the dashboard."
+        },
+        {
+          "info": {
+            "name": "List Dashboard Summaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/orgs/:org/dashboards/:dashboard/summaries",
+            "params": [
+              {
+                "name": "org",
+                "value": "example",
+                "type": "path",
+                "description": "Organization id."
+              },
+              {
+                "name": "dashboard",
+                "value": "example",
+                "type": "path",
+                "description": "Dashboard id."
+              },
+              {
+                "name": "start",
+                "value": "2026-05-30",
+                "type": "query"
+              },
+              {
+                "name": "end",
+                "value": "2026-05-30",
+                "type": "query"
+              },
+              {
+                "name": "project",
+                "value": "example",
+                "type": "query",
+                "description": "Filter by project name."
+              },
+              {
+                "name": "branches",
+                "value": "example",
+                "type": "query",
+                "description": "Comma-separated list of git branches to include."
+              }
+            ]
+          },
+          "docs": "Returns aggregated daily summaries for the dashboard."
+        },
+        {
+          "info": {
+            "name": "List Dashboard Member Summaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/orgs/:org/dashboards/:dashboard/member/:member/summaries",
+            "params": [
+              {
+                "name": "org",
+                "value": "example",
+                "type": "path",
+                "description": "Organization id."
+              },
+              {
+                "name": "dashboard",
+                "value": "example",
+                "type": "path",
+                "description": "Dashboard id."
+              },
+              {
+                "name": "member",
+                "value": "example",
+                "type": "path",
+                "description": "Org member id."
+              },
+              {
+                "name": "start",
+                "value": "2026-05-30",
+                "type": "query"
+              },
+              {
+                "name": "end",
+                "value": "2026-05-30",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns summaries for a specific member within the dashboard."
+        },
+        {
+          "info": {
+            "name": "List Dashboard Durations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/orgs/:org/dashboards/:dashboard/durations",
+            "params": [
+              {
+                "name": "org",
+                "value": "example",
+                "type": "path",
+                "description": "Organization id."
+              },
+              {
+                "name": "dashboard",
+                "value": "example",
+                "type": "path",
+                "description": "Dashboard id."
+              },
+              {
+                "name": "date",
+                "value": "2026-05-30",
+                "type": "query",
+                "description": "Day to query (YYYY-MM-DD)."
+              }
+            ]
+          },
+          "docs": "Returns durations for the dashboard for a given day."
+        },
+        {
+          "info": {
+            "name": "List Dashboard Member Durations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://wakatime.com/api/v1/users/current/orgs/:org/dashboards/:dashboard/member/:member/durations",
+            "params": [
+              {
+                "name": "org",
+                "value": "example",
+                "type": "path",
+                "description": "Organization id."
+              },
+              {
+                "name": "dashboard",
+                "value": "example",
+                "type": "path",
+                "description": "Dashboard id."
+              },
+              {
+                "name": "member",
+                "value": "example",
+                "type": "path",
+                "description": "Org member id."
+              },
+              {
+                "name": "date",
+                "value": "2026-05-30",
+                "type": "query",
+                "description": "Day to query (YYYY-MM-DD)."
+              }
+            ]
+          },
+          "docs": "Returns durations for a specific member within the dashboard for a given day."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
