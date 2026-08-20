@@ -38,6 +38,15 @@ tags:
   - Coding Analytics
   - Leaderboards
   - IDE Plugins
+  - Open-Source
+  - Public APIs
+tags_raw:
+  - Developer Productivity
+  - Developer Tools
+  - Time Tracking
+  - Coding Analytics
+  - Leaderboards
+  - IDE Plugins
   - Open Source
   - Public APIs
 apis:
@@ -107,6 +116,8 @@ apis:
   humanURL: https://wakatime.com/developers
   baseURL: https://wakatime.com/api/v1/
   tags:
+  - CustomRules
+  tags_raw:
   - Custom Rules
   properties:
   - type: OpenAPI
@@ -589,6 +600,8 @@ apis:
   humanURL: https://wakatime.com/developers
   baseURL: https://wakatime.com/api/v1/
   tags:
+  - Language
+  tags_raw:
   - Languages
   properties:
   - type: OpenAPI
@@ -829,6 +842,8 @@ apis:
   humanURL: https://wakatime.com/developers
   baseURL: https://wakatime.com/api/v1/
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
@@ -889,6 +904,8 @@ apis:
   humanURL: https://wakatime.com/developers
   baseURL: https://wakatime.com/api/v1/
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
@@ -1070,6 +1087,8 @@ apis:
   humanURL: https://wakatime.com/developers
   baseURL: https://wakatime.com/api/v1/
   tags:
+  - Summary
+  tags_raw:
   - Summaries
   properties:
   - type: OpenAPI
@@ -1190,6 +1209,8 @@ apis:
   humanURL: https://wakatime.com/developers
   baseURL: https://wakatime.com/api/v1/
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
