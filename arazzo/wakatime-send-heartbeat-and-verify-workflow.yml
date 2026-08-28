@@ -13,8 +13,8 @@ info:
     the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: wakatimeApi
-  url: ../openapi/wakatime-api-v1-openapi.yml
+- name: heartbeatsApi
+  url: ../openapi/wakatime-heartbeats-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: send-heartbeat-and-verify

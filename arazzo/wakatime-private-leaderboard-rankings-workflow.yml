@@ -12,8 +12,11 @@ info:
     read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: wakatimeApi
-  url: ../openapi/wakatime-api-v1-openapi.yml
+- name: leaderboardsApi
+  url: ../openapi/wakatime-leaderboards-api-openapi.yml
+  type: openapi
+- name: usersApi
+  url: ../openapi/wakatime-users-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: private-leaderboard-rankings
