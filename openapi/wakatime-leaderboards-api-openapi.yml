@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: WakaTime Commits Leaderboards API
   version: v1
@@ -138,121 +138,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    User:
-      type: object
-      description: The authenticated WakaTime user profile.
-      x-schema-source: documentation
-      x-source-url: https://wakatime.com/developers
-      properties:
-        id:
-          type: string
-          example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
-        username:
-          type: string
-          nullable: true
-          example: kinlane
-        display_name:
-          type: string
-          example: Kin Lane
-        full_name:
-          type: string
-          nullable: true
-          example: Kin Lane
-        email:
-          type: string
-          format: email
-          nullable: true
-          example: support@example.com
-        photo:
-          type: string
-          format: uri
-          example: https://wakatime.com/photo/5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
-        photo_public:
-          type: boolean
-          example: true
-        is_email_public:
-          type: boolean
-          example: true
-        is_email_confirmed:
-          type: boolean
-          example: true
-        timezone:
-          type: string
-          example: America/Los_Angeles
-        last_heartbeat_at:
-          type: string
-          format: date-time
-          nullable: true
-          example: '2026-05-30T12:34:56Z'
-        last_plugin:
-          type: string
-          nullable: true
-          example: vscode-wakatime/24.0.0 vscode-wakatime/24.0.0
-        last_plugin_name:
-          type: string
-          nullable: true
-          example: vscode
-        last_project:
-          type: string
-          nullable: true
-          example: wakatime-cli
-        plan:
-          type: string
-          enum:
-          - free
-          - basic
-          - premium
-          - team
-          - business
-          example: free
-        bio:
-          type: string
-          nullable: true
-          example: Founder of API Evangelist.
-        location:
-          type: string
-          nullable: true
-          example: Hermosa Beach, CA
-        languages_used_public:
-          type: boolean
-          example: true
-        logged_time_public:
-          type: boolean
-          example: true
-        website:
-          type: string
-          format: uri
-          nullable: true
-          example: https://wakatime.com
-        human_readable_website:
-          type: string
-          nullable: true
-          example: wakatime.com
-        wonderfuldev_username:
-          type: string
-          nullable: true
-          example: kinlane
-        github_username:
-          type: string
-          nullable: true
-          example: kinlane
-        twitter_username:
-          type: string
-          nullable: true
-          example: kinlane
-        linkedin_username:
-          type: string
-          nullable: true
-          example: kinlane
-        created_at:
-          type: string
-          format: date-time
-          example: '2026-05-30T12:34:56Z'
-        modified_at:
-          type: string
-          format: date-time
-          nullable: true
-          example: '2026-05-30T12:34:56Z'
     LeaderEntry:
       type: object
       properties:
@@ -285,6 +170,137 @@ components:
           example: {}
         user:
           $ref: '#/components/schemas/User'
+    User:
+      type: object
+      description: The authenticated WakaTime user profile.
+      x-schema-source: documentation
+      x-source-url: https://wakatime.com/developers
+      properties:
+        id:
+          type: string
+          example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+        username:
+          type:
+          - string
+          - 'null'
+          example: kinlane
+        display_name:
+          type: string
+          example: Kin Lane
+        full_name:
+          type:
+          - string
+          - 'null'
+          example: Kin Lane
+        email:
+          type:
+          - string
+          - 'null'
+          format: email
+          example: support@example.com
+        photo:
+          type: string
+          format: uri
+          example: https://wakatime.com/photo/5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+        photo_public:
+          type: boolean
+          example: true
+        is_email_public:
+          type: boolean
+          example: true
+        is_email_confirmed:
+          type: boolean
+          example: true
+        timezone:
+          type: string
+          example: America/Los_Angeles
+        last_heartbeat_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2026-05-30T12:34:56Z'
+        last_plugin:
+          type:
+          - string
+          - 'null'
+          example: vscode-wakatime/24.0.0 vscode-wakatime/24.0.0
+        last_plugin_name:
+          type:
+          - string
+          - 'null'
+          example: vscode
+        last_project:
+          type:
+          - string
+          - 'null'
+          example: wakatime-cli
+        plan:
+          type: string
+          enum:
+          - free
+          - basic
+          - premium
+          - team
+          - business
+          example: free
+        bio:
+          type:
+          - string
+          - 'null'
+          example: Founder of API Evangelist.
+        location:
+          type:
+          - string
+          - 'null'
+          example: Hermosa Beach, CA
+        languages_used_public:
+          type: boolean
+          example: true
+        logged_time_public:
+          type: boolean
+          example: true
+        website:
+          type:
+          - string
+          - 'null'
+          format: uri
+          example: https://wakatime.com
+        human_readable_website:
+          type:
+          - string
+          - 'null'
+          example: wakatime.com
+        wonderfuldev_username:
+          type:
+          - string
+          - 'null'
+          example: kinlane
+        github_username:
+          type:
+          - string
+          - 'null'
+          example: kinlane
+        twitter_username:
+          type:
+          - string
+          - 'null'
+          example: kinlane
+        linkedin_username:
+          type:
+          - string
+          - 'null'
+          example: kinlane
+        created_at:
+          type: string
+          format: date-time
+          example: '2026-05-30T12:34:56Z'
+        modified_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2026-05-30T12:34:56Z'
   securitySchemes:
     oauth2:
       type: oauth2

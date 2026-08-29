@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: WakaTime Commits Custom Rules API
   version: v1
@@ -163,24 +163,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    CustomRuleInput:
-      type: object
-      properties:
-        id:
-          type: string
-          nullable: true
-          example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
-        name:
-          type: string
-          example: WakaTime
-        if_match:
-          type: object
-          additionalProperties: true
-          example: {}
-        then_set:
-          type: object
-          additionalProperties: true
-          example: {}
     CustomRule:
       allOf:
       - $ref: '#/components/schemas/CustomRuleInput'
@@ -194,6 +176,25 @@ components:
             type: string
             format: date-time
             example: '2026-05-30T12:34:56Z'
+    CustomRuleInput:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+        name:
+          type: string
+          example: WakaTime
+        if_match:
+          type: object
+          additionalProperties: true
+          example: {}
+        then_set:
+          type: object
+          additionalProperties: true
+          example: {}
   securitySchemes:
     oauth2:
       type: oauth2

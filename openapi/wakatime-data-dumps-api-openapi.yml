@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: WakaTime Commits Data Dumps API
   version: v1
@@ -178,14 +178,16 @@ components:
           format: date-time
           example: '2026-05-30T12:34:56Z'
         download_url:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uri
-          nullable: true
           example: https://wakatime.com/dumps/abc.json.gz
         expires:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           example: '2026-05-30T12:34:56Z'
         has_failed:
           type: boolean

@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: WakaTime Commits Users API
   version: v1
@@ -166,7 +166,19 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    UserPath:
+      name: user
+      in: path
+      required: true
+      description: User id, username, or "current".
+      schema:
+        type: string
+      example: example
   schemas:
+    PublicUser:
+      allOf:
+      - $ref: '#/components/schemas/User'
     User:
       type: object
       description: The authenticated WakaTime user profile.
@@ -177,20 +189,23 @@ components:
           type: string
           example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
         username:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: kinlane
         display_name:
           type: string
           example: Kin Lane
         full_name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: Kin Lane
         email:
-          type: string
+          type:
+          - string
+          - 'null'
           format: email
-          nullable: true
           example: support@example.com
         photo:
           type: string
@@ -209,21 +224,25 @@ components:
           type: string
           example: America/Los_Angeles
         last_heartbeat_at:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           example: '2026-05-30T12:34:56Z'
         last_plugin:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: vscode-wakatime/24.0.0 vscode-wakatime/24.0.0
         last_plugin_name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: vscode
         last_project:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: wakatime-cli
         plan:
           type: string
@@ -235,12 +254,14 @@ components:
           - business
           example: free
         bio:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: Founder of API Evangelist.
         location:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: Hermosa Beach, CA
         languages_used_public:
           type: boolean
@@ -249,51 +270,46 @@ components:
           type: boolean
           example: true
         website:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uri
-          nullable: true
           example: https://wakatime.com
         human_readable_website:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: wakatime.com
         wonderfuldev_username:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: kinlane
         github_username:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: kinlane
         twitter_username:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: kinlane
         linkedin_username:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: kinlane
         created_at:
           type: string
           format: date-time
           example: '2026-05-30T12:34:56Z'
         modified_at:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           example: '2026-05-30T12:34:56Z'
-    PublicUser:
-      allOf:
-      - $ref: '#/components/schemas/User'
-  parameters:
-    UserPath:
-      name: user
-      in: path
-      required: true
-      description: User id, username, or "current".
-      schema:
-        type: string
-      example: example
   securitySchemes:
     oauth2:
       type: oauth2

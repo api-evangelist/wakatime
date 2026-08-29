@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: WakaTime Commits Heartbeats API
   version: v1
@@ -130,7 +130,7 @@ paths:
                   project_root_count: 4
                   branch: main
                   language: Python
-                  dependencies: &id001
+                  dependencies:
                   - example
                   lines: 1
                   line_additions: 1
@@ -162,7 +162,8 @@ paths:
                       project_root_count: 4
                       branch: main
                       language: Python
-                      dependencies: *id001
+                      dependencies:
+                      - example
                       lines: 1
                       line_additions: 1
                       line_deletions: 1
@@ -277,34 +278,17 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    DateQueryRequired:
+      name: date
+      in: query
+      required: true
+      description: Day to query (YYYY-MM-DD).
+      schema:
+        type: string
+        format: date
+      example: '2026-05-30'
   schemas:
-    Heartbeat:
-      allOf:
-      - $ref: '#/components/schemas/HeartbeatInput'
-      - type: object
-        properties:
-          id:
-            type: string
-            example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
-          user_id:
-            type: string
-            example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
-          created_at:
-            type: string
-            format: date-time
-            example: '2026-05-30T12:34:56Z'
-          modified_at:
-            type: string
-            format: date-time
-            example: '2026-05-30T12:34:56Z'
-          machine_name_id:
-            type: string
-            nullable: true
-            example: machine-001
-          user_agent_id:
-            type: string
-            nullable: true
-            example: ua-001
     HeartbeatInput:
       type: object
       description: A single coding heartbeat as sent by an editor plugin.
@@ -350,20 +334,24 @@ components:
           description: Unix epoch seconds with milliseconds.
           example: 1.0
         project:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: wakatime-cli
         project_root_count:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           example: 4
         branch:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: main
         language:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: Python
         dependencies:
           type: array
@@ -372,38 +360,62 @@ components:
           example:
           - example
         lines:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           example: 1
         line_additions:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           example: 1
         line_deletions:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           example: 1
         lineno:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           example: 1
         cursorpos:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           example: 1
         is_write:
           type: boolean
           example: true
-  parameters:
-    DateQueryRequired:
-      name: date
-      in: query
-      required: true
-      description: Day to query (YYYY-MM-DD).
-      schema:
-        type: string
-        format: date
-      example: '2026-05-30'
+    Heartbeat:
+      allOf:
+      - $ref: '#/components/schemas/HeartbeatInput'
+      - type: object
+        properties:
+          id:
+            type: string
+            example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+          user_id:
+            type: string
+            example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+          created_at:
+            type: string
+            format: date-time
+            example: '2026-05-30T12:34:56Z'
+          modified_at:
+            type: string
+            format: date-time
+            example: '2026-05-30T12:34:56Z'
+          machine_name_id:
+            type:
+            - string
+            - 'null'
+            example: machine-001
+          user_agent_id:
+            type:
+            - string
+            - 'null'
+            example: ua-001
   securitySchemes:
     oauth2:
       type: oauth2

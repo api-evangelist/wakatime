@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: WakaTime Commits Durations API
   version: v1
@@ -101,13 +101,15 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
-    WritesOnlyQuery:
-      name: writes_only
+    TimeoutQuery:
+      name: timeout
       in: query
-      description: Whether to only include time editing (writing) files.
+      description: Keystroke timeout in minutes (defaults to user's account setting).
       schema:
-        type: boolean
-      example: true
+        type: integer
+        minimum: 1
+        maximum: 60
+      example: 1
     TimezoneQuery:
       name: timezone
       in: query
@@ -116,6 +118,36 @@ components:
         type: string
         example: America/Los_Angeles
       example: America/Los_Angeles
+    DateQueryRequired:
+      name: date
+      in: query
+      required: true
+      description: Day to query (YYYY-MM-DD).
+      schema:
+        type: string
+        format: date
+      example: '2026-05-30'
+    ProjectQuery:
+      name: project
+      in: query
+      description: Filter by project name.
+      schema:
+        type: string
+      example: example
+    WritesOnlyQuery:
+      name: writes_only
+      in: query
+      description: Whether to only include time editing (writing) files.
+      schema:
+        type: boolean
+      example: true
+    BranchesQuery:
+      name: branches
+      in: query
+      description: Comma-separated list of git branches to include.
+      schema:
+        type: string
+      example: example
     SliceByQuery:
       name: slice_by
       in: query
@@ -131,38 +163,6 @@ components:
         - category
         - machine
       example: entity
-    TimeoutQuery:
-      name: timeout
-      in: query
-      description: Keystroke timeout in minutes (defaults to user's account setting).
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 60
-      example: 1
-    BranchesQuery:
-      name: branches
-      in: query
-      description: Comma-separated list of git branches to include.
-      schema:
-        type: string
-      example: example
-    ProjectQuery:
-      name: project
-      in: query
-      description: Filter by project name.
-      schema:
-        type: string
-      example: example
-    DateQueryRequired:
-      name: date
-      in: query
-      required: true
-      description: Day to query (YYYY-MM-DD).
-      schema:
-        type: string
-        format: date
-      example: '2026-05-30'
   schemas:
     Duration:
       type: object
@@ -178,36 +178,44 @@ components:
           description: Duration in seconds.
           example: 1.0
         project:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: wakatime-cli
         branch:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: main
         language:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: Python
         category:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: coding
         editor:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: example
         operating_system:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: example
         machine:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: example
         color:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: '#3498db'
   securitySchemes:
     oauth2:

@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: WakaTime Commits Projects API
   version: v1
@@ -163,16 +163,19 @@ components:
           type: string
           example: WakaTime
         repository:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: https://github.com/wakatime/wakatime-cli
         badge:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: https://wakatime.com/badge/user/abc/project/wakatime-cli.svg
         color:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: '#3498db'
         clients:
           type: array
@@ -184,18 +187,21 @@ components:
           type: boolean
           example: https://wakatime.com/example
         human_readable_last_heartbeat_at:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: '2026-05-30T12:34:56Z'
         last_heartbeat_at:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           example: '2026-05-30T12:34:56Z'
         url:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uri
-          nullable: true
           example: https://wakatime.com/@kinlane/projects/wakatime-cli
         urlencoded_name:
           type: string

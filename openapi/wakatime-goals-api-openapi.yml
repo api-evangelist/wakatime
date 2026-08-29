@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: WakaTime Commits Goals API
   version: v1
@@ -248,9 +248,10 @@ components:
           format: date-time
           example: '2026-05-30T12:34:56Z'
         snooze_until:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           example: '2026-05-30T12:34:56Z'
         chart_data:
           type: array
@@ -285,11 +286,13 @@ components:
               range_status:
                 type: string
               range_status_reason:
-                type: string
-                nullable: true
+                type:
+                - string
+                - 'null'
               range_status_reason_short:
-                type: string
-                nullable: true
+                type:
+                - string
+                - 'null'
           example: []
         average_status:
           type: string
@@ -302,18 +305,21 @@ components:
             display_name:
               type: string
             email:
-              type: string
+              type:
+              - string
+              - 'null'
               format: email
-              nullable: true
             photo:
               type: string
               format: uri
             username:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
             full_name:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
           example: {}
         shared_with:
           type: array
