@@ -310,6 +310,8 @@ apis:
   humanURL: https://wakatime.com/developers
   baseURL: https://wakatime.com/api/v1/
   tags:
+  - Editor
+  tags_raw:
   - Editors
   properties:
   - type: OpenAPI
