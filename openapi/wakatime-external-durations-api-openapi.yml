@@ -1,34 +1,8 @@
 openapi: 3.2.0
 info:
-  title: WakaTime Commits External Durations API
+  title: WakaTime External Durations API
   version: v1
-  description: 'WakaTime API v1 provides automated time-tracking analytics for software developers. IDE
-
-    plugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, Zed, and
-
-    many more) send "heartbeats" describing the file, project, language, branch, and editor a
-
-    developer is working in. WakaTime aggregates that data into dashboards, summaries, stats,
-
-    goals, leaderboards, and team/org dashboards.
-
-
-    Authentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as
-
-    `read_summaries`, `read_stats`, `read_goals`, `read_heartbeats`, `write_heartbeats`,
-
-    `read_orgs`, `write_orgs`, and `email`, or via API Key (HTTP Basic auth or `?api_key=`)
-
-    for personal use. The default rate limit is fewer than 10 requests per second on average
-
-    over any 5-minute window.
-
-
-    All responses follow the pattern `{"data": ...}` for successful requests or
-
-    `{"error": "message"}` for errors.
-
-    '
+  description: WakaTime API v1 provides automated time-tracking analytics for software developers.
   contact:
     name: WakaTime Support
     url: https://wakatime.com/contact
@@ -206,6 +180,25 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ExternalDuration:
+      allOf:
+      - $ref: '#/components/schemas/ExternalDurationInput'
+      - type: object
+        properties:
+          id:
+            type: string
+            example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+          user_id:
+            type: string
+            example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+          created_at:
+            type: string
+            format: date-time
+            example: '2026-05-30T12:34:56Z'
+          modified_at:
+            type: string
+            format: date-time
+            example: '2026-05-30T12:34:56Z'
     ExternalDurationInput:
       type: object
       required:
@@ -261,25 +254,6 @@ components:
           type: object
           additionalProperties: true
           example: {}
-    ExternalDuration:
-      allOf:
-      - $ref: '#/components/schemas/ExternalDurationInput'
-      - type: object
-        properties:
-          id:
-            type: string
-            example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
-          user_id:
-            type: string
-            example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
-          created_at:
-            type: string
-            format: date-time
-            example: '2026-05-30T12:34:56Z'
-          modified_at:
-            type: string
-            format: date-time
-            example: '2026-05-30T12:34:56Z'
   parameters:
     TimezoneQuery:
       name: timezone
@@ -289,6 +263,13 @@ components:
         type: string
         example: America/Los_Angeles
       example: America/Los_Angeles
+    ProjectQuery:
+      name: project
+      in: query
+      description: Filter by project name.
+      schema:
+        type: string
+      example: example
     DateQueryRequired:
       name: date
       in: query
@@ -298,13 +279,6 @@ components:
         type: string
         format: date
       example: '2026-05-30'
-    ProjectQuery:
-      name: project
-      in: query
-      description: Filter by project name.
-      schema:
-        type: string
-      example: example
   securitySchemes:
     oauth2:
       type: oauth2

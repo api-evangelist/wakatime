@@ -1,34 +1,8 @@
 openapi: 3.2.0
 info:
-  title: WakaTime Commits Durations API
+  title: WakaTime Durations API
   version: v1
-  description: 'WakaTime API v1 provides automated time-tracking analytics for software developers. IDE
-
-    plugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, Zed, and
-
-    many more) send "heartbeats" describing the file, project, language, branch, and editor a
-
-    developer is working in. WakaTime aggregates that data into dashboards, summaries, stats,
-
-    goals, leaderboards, and team/org dashboards.
-
-
-    Authentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as
-
-    `read_summaries`, `read_stats`, `read_goals`, `read_heartbeats`, `write_heartbeats`,
-
-    `read_orgs`, `write_orgs`, and `email`, or via API Key (HTTP Basic auth or `?api_key=`)
-
-    for personal use. The default rate limit is fewer than 10 requests per second on average
-
-    over any 5-minute window.
-
-
-    All responses follow the pattern `{"data": ...}` for successful requests or
-
-    `{"error": "message"}` for errors.
-
-    '
+  description: WakaTime API v1 provides automated time-tracking analytics for software developers.
   contact:
     name: WakaTime Support
     url: https://wakatime.com/contact
@@ -101,6 +75,13 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
+    WritesOnlyQuery:
+      name: writes_only
+      in: query
+      description: Whether to only include time editing (writing) files.
+      schema:
+        type: boolean
+      example: true
     TimeoutQuery:
       name: timeout
       in: query
@@ -110,6 +91,13 @@ components:
         minimum: 1
         maximum: 60
       example: 1
+    BranchesQuery:
+      name: branches
+      in: query
+      description: Comma-separated list of git branches to include.
+      schema:
+        type: string
+      example: example
     TimezoneQuery:
       name: timezone
       in: query
@@ -118,6 +106,13 @@ components:
         type: string
         example: America/Los_Angeles
       example: America/Los_Angeles
+    ProjectQuery:
+      name: project
+      in: query
+      description: Filter by project name.
+      schema:
+        type: string
+      example: example
     DateQueryRequired:
       name: date
       in: query
@@ -127,27 +122,6 @@ components:
         type: string
         format: date
       example: '2026-05-30'
-    ProjectQuery:
-      name: project
-      in: query
-      description: Filter by project name.
-      schema:
-        type: string
-      example: example
-    WritesOnlyQuery:
-      name: writes_only
-      in: query
-      description: Whether to only include time editing (writing) files.
-      schema:
-        type: boolean
-      example: true
-    BranchesQuery:
-      name: branches
-      in: query
-      description: Comma-separated list of git branches to include.
-      schema:
-        type: string
-      example: example
     SliceByQuery:
       name: slice_by
       in: query

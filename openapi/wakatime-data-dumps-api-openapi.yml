@@ -1,34 +1,8 @@
 openapi: 3.2.0
 info:
-  title: WakaTime Commits Data Dumps API
+  title: WakaTime Data Dumps API
   version: v1
-  description: 'WakaTime API v1 provides automated time-tracking analytics for software developers. IDE
-
-    plugins (VS Code, JetBrains, Vim, Emacs, Sublime, Xcode, Visual Studio, Eclipse, Zed, and
-
-    many more) send "heartbeats" describing the file, project, language, branch, and editor a
-
-    developer is working in. WakaTime aggregates that data into dashboards, summaries, stats,
-
-    goals, leaderboards, and team/org dashboards.
-
-
-    Authentication is via OAuth 2.0 (authorize / token / revoke) with scopes such as
-
-    `read_summaries`, `read_stats`, `read_goals`, `read_heartbeats`, `write_heartbeats`,
-
-    `read_orgs`, `write_orgs`, and `email`, or via API Key (HTTP Basic auth or `?api_key=`)
-
-    for personal use. The default rate limit is fewer than 10 requests per second on average
-
-    over any 5-minute window.
-
-
-    All responses follow the pattern `{"data": ...}` for successful requests or
-
-    `{"error": "message"}` for errors.
-
-    '
+  description: WakaTime API v1 provides automated time-tracking analytics for software developers.
   contact:
     name: WakaTime Support
     url: https://wakatime.com/contact
