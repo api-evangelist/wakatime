@@ -75,44 +75,6 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
-    WritesOnlyQuery:
-      name: writes_only
-      in: query
-      description: Whether to only include time editing (writing) files.
-      schema:
-        type: boolean
-      example: true
-    TimeoutQuery:
-      name: timeout
-      in: query
-      description: Keystroke timeout in minutes (defaults to user's account setting).
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 60
-      example: 1
-    BranchesQuery:
-      name: branches
-      in: query
-      description: Comma-separated list of git branches to include.
-      schema:
-        type: string
-      example: example
-    TimezoneQuery:
-      name: timezone
-      in: query
-      description: Timezone to use (defaults to the user's profile timezone).
-      schema:
-        type: string
-        example: America/Los_Angeles
-      example: America/Los_Angeles
-    ProjectQuery:
-      name: project
-      in: query
-      description: Filter by project name.
-      schema:
-        type: string
-      example: example
     DateQueryRequired:
       name: date
       in: query
@@ -137,6 +99,44 @@ components:
         - category
         - machine
       example: entity
+    BranchesQuery:
+      name: branches
+      in: query
+      description: Comma-separated list of git branches to include.
+      schema:
+        type: string
+      example: example
+    TimezoneQuery:
+      name: timezone
+      in: query
+      description: Timezone to use (defaults to the user's profile timezone).
+      schema:
+        type: string
+        example: America/Los_Angeles
+      example: America/Los_Angeles
+    WritesOnlyQuery:
+      name: writes_only
+      in: query
+      description: Whether to only include time editing (writing) files.
+      schema:
+        type: boolean
+      example: true
+    ProjectQuery:
+      name: project
+      in: query
+      description: Filter by project name.
+      schema:
+        type: string
+      example: example
+    TimeoutQuery:
+      name: timeout
+      in: query
+      description: Keystroke timeout in minutes (defaults to user's account setting).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 60
+      example: 1
   schemas:
     Duration:
       type: object

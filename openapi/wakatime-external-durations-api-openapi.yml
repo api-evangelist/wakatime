@@ -179,6 +179,31 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    DateQueryRequired:
+      name: date
+      in: query
+      required: true
+      description: Day to query (YYYY-MM-DD).
+      schema:
+        type: string
+        format: date
+      example: '2026-05-30'
+    TimezoneQuery:
+      name: timezone
+      in: query
+      description: Timezone to use (defaults to the user's profile timezone).
+      schema:
+        type: string
+        example: America/Los_Angeles
+      example: America/Los_Angeles
+    ProjectQuery:
+      name: project
+      in: query
+      description: Filter by project name.
+      schema:
+        type: string
+      example: example
   schemas:
     ExternalDuration:
       allOf:
@@ -254,31 +279,6 @@ components:
           type: object
           additionalProperties: true
           example: {}
-  parameters:
-    TimezoneQuery:
-      name: timezone
-      in: query
-      description: Timezone to use (defaults to the user's profile timezone).
-      schema:
-        type: string
-        example: America/Los_Angeles
-      example: America/Los_Angeles
-    ProjectQuery:
-      name: project
-      in: query
-      description: Filter by project name.
-      schema:
-        type: string
-      example: example
-    DateQueryRequired:
-      name: date
-      in: query
-      required: true
-      description: Day to query (YYYY-MM-DD).
-      schema:
-        type: string
-        format: date
-      example: '2026-05-30'
   securitySchemes:
     oauth2:
       type: oauth2

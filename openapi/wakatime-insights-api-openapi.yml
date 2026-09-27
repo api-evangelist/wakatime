@@ -72,6 +72,13 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
+    WritesOnlyQuery:
+      name: writes_only
+      in: query
+      description: Whether to only include time editing (writing) files.
+      schema:
+        type: boolean
+      example: true
     TimezoneQuery:
       name: timezone
       in: query
@@ -80,13 +87,6 @@ components:
         type: string
         example: America/Los_Angeles
       example: America/Los_Angeles
-    WritesOnlyQuery:
-      name: writes_only
-      in: query
-      description: Whether to only include time editing (writing) files.
-      schema:
-        type: boolean
-      example: true
   securitySchemes:
     oauth2:
       type: oauth2

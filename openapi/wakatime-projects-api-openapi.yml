@@ -117,6 +117,15 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    ProjectPath:
+      name: project
+      in: path
+      required: true
+      description: Project name.
+      schema:
+        type: string
+      example: example
   schemas:
     Project:
       type: object
@@ -175,15 +184,6 @@ components:
           type: string
           format: date-time
           example: '2026-05-30T12:34:56Z'
-  parameters:
-    ProjectPath:
-      name: project
-      in: path
-      required: true
-      description: Project name.
-      schema:
-        type: string
-      example: example
   securitySchemes:
     oauth2:
       type: oauth2

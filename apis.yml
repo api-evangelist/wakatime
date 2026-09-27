@@ -50,7 +50,7 @@ tags:
   - Coding Analytics
   - Leaderboards
   - IDE Plugins
-  - Open-Source
+  - Open Source
   - Public APIs
 tags_raw:
   - Developer Productivity
@@ -61,6 +61,7 @@ tags_raw:
   - IDE Plugins
   - Open Source
   - Public APIs
+  - Open-Source
 apis:
 - aid: wakatime:wakatime-commits-api
   name: WakaTime Commits API

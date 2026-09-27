@@ -78,169 +78,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    RangeQuery:
-      name: range
-      in: query
-      description: Range filter (last_7_days, last_30_days, last_6_months, last_year, all_time).
-      schema:
-        type: string
-        enum:
-        - last_7_days
-        - last_30_days
-        - last_6_months
-        - last_year
-        - all_time
-      example: last_7_days
-    WritesOnlyQuery:
-      name: writes_only
-      in: query
-      description: Whether to only include time editing (writing) files.
-      schema:
-        type: boolean
-      example: true
-    TimeoutQuery:
-      name: timeout
-      in: query
-      description: Keystroke timeout in minutes (defaults to user's account setting).
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 60
-      example: 1
-    TimezoneQuery:
-      name: timezone
-      in: query
-      description: Timezone to use (defaults to the user's profile timezone).
-      schema:
-        type: string
-        example: America/Los_Angeles
-      example: America/Los_Angeles
-    ProjectQuery:
-      name: project
-      in: query
-      description: Filter by project name.
-      schema:
-        type: string
-      example: example
-    BranchesQuery:
-      name: branches
-      in: query
-      description: Comma-separated list of git branches to include.
-      schema:
-        type: string
-      example: example
   schemas:
-    SummaryBreakdown:
-      type: object
-      properties:
-        name:
-          type: string
-          example: WakaTime
-        total_seconds:
-          type: number
-          format: float
-          example: 4
-        percent:
-          type: number
-          format: float
-          example: 1.0
-        digital:
-          type: string
-          example: 252
-        decimal:
-          type: string
-          example: '4.20'
-        text:
-          type: string
-          example: 4 hrs 12 mins
-        hours:
-          type: integer
-          example: 4
-        minutes:
-          type: integer
-          example: 60
-        seconds:
-          type:
-          - integer
-          - 'null'
-          example: 60
-        machine_name_id:
-          type:
-          - string
-          - 'null'
-          example: machine-001
-    SummaryTotal:
-      type: object
-      properties:
-        hours:
-          type: integer
-          example: 4
-        minutes:
-          type: integer
-          example: 60
-        total_seconds:
-          type: number
-          format: float
-          example: 4
-        digital:
-          type: string
-          example: 252
-        decimal:
-          type: string
-          example: '4.20'
-        text:
-          type: string
-          example: 4 hrs 12 mins
-    SummariesResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SummaryDay'
-          example: []
-        cumulative_total:
-          type: object
-          properties:
-            seconds:
-              type: number
-              format: float
-            text:
-              type: string
-            decimal:
-              type: string
-            digital:
-              type: string
-          example: {}
-        daily_average:
-          type: object
-          properties:
-            holidays:
-              type: integer
-            days_minus_holidays:
-              type: integer
-            days_including_holidays:
-              type: integer
-            seconds:
-              type: number
-              format: float
-            seconds_including_other_language:
-              type: number
-              format: float
-            text:
-              type: string
-            text_including_other_language:
-              type: string
-          example: {}
-        start:
-          type: string
-          format: date
-          example: '2026-05-30'
-        end:
-          type: string
-          format: date
-          example: '2026-05-30'
     SummaryDay:
       type: object
       properties:
@@ -308,6 +146,168 @@ components:
             timezone:
               type: string
           example: {}
+    SummariesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryDay'
+          example: []
+        cumulative_total:
+          type: object
+          properties:
+            seconds:
+              type: number
+              format: float
+            text:
+              type: string
+            decimal:
+              type: string
+            digital:
+              type: string
+          example: {}
+        daily_average:
+          type: object
+          properties:
+            holidays:
+              type: integer
+            days_minus_holidays:
+              type: integer
+            days_including_holidays:
+              type: integer
+            seconds:
+              type: number
+              format: float
+            seconds_including_other_language:
+              type: number
+              format: float
+            text:
+              type: string
+            text_including_other_language:
+              type: string
+          example: {}
+        start:
+          type: string
+          format: date
+          example: '2026-05-30'
+        end:
+          type: string
+          format: date
+          example: '2026-05-30'
+    SummaryTotal:
+      type: object
+      properties:
+        hours:
+          type: integer
+          example: 4
+        minutes:
+          type: integer
+          example: 60
+        total_seconds:
+          type: number
+          format: float
+          example: 4
+        digital:
+          type: string
+          example: 252
+        decimal:
+          type: string
+          example: '4.20'
+        text:
+          type: string
+          example: 4 hrs 12 mins
+    SummaryBreakdown:
+      type: object
+      properties:
+        name:
+          type: string
+          example: WakaTime
+        total_seconds:
+          type: number
+          format: float
+          example: 4
+        percent:
+          type: number
+          format: float
+          example: 1.0
+        digital:
+          type: string
+          example: 252
+        decimal:
+          type: string
+          example: '4.20'
+        text:
+          type: string
+          example: 4 hrs 12 mins
+        hours:
+          type: integer
+          example: 4
+        minutes:
+          type: integer
+          example: 60
+        seconds:
+          type:
+          - integer
+          - 'null'
+          example: 60
+        machine_name_id:
+          type:
+          - string
+          - 'null'
+          example: machine-001
+  parameters:
+    RangeQuery:
+      name: range
+      in: query
+      description: Range filter (last_7_days, last_30_days, last_6_months, last_year, all_time).
+      schema:
+        type: string
+        enum:
+        - last_7_days
+        - last_30_days
+        - last_6_months
+        - last_year
+        - all_time
+      example: last_7_days
+    BranchesQuery:
+      name: branches
+      in: query
+      description: Comma-separated list of git branches to include.
+      schema:
+        type: string
+      example: example
+    TimezoneQuery:
+      name: timezone
+      in: query
+      description: Timezone to use (defaults to the user's profile timezone).
+      schema:
+        type: string
+        example: America/Los_Angeles
+      example: America/Los_Angeles
+    WritesOnlyQuery:
+      name: writes_only
+      in: query
+      description: Whether to only include time editing (writing) files.
+      schema:
+        type: boolean
+      example: true
+    ProjectQuery:
+      name: project
+      in: query
+      description: Filter by project name.
+      schema:
+        type: string
+      example: example
+    TimeoutQuery:
+      name: timeout
+      in: query
+      description: Keystroke timeout in minutes (defaults to user's account setting).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 60
+      example: 1
   securitySchemes:
     oauth2:
       type: oauth2

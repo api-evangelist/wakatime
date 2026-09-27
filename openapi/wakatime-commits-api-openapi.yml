@@ -151,15 +151,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    ProjectPath:
-      name: project
-      in: path
-      required: true
-      description: Project name.
-      schema:
-        type: string
-      example: example
   schemas:
     Commit:
       type: object
@@ -273,6 +264,15 @@ components:
           - 'null'
           format: uri
           example: https://wakatime.com/@kinlane/projects/wakatime-cli
+  parameters:
+    ProjectPath:
+      name: project
+      in: path
+      required: true
+      description: Project name.
+      schema:
+        type: string
+      example: example
   securitySchemes:
     oauth2:
       type: oauth2

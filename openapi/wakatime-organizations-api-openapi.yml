@@ -216,54 +216,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    DateQueryRequired:
-      name: date
-      in: query
-      required: true
-      description: Day to query (YYYY-MM-DD).
-      schema:
-        type: string
-        format: date
-      example: '2026-05-30'
-    DashboardPath:
-      name: dashboard
-      in: path
-      required: true
-      description: Dashboard id.
-      schema:
-        type: string
-      example: example
-    MemberPath:
-      name: member
-      in: path
-      required: true
-      description: Org member id.
-      schema:
-        type: string
-      example: example
-    OrgPath:
-      name: org
-      in: path
-      required: true
-      description: Organization id.
-      schema:
-        type: string
-      example: example
-    ProjectQuery:
-      name: project
-      in: query
-      description: Filter by project name.
-      schema:
-        type: string
-      example: example
-    BranchesQuery:
-      name: branches
-      in: query
-      description: Comma-separated list of git branches to include.
-      schema:
-        type: string
-      example: example
   schemas:
     CustomRuleInput:
       type: object
@@ -284,6 +236,54 @@ components:
           type: object
           additionalProperties: true
           example: {}
+  parameters:
+    DateQueryRequired:
+      name: date
+      in: query
+      required: true
+      description: Day to query (YYYY-MM-DD).
+      schema:
+        type: string
+        format: date
+      example: '2026-05-30'
+    BranchesQuery:
+      name: branches
+      in: query
+      description: Comma-separated list of git branches to include.
+      schema:
+        type: string
+      example: example
+    DashboardPath:
+      name: dashboard
+      in: path
+      required: true
+      description: Dashboard id.
+      schema:
+        type: string
+      example: example
+    MemberPath:
+      name: member
+      in: path
+      required: true
+      description: Org member id.
+      schema:
+        type: string
+      example: example
+    ProjectQuery:
+      name: project
+      in: query
+      description: Filter by project name.
+      schema:
+        type: string
+      example: example
+    OrgPath:
+      name: org
+      in: path
+      required: true
+      description: Organization id.
+      schema:
+        type: string
+      example: example
   securitySchemes:
     oauth2:
       type: oauth2
