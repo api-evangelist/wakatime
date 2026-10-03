@@ -140,15 +140,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    UserPath:
-      name: user
-      in: path
-      required: true
-      description: User id, username, or "current".
-      schema:
-        type: string
-      example: example
   schemas:
     PublicUser:
       allOf:
@@ -284,6 +275,15 @@ components:
           - 'null'
           format: date-time
           example: '2026-05-30T12:34:56Z'
+  parameters:
+    UserPath:
+      name: user
+      in: path
+      required: true
+      description: User id, username, or "current".
+      schema:
+        type: string
+      example: example
   securitySchemes:
     oauth2:
       type: oauth2

@@ -137,19 +137,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    CustomRule:
-      allOf:
-      - $ref: '#/components/schemas/CustomRuleInput'
-      - type: object
-        properties:
-          created_at:
-            type: string
-            format: date-time
-            example: '2026-05-30T12:34:56Z'
-          modified_at:
-            type: string
-            format: date-time
-            example: '2026-05-30T12:34:56Z'
     CustomRuleInput:
       type: object
       properties:
@@ -169,6 +156,19 @@ components:
           type: object
           additionalProperties: true
           example: {}
+    CustomRule:
+      allOf:
+      - $ref: '#/components/schemas/CustomRuleInput'
+      - type: object
+        properties:
+          created_at:
+            type: string
+            format: date-time
+            example: '2026-05-30T12:34:56Z'
+          modified_at:
+            type: string
+            format: date-time
+            example: '2026-05-30T12:34:56Z'
   securitySchemes:
     oauth2:
       type: oauth2
