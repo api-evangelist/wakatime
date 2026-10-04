@@ -179,7 +179,51 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    TimezoneQuery:
+      name: timezone
+      in: query
+      description: Timezone to use (defaults to the user's profile timezone).
+      schema:
+        type: string
+        example: America/Los_Angeles
+      example: America/Los_Angeles
+    DateQueryRequired:
+      name: date
+      in: query
+      required: true
+      description: Day to query (YYYY-MM-DD).
+      schema:
+        type: string
+        format: date
+      example: '2026-05-30'
+    ProjectQuery:
+      name: project
+      in: query
+      description: Filter by project name.
+      schema:
+        type: string
+      example: example
   schemas:
+    ExternalDuration:
+      allOf:
+      - $ref: '#/components/schemas/ExternalDurationInput'
+      - type: object
+        properties:
+          id:
+            type: string
+            example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+          user_id:
+            type: string
+            example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
+          created_at:
+            type: string
+            format: date-time
+            example: '2026-05-30T12:34:56Z'
+          modified_at:
+            type: string
+            format: date-time
+            example: '2026-05-30T12:34:56Z'
     ExternalDurationInput:
       type: object
       required:
@@ -235,50 +279,6 @@ components:
           type: object
           additionalProperties: true
           example: {}
-    ExternalDuration:
-      allOf:
-      - $ref: '#/components/schemas/ExternalDurationInput'
-      - type: object
-        properties:
-          id:
-            type: string
-            example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
-          user_id:
-            type: string
-            example: 5f8a2c7f-8b3a-4c2c-9b3f-1d2c4f5b6a7c
-          created_at:
-            type: string
-            format: date-time
-            example: '2026-05-30T12:34:56Z'
-          modified_at:
-            type: string
-            format: date-time
-            example: '2026-05-30T12:34:56Z'
-  parameters:
-    ProjectQuery:
-      name: project
-      in: query
-      description: Filter by project name.
-      schema:
-        type: string
-      example: example
-    TimezoneQuery:
-      name: timezone
-      in: query
-      description: Timezone to use (defaults to the user's profile timezone).
-      schema:
-        type: string
-        example: America/Los_Angeles
-      example: America/Los_Angeles
-    DateQueryRequired:
-      name: date
-      in: query
-      required: true
-      description: Day to query (YYYY-MM-DD).
-      schema:
-        type: string
-        format: date
-      example: '2026-05-30'
   securitySchemes:
     oauth2:
       type: oauth2

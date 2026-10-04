@@ -75,13 +75,45 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
-    BranchesQuery:
-      name: branches
+    WritesOnlyQuery:
+      name: writes_only
       in: query
-      description: Comma-separated list of git branches to include.
+      description: Whether to only include time editing (writing) files.
+      schema:
+        type: boolean
+      example: true
+    TimezoneQuery:
+      name: timezone
+      in: query
+      description: Timezone to use (defaults to the user's profile timezone).
       schema:
         type: string
-      example: example
+        example: America/Los_Angeles
+      example: America/Los_Angeles
+    DateQueryRequired:
+      name: date
+      in: query
+      required: true
+      description: Day to query (YYYY-MM-DD).
+      schema:
+        type: string
+        format: date
+      example: '2026-05-30'
+    SliceByQuery:
+      name: slice_by
+      in: query
+      description: Slice durations by entity, language, dependencies, os, editor, category, or machine.
+      schema:
+        type: string
+        enum:
+        - entity
+        - language
+        - dependencies
+        - os
+        - editor
+        - category
+        - machine
+      example: entity
     ProjectQuery:
       name: project
       in: query
@@ -98,45 +130,13 @@ components:
         minimum: 1
         maximum: 60
       example: 1
-    TimezoneQuery:
-      name: timezone
+    BranchesQuery:
+      name: branches
       in: query
-      description: Timezone to use (defaults to the user's profile timezone).
+      description: Comma-separated list of git branches to include.
       schema:
         type: string
-        example: America/Los_Angeles
-      example: America/Los_Angeles
-    WritesOnlyQuery:
-      name: writes_only
-      in: query
-      description: Whether to only include time editing (writing) files.
-      schema:
-        type: boolean
-      example: true
-    SliceByQuery:
-      name: slice_by
-      in: query
-      description: Slice durations by entity, language, dependencies, os, editor, category, or machine.
-      schema:
-        type: string
-        enum:
-        - entity
-        - language
-        - dependencies
-        - os
-        - editor
-        - category
-        - machine
-      example: entity
-    DateQueryRequired:
-      name: date
-      in: query
-      required: true
-      description: Day to query (YYYY-MM-DD).
-      schema:
-        type: string
-        format: date
-      example: '2026-05-30'
+      example: example
   schemas:
     Duration:
       type: object

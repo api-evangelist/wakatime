@@ -252,6 +252,16 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    DateQueryRequired:
+      name: date
+      in: query
+      required: true
+      description: Day to query (YYYY-MM-DD).
+      schema:
+        type: string
+        format: date
+      example: '2026-05-30'
   schemas:
     HeartbeatInput:
       type: object
@@ -380,16 +390,6 @@ components:
             - string
             - 'null'
             example: ua-001
-  parameters:
-    DateQueryRequired:
-      name: date
-      in: query
-      required: true
-      description: Day to query (YYYY-MM-DD).
-      schema:
-        type: string
-        format: date
-      example: '2026-05-30'
   securitySchemes:
     oauth2:
       type: oauth2

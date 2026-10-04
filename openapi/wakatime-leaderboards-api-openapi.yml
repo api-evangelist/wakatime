@@ -112,6 +112,38 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    LeaderEntry:
+      type: object
+      properties:
+        rank:
+          type: integer
+          example: 1
+        running_total:
+          type: object
+          properties:
+            total_seconds:
+              type: number
+              format: float
+            human_readable_total:
+              type: string
+            daily_average:
+              type: number
+              format: float
+            human_readable_daily_average:
+              type: string
+            languages:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  total_seconds:
+                    type: number
+                    format: float
+          example: {}
+        user:
+          $ref: '#/components/schemas/User'
     User:
       type: object
       description: The authenticated WakaTime user profile.
@@ -243,38 +275,6 @@ components:
           - 'null'
           format: date-time
           example: '2026-05-30T12:34:56Z'
-    LeaderEntry:
-      type: object
-      properties:
-        rank:
-          type: integer
-          example: 1
-        running_total:
-          type: object
-          properties:
-            total_seconds:
-              type: number
-              format: float
-            human_readable_total:
-              type: string
-            daily_average:
-              type: number
-              format: float
-            human_readable_daily_average:
-              type: string
-            languages:
-              type: array
-              items:
-                type: object
-                properties:
-                  name:
-                    type: string
-                  total_seconds:
-                    type: number
-                    format: float
-          example: {}
-        user:
-          $ref: '#/components/schemas/User'
   securitySchemes:
     oauth2:
       type: oauth2
