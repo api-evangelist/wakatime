@@ -82,6 +82,22 @@ components:
       schema:
         type: boolean
       example: true
+    TimeoutQuery:
+      name: timeout
+      in: query
+      description: Keystroke timeout in minutes (defaults to user's account setting).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 60
+      example: 1
+    ProjectQuery:
+      name: project
+      in: query
+      description: Filter by project name.
+      schema:
+        type: string
+      example: example
     TimezoneQuery:
       name: timezone
       in: query
@@ -90,15 +106,6 @@ components:
         type: string
         example: America/Los_Angeles
       example: America/Los_Angeles
-    DateQueryRequired:
-      name: date
-      in: query
-      required: true
-      description: Day to query (YYYY-MM-DD).
-      schema:
-        type: string
-        format: date
-      example: '2026-05-30'
     SliceByQuery:
       name: slice_by
       in: query
@@ -114,22 +121,15 @@ components:
         - category
         - machine
       example: entity
-    ProjectQuery:
-      name: project
+    DateQueryRequired:
+      name: date
       in: query
-      description: Filter by project name.
+      required: true
+      description: Day to query (YYYY-MM-DD).
       schema:
         type: string
-      example: example
-    TimeoutQuery:
-      name: timeout
-      in: query
-      description: Keystroke timeout in minutes (defaults to user's account setting).
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 60
-      example: 1
+        format: date
+      example: '2026-05-30'
     BranchesQuery:
       name: branches
       in: query
