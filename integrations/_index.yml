@@ -39,19 +39,6 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
-- slug: wakatime-zoom-own
-  label: Zoom (own)
-  partner: zoom
-  partner_name: Zoom (own)
-  category: Zoom app
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://marketplace.zoom.us/apps/BfxreBuTSLGVxT9EnLcMXw
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
 - slug: wakatime-pipedream
   label: Pipedream
   partner: pipedream
@@ -76,5 +63,130 @@
     actions: true
     sources: true
     builder: Pipedream repo (component)
+  status: not-a-workflow
+  arazzo: null
+- slug: wakatime-homebrew
+  label: Homebrew
+  partner: homebrew
+  partner_name: Homebrew
+  category: official CLI (Homebrew)
+  type: register
+  channel: package-registry
+  evidence: https://formulae.brew.sh/formula/wakatime-cli
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: Homebrew (public package index)
+    spec_file: null
+    packages:
+    - name: wakatime-cli
+      kind: formula
+      version: 2.27.13
+      released: null
+      lapsed: false
+      page: https://formulae.brew.sh/formula/wakatime-cli
+      cli: 'formula desc: Command-line interface to the WakaTime api'
+      repo_leg: domain:wakatime.com
+      publisher_leg: artifact-github-org:wakatime
+      matched_by: domain
+    current: true
+    signal_note: 'the provider''s own command-line tool on a package manager: distribution, not an integration;
+      lapsed = no release in 24 months or deprecated / disabled by the manager'
+    detected_by: sweep-official-clis.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: wakatime-scoop
+  label: Scoop
+  partner_name: Scoop
+  category: official CLI (Scoop)
+  type: register
+  channel: package-registry
+  evidence: https://github.com/ScoopInstaller/Main/blob/master/bucket/wakatime-cli.json
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: Scoop (public package index)
+    spec_file: null
+    packages:
+    - name: wakatime-cli
+      kind: main
+      version: 2.27.13
+      released: null
+      lapsed: false
+      page: https://github.com/ScoopInstaller/Main/blob/master/bucket/wakatime-cli.json
+      cli: 'scoop description: Command line interface to WakaTime used by all WakaTime text editor plugins.'
+      repo_leg: domain:wakatime.com
+      publisher_leg: artifact-github-org:wakatime
+      matched_by: domain
+    current: true
+    signal_note: 'the provider''s own command-line tool on a package manager: distribution, not an integration;
+      lapsed = no release in 24 months or deprecated / disabled by the manager'
+    detected_by: sweep-official-clis.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: wakatime-zoom-own
+  label: Zoom (own)
+  partner: zoom
+  partner_name: Zoom (own)
+  category: Zoom app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://marketplace.zoom.us/apps/BfxreBuTSLGVxT9EnLcMXw
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: wakatime-atlassian-own
+  label: Atlassian (own)
+  partner: atlassian
+  partner_name: Atlassian (own)
+  category: Integrations
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://marketplace.atlassian.com/vendors/1213148/wakatime-com
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: wakatime-github-secret-scanning-partner-program
+  label: GitHub secret scanning partner program
+  partner: github
+  partner_name: GitHub secret scanning partner program
+  category: GitHub platform partnership (security)
+  type: register
+  channel: standard-directory
+  evidence: https://docs.github.com/en/code-security/reference/secret-security/supported-secret-scanning-patterns#supported-provider-patterns
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: GitHub secret scanning partner program (docs.github.com supported-secret-scanning-patterns, 'Partner'
+      column = isPublic in the page's own pattern data)
+    standard: GitHub secret scanning partner program
+    spec_file: null
+    role: secret-scanning-partner
+    registered_name: Wakatime
+    register_id: https://docs.github.com/en/code-security/reference/secret-security/supported-secret-scanning-patterns#supported-provider-patterns
+    matched_domain: null
+    matched_by: register-name
+    register_name_note: register-name 'wakatime' = wakatime; no wikidata P856
+    token_types:
+    - wakatime_api_key
+    - wakatime_app_secret
+    - wakatime_oauth_access_token
+    - wakatime_oauth_refresh_token
+    context:
+      push_protection: 4
+      validity_check: 2
+    signal_note: 'participation only: GitHub notifies the provider when its token leaks publicly (the provider runs
+      a verification endpoint for the programme); token types and counts are context, never counted'
+    detected_by: sweep-github-marketplace.py
+    detected: '2026-10-21'
+    identity_source: register-name
+    identity_note: register gave only the name; exact normalised match to the repo's apis.yml name, one repo, Wikidata
+      P856 not contradicting (Kin 2026-10-20 decision 2)
   status: not-a-workflow
   arazzo: null

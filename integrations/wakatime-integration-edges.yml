@@ -1,19 +1,27 @@
 generated: '2026-10-14'
 method: searched
 checked:
-- https://cdn.winget.microsoft.com/cache
-- https://formulae.brew.sh/api/cask.json
-- https://formulae.brew.sh/api/formula.json
 - https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/
 - https://github.com/PipedreamHQ/pipedream/tree/d5872355ef27b4efa769f05352f2820c299a456e/components/
-- https://github.com/ScoopInstaller/Extras
-- https://github.com/ScoopInstaller/Main
 - https://github.com/marketplace?type=apps
 - https://marketplace.visualstudio.com/vscode
 - https://plugins.jetbrains.com/
+- zoom/integrations/zoom-integration-edges.yml
+- https://cdn.winget.microsoft.com/cache
+- https://formulae.brew.sh/api/cask.json
+- https://formulae.brew.sh/api/formula.json
+- https://github.com/ScoopInstaller/Extras
+- https://github.com/ScoopInstaller/Main
 - https://pypi.org/pypi
 - https://registry.npmjs.org
-- zoom/integrations/zoom-integration-edges.yml
+- atlassian/integrations/atlassian-integration-edges.yml
+- https://directory.github.partners/sitemap.xml
+- https://docs.github.com/en/apps/github-marketplace/github-marketplace-overview/about-marketplace-badges
+- https://docs.github.com/en/code-security/reference/secret-security/supported-secret-scanning-patterns
+- https://docs.github.com/en/code-security/tutorials/secret-scanning-partner-program
+- https://github.com/marketplace?type=actions
+- https://github.com/partners/technology-partners
+- https://partner.github.com/
 marketplace_apps: []
 edges:
 - partner_name: GitHub Marketplace (apps)
@@ -69,23 +77,6 @@ edges:
   - Verified domain
   detected_by: sweep-devtools.py
   detected: '2026-10-14'
-- partner_name: Zoom (own)
-  partner: zoom
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://marketplace.zoom.us/apps/BfxreBuTSLGVxT9EnLcMXw
-  mirror_of: zoom/integrations/zoom-integration-edges.yml
-  apps:
-  - WakaTime
-  listing_count: 1
-  detected: '2026-10-18'
-  detected_by: mirror-platform-listings.py
-  category: Zoom app
 - partner_name: Pipedream
   partner: pipedream
   partner_match: aggregator
@@ -172,6 +163,77 @@ edges:
     detected: '2026-10-20'
   detected_by: sweep-official-clis.py
   first_seen: '2026-10-20'
+- partner_name: Zoom (own)
+  partner: zoom
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.zoom.us/apps/BfxreBuTSLGVxT9EnLcMXw
+  mirror_of: zoom/integrations/zoom-integration-edges.yml
+  apps:
+  - WakaTime
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Zoom app
+- partner_name: Atlassian (own)
+  partner: atlassian
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.atlassian.com/vendors/1213148/wakatime-com
+  mirror_of: atlassian/integrations/atlassian-integration-edges.yml
+  apps:
+  - 'WakaTime: Time tracking and code metrics'
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: Integrations
+- partner_name: GitHub secret scanning partner program
+  partner: github
+  partner_match: register-name
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://docs.github.com/en/code-security/reference/secret-security/supported-secret-scanning-patterns#supported-provider-patterns
+  category: GitHub platform partnership (security)
+  contract_reference:
+    register: GitHub secret scanning partner program (docs.github.com supported-secret-scanning-patterns, 'Partner'
+      column = isPublic in the page's own pattern data)
+    standard: GitHub secret scanning partner program
+    spec_file: null
+    role: secret-scanning-partner
+    registered_name: Wakatime
+    register_id: https://docs.github.com/en/code-security/reference/secret-security/supported-secret-scanning-patterns#supported-provider-patterns
+    matched_domain: null
+    matched_by: register-name
+    register_name_note: register-name 'wakatime' = wakatime; no wikidata P856
+    token_types:
+    - wakatime_api_key
+    - wakatime_app_secret
+    - wakatime_oauth_access_token
+    - wakatime_oauth_refresh_token
+    context:
+      push_protection: 4
+      validity_check: 2
+    signal_note: 'participation only: GitHub notifies the provider when its token leaks publicly (the provider runs
+      a verification endpoint for the programme); token types and counts are context, never counted'
+    detected_by: sweep-github-marketplace.py
+    detected: '2026-10-21'
+    identity_source: register-name
+    identity_note: register gave only the name; exact normalised match to the repo's apis.yml name, one repo, Wikidata
+      P856 not contradicting (Kin 2026-10-20 decision 2)
+  detected_by: sweep-github-marketplace.py
+  first_seen: '2026-10-21'
 source:
 - https://github.com/marketplace?type=apps
 - https://marketplace.visualstudio.com/vscode
